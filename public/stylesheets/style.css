@@ -1,0 +1,19 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+div.pet-grid-item {
+  min-height: 600px;
+}
+
+div.pet-grid-item div.img-wrap {
+  height: 30rem;
+  width: 100%;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}

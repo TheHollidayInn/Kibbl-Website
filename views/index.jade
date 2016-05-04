@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  
+  section.contaier(ng-controller='PetsCtrl')
+    div.col-md-12
+      div.form-group
+        label Type
+        select(ng-model='type')
+          option(value='Dog') Dog
+          option(value='Cat') Cat
+          option(value='Bird') Bird
+      
+    div.col-md-4.pet-grid-item(ng-repeat="pet in pets")
+      div.img-wrap(style="background-image:url('{{pet.media.photos.photo[3].t}}')")
+      h2 {{pet.name.t}}
+      a.btn.btn-primary(href="mailto:{{pet.contact.email.t}}") Contact
+      a.btn.btn-primary(href="mailto:{{pet.contact.email.t}}") Donate
+      a.btn.btn-primary(href="mailto:{{pet.contact.email.t}}") Favorite
+      
