@@ -1,0 +1,18 @@
+h2 {{pet.name.t}}
+
+div
+  {{pet.description.t}}
+
+ul
+  li Age: {{pet.age.t}}
+  li Type: {{pet.animal.t}}
+  li Age: {{pet.age.t}}
+
+h3 Breeds
+ul
+  li(ng-repeat("breed in pet.breeds")) {{breed.t}}
+
+h3 Images
+div.row
+  div.col-md-4(ng-repeat="photo in pet.media.photos.photo")
+    img(src="{{photo.t}}", style="width:100%;")

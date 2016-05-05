@@ -19,4 +19,12 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/:petId', function(req, res, next) {
+  Pets.findOne({ _id: req.params.petId})
+  .exec(function(err, pets) {
+    if (err) return res.status(400).json(err);
+    res.status(200).json(pets);
+  });
+});
+
 module.exports = router;
