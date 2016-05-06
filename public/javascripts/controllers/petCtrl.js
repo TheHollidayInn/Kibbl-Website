@@ -11,14 +11,15 @@ angular.module('PetApp')
       }
     ]
 
+    $scope.filters = {}
     $scope.type = '';
 
     sendRequest();
     function sendRequest() {
       var url = '/pets';
 
-      if ($scope.type) {
-        url += '?type=' + $scope.type;
+      if ($scope.filters) {
+        url += '?' + $.param($scope.filters);
       }
 
       $http({
@@ -31,9 +32,9 @@ angular.module('PetApp')
       })
     }
 
-    $scope.$watch('type', function (oldValue, newValue) {
+    $scope.$watch('filters', function (oldValue, newValue) {
       if(oldValue == newValue) return;
       sendRequest();
-    })
+    }, true)
 
   }]);

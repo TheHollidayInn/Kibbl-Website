@@ -7,8 +7,25 @@ router.get('/', function(req, res, next) {
 
   var query = {};
 
+  // if (req.query.location) {
+  //   query.location = {t: req.query.location};
+  // }
+
   if (req.query.type) {
     query.animal = {t: req.query.type};
+  }
+
+  // if (req.query.breed) {
+  //   query.breeds = {};
+  //   query.breeds.breed = {'$elemMatch': [{t: req.query.breed}]};
+  // }
+
+  if (req.query.age) {
+    query.age = {t: req.query.age};
+  }
+
+  if (req.query.gender) {
+    query.sex = {t: req.query.gender};
   }
 
   Pets.find(query)
