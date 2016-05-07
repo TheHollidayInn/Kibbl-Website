@@ -38,6 +38,12 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash());
 
+//@TODO: Move middleware
+app.use(function(req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/pets', pets);

@@ -22,21 +22,23 @@ html
     nav.white(role='navigation')
       .nav-wrapper.container-fluid.light-blue
         a#logo-container.brand-logo(href='/#/') Kibbl
-        ul.right.hide-on-med-and-down
-          li
-            a(href='/login') Login
-          li
-            a(href='/register') Register
-          a.dropdown-button(href='#!', data-activates='dropdown1')
-            | Dropdown
-            i.material-icons.right arrow_drop_down
-        ul#nav-mobile.side-nav(style='transform: translateX(-100%);')
-          li
-            a(href='#') Navbar Link
-          li
+        if !user
+          ul.right.hide-on-med-and-down
+            li
+              a(href='/login') Login
+            li
+              a(href='/register') Register
             a.dropdown-button(href='#!', data-activates='dropdown1')
               | Dropdown
               i.material-icons.right arrow_drop_down
+        else
+          ul.right.hide-on-med-and-down
+            li
+              a(href='#') Navbar Link
+            li
+              a.dropdown-button(href='#!', data-activates='dropdown1')
+                | Dropdown
+                i.material-icons.right arrow_drop_down
         a.button-collapse(href='#', data-activates='nav-mobile')
           i.material-icons menu
     
