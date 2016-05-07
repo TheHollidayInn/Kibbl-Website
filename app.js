@@ -5,6 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mongoose = require('mongoose');
+var configDB = require('./config/database.js');
+
+var passport = require('passport');
+var flash    = require('connect-flash');
+var session      = require('express-session');
+
+require('./config/passport')(passport);
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var pets = require('./routes/pets');
@@ -23,13 +32,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// required for passport
+app.use(session({ secret: 'ilovethepetfinderapp' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash());
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/pets', pets);
 
-//mongoose
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/petapp');
+mongoose.connect(configDB.url);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

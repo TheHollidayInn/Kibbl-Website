@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  section.container
+    div.col-md-6.col-md-offset-3
+      h2 Login
+      .card
+        .card-image.waves-effect.waves-block.waves-light
+        .card-content
+          form(action='/login', method='post')
+            .form-group.input-field
+              label Email
+              input.form-control(type='text', name='email')
+            .form-group.input-field
+              label Password
+              input.form-control(type='password', name='password')
+            button.btn.btn-warning.btn-lg(type='submit') Login
+        .card-action
+          p
+            | Need an account? 
+            a(href='/signup') Signup
+      

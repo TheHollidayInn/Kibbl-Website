@@ -1,20 +1,21 @@
-div.row(style="height:300px;")  
-  div.form-group.col-md-3
+div.row(style="min-height:100px;")  
+  div.form-group.col-md-2
     label Location
     input(ng-model='filters.location', type='text')
   
-  .input-field.col-md-3
+  .input-field.col-md-2
     select.browser-default(ng-model='filters.type')
+      option(value='', disabled='', selected='') Choose your option
       option(value='Dog') Dog
       option(value='Cat') Cat
       option(value='Bird') Bird
     label Type
   
-  .input-field.col-md-3
+  .input-field.col-md-2
     label Breed
     input(ng-model='filters.breed', type='text')
     
-  .input-field.col-md-3
+  .input-field.col-md-2
     select.browser-default(ng-model='filters.age')
       option(value='', disabled='', selected='') Choose your option
       option(value='Baby') Baby
@@ -23,8 +24,9 @@ div.row(style="height:300px;")
       option(value='Senior') Senior
     label Age
       
-  .input-field.col-md-3
+  .input-field.col-md-2
     select.browser-default(ng-model='filters.gender')
+      option(value='', disabled='', selected='') Choose your option
       option(value='M') Male
       option(value='F') Female
       option(value='U') Unknown
@@ -34,16 +36,18 @@ div.row(style="height:300px;")
 div.row
   div.col-md-4.pet-grid-item(ng-repeat="pet in pets", ng-if="pet.media.photos.photo[3].t")
     .card
-      .card-image
-        img(src='{{pet.media.photos.photo[3].t}}')
-        span.card-title {{pet.name.t}}
+      a(href="#/pets/{{pet._id}}")
+        .card-image(style="height:300px;overflow:hidden;")
+          img(src='{{pet.media.photos.photo[3].t}}')
+          span.card-title {{pet.name.t}}
       .card-content
-        {{pet.description.t}}
+        div(style="height:150px;overflow:hidden;")
+          {{pet.description.t}}
       .card-action
-        a.btn.waves-effect.waves-light.red.lighten-3(href="#/pets/{{pet._id}}") View
         a.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}") Contact
         a.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}") Donate
-        a.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}") Favorite
+        a.btn.waves-effect.waves-light.red.lighten-3.right(href="mailto:{{pet.contact.email.t}}", style="width: 40px;")
+          i.small.material-icons star_rate
 
 div.row      
   ul.pagination

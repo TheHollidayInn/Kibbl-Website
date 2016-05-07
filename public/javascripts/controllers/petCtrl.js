@@ -2,6 +2,9 @@ angular.module('PetApp')
 .controller('PetsCtrl', ['$scope', '$http',
   function($scope, $http) {
 
+    //@TOOD: Move to directive
+    $('select').material_select();
+
     $scope.pets = [
       {
         name: "test"
