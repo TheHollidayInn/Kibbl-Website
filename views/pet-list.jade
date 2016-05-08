@@ -1,9 +1,9 @@
 div.row(style="min-height:100px;")  
-  div.form-group.col-md-2
+  div.form-group.col.s2
     label Location
     input(ng-model='filters.location', type='text')
   
-  .input-field.col-md-2
+  .input-field.col.s2
     select.browser-default(ng-model='filters.type')
       option(value='', disabled='', selected='') Choose your option
       option(value='Dog') Dog
@@ -11,11 +11,11 @@ div.row(style="min-height:100px;")
       option(value='Bird') Bird
     label Type
   
-  .input-field.col-md-2
+  .input-field.col.s2
     label Breed
     input(ng-model='filters.breed', type='text')
     
-  .input-field.col-md-2
+  .input-field.col.s2
     select.browser-default(ng-model='filters.age')
       option(value='', disabled='', selected='') Choose your option
       option(value='Baby') Baby
@@ -24,7 +24,7 @@ div.row(style="min-height:100px;")
       option(value='Senior') Senior
     label Age
       
-  .input-field.col-md-2
+  .input-field.col.s2
     select.browser-default(ng-model='filters.gender')
       option(value='', disabled='', selected='') Choose your option
       option(value='M') Male
@@ -34,7 +34,7 @@ div.row(style="min-height:100px;")
   
 //- @TODO: We need to show pets that have no photo!
 div.row
-  div.col-md-4.pet-grid-item(ng-repeat="pet in pets", ng-if="pet.media.photos.photo[3].t")
+  div.col.s4.pet-grid-item(ng-repeat="pet in pets", ng-if="pet.media.photos.photo[3].t")
     .card
       a(href="#/pets/{{pet._id}}")
         .card-image(style="height:300px;overflow:hidden;")
@@ -44,10 +44,36 @@ div.row
         div(style="height:150px;overflow:hidden;")
           {{pet.description.t}}
       .card-action
-        a.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}") Contact
+        //- button.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}", data-toggle="modal", data-target="#petModel-{{pet._id}}") Contact
+        button.waves-effect.waves-light.btn.modal-trigger(href='#petModel', ng-click="selectPet(pet)") Contact
         a.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}") Donate
         a.btn.waves-effect.waves-light.red.lighten-3.right(ng-click="favorite(pet._id)", style="width: 40px;")
           i.small.material-icons star_rate
+
+.modal.modal-fixed-footer(id="petModel")
+  .modal-content
+    h4 Inquiry to Adopt: {{selectedPet.name.t}}
+    .row
+      form.col.s12
+        .row
+          .input-field.col.s6
+            input#first_name.validate(type='text', ng-model="contactDetails.first_name")
+            label(for='first_name') First Name
+          .input-field.col.s6
+            input#last_name.validate(type='text', ng-model="contactDetails.last_name")
+            label(for='last_name') Last Name
+        .row
+          .input-field.col.s12
+            input#email.validate(type='email', ng-model="contactDetails.email")
+            label(for='email') Email
+        .row
+          .col.s12
+            label(for='message') Message
+            textarea#message.validate(type='message', ng-model="contactDetails.message")
+        
+  .modal-footer
+    a.modal-action.modal-close.waves-effect.waves-green.btn-flat(ng-click="selectedPet = {}") Cancel
+    a.modal-action.modal-close.waves-effect.waves-green.btn-flat(ng-click="sendContact()") Send Contact To Shelter         
 
 div.row      
   ul.pagination

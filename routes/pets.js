@@ -52,7 +52,7 @@ router.post('/:petId/favorite', Middleware.isLoggedIn, function(req, res, next) 
   fav.userID = req.user._id;
   fav.petID = req.params.petId;
 
-  fav.save(function(err, pets) {
+  fav.save(function(err, fav) {
     if (err) return res.status(400).json(err);
     res.status(200).json(fav);
   });

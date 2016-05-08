@@ -18,6 +18,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var pets = require('./routes/pets');
 var favorites = require('./routes/favorites');
+var contacts = require('./routes/contact');
 
 var app = express();
 
@@ -49,6 +50,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/pets', pets);
 app.use('/favorites', favorites);
+app.use('/contacts', contacts);
 
 mongoose.connect(configDB.url);
 

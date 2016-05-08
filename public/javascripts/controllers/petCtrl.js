@@ -30,8 +30,8 @@ angular.module('PetApp')
         url: url,
       })
       .then(function (response) {
-        console.log(response);
         $scope.pets = response.data;
+        setTimeout(function(){ $('.modal-trigger').leanModal(); }, 1000);
       })
     }
 
@@ -40,6 +40,23 @@ angular.module('PetApp')
       sendRequest();
     }, true)
 
+    $scope.selectedPet = {};
+    $scope.selectPet = function (pet) {
+      $scope.selectedPet = pet;
+    }
+
+    $scope.contactDetails = {};
+    $scope.sendContact = function () {
+      $scope.contactDetails.petId = $scope.selectedPet._id;
+      $http({
+        method: 'POST',
+        url: '/contacts',
+        data: $scope.contactDetails,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+    }
 
     $scope.favorite = function (petId) {
       var url = '/pets/' + petId + '/favorite';
