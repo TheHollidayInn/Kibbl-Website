@@ -6,7 +6,7 @@ angular.module('PetApp')
 
     sendRequest();
     function sendRequest() {
-      var url = '/pets/' + $routeParams.petId;;
+      var url = '/pets/' + $routeParams.petId;
 
       $http({
         method: 'GET',

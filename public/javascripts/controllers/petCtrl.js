@@ -40,4 +40,16 @@ angular.module('PetApp')
       sendRequest();
     }, true)
 
+
+    $scope.favorite = function (petId) {
+      var url = '/pets/' + petId + '/favorite';
+
+      $http({
+        method: 'POST',
+        url: url,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+    }
   }]);

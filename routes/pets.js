@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 var Pets = require('../models/pets');
+var Favorite = require('../models/favorites');
+
+var Middleware = require('../middleware');
 
 router.get('/', function(req, res, next) {
 
@@ -41,6 +44,17 @@ router.get('/:petId', function(req, res, next) {
   .exec(function(err, pets) {
     if (err) return res.status(400).json(err);
     res.status(200).json(pets);
+  });
+});
+
+router.post('/:petId/favorite', Middleware.isLoggedIn, function(req, res, next) {
+  var fav = new Favorite();
+  fav.userID = req.user._id;
+  fav.petID = req.params.petId;
+
+  fav.save(function(err, pets) {
+    if (err) return res.status(400).json(err);
+    res.status(200).json(fav);
   });
 });
 

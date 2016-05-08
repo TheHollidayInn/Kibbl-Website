@@ -46,7 +46,7 @@ div.row
       .card-action
         a.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}") Contact
         a.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}") Donate
-        a.btn.waves-effect.waves-light.red.lighten-3.right(href="mailto:{{pet.contact.email.t}}", style="width: 40px;")
+        a.btn.waves-effect.waves-light.red.lighten-3.right(ng-click="favorite(pet._id)", style="width: 40px;")
           i.small.material-icons star_rate
 
 div.row      
