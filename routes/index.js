@@ -53,5 +53,9 @@ router.get('/pet-list.html', function(req, res, next) {
   res.render('pet-list');
 });
 
+router.get('/favorite-list.html', function(req, res, next) {
+  res.render('favorite-list');
+});
+
 
 module.exports = router;

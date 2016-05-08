@@ -11,6 +11,10 @@ angular.module('PetApp', ['ngRoute'])
         templateUrl: 'pet-detail.html',
         controller: 'PetsDetailCtrl'
       })
+      .when('/favorites', {
+        templateUrl: 'favorite-list.html',
+        controller: 'FavoriteListCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

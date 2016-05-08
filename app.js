@@ -17,6 +17,7 @@ require('./config/passport')(passport);
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var pets = require('./routes/pets');
+var favorites = require('./routes/favorites');
 
 var app = express();
 
@@ -47,6 +48,7 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/pets', pets);
+app.use('/favorites', favorites);
 
 mongoose.connect(configDB.url);
 

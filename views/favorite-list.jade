@@ -1,0 +1,13 @@
+div.row  
+  div.col-md-6.col-md-offset-3
+    h2 Favorites
+    ul.collection
+      li.collection-item.avatar(ng-repeat="favorite in favorites")
+        img.circle(src='{{favorite.petID.media.photos.photo[3].t}}', alt='')
+        span.title {{favorite.petID.name.t}}
+        p
+          | First Line 
+          br
+          |          Second Line
+        a.secondary-content(href='#!')
+          i.material-icons grade
