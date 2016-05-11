@@ -4,6 +4,11 @@ var router = express.Router();
 var passport = require('passport');
 var Middleware = require('../middleware');
 
+var paymentConfig = require('../config/payment.js');
+var stripe = require('stripe')(paymentConfig.stripe.secretKey);
+
+var Donations = require('../models/donations');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Kibbl' });
@@ -42,6 +47,28 @@ router.get('/profile', Middleware.isLoggedIn, function(req, res) {
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
+});
+
+router.post('/charge', Middleware.isLoggedIn, function(req, res, next) {
+  console.log(req.body)
+  stripe.customers.create({
+    email: req.user.local.email,
+    source: req.body.stripeToken,
+  }).then(function(customer) {
+    return stripe.charges.create({
+      amount: req.body.amount,
+      currency: 'usd',
+      customer: customer.id
+    });
+  }).then(function(charge) {
+    // Donations
+    console.log(charge)
+    //@TODO: Log the donation to model
+    //@TODO: Send email
+    res.render('index', { message: 'Your donation as been sent!', status: 'Success!' });
+  }).catch(function(err) {
+    // Deal with an error
+  });
 });
 
 //Static

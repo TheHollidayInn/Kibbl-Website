@@ -12,6 +12,9 @@ var passport = require('passport');
 var flash    = require('connect-flash');
 var session      = require('express-session');
 
+var paymentConfig = require('./config/payment.js');
+var stripe = require('stripe')(paymentConfig.stripe.secretKey);
+
 require('./config/passport')(passport);
 
 var routes = require('./routes/index');

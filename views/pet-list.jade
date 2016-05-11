@@ -46,7 +46,7 @@ div.row
       .card-action
         //- button.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}", data-toggle="modal", data-target="#petModel-{{pet._id}}") Contact
         button.waves-effect.waves-light.btn.modal-trigger(href='#petModel', ng-click="selectPet(pet)") Contact
-        a.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}") Donate
+        a.btn.waves-effect.waves-light.red.lighten-3.modal-trigger(href="#petDonate") Donate
         a.btn.waves-effect.waves-light.red.lighten-3.right(ng-click="favorite(pet._id)", style="width: 40px;")
           i.small.material-icons star_rate
 
@@ -70,10 +70,27 @@ div.row
           .col.s12
             label(for='message') Message
             textarea#message.validate(type='message', ng-model="contactDetails.message")
+            
+.modal.modal-fixed-footer(id="petDonate")
+  .modal-content
+    h4 Donate to Adopt: {{selectedPet.name.t}}
+    .row
+      div
+        | Thanks for helping the animals. Your donation will go a long way to help the [insert-animal-shelter]
+        | Please note that we take 5% of the donation to help support the site. The rest goes to the shelter!
+        
+        form(action='/charge', method='POST')
+          script.stripe-button(
+            src = 'https://checkout.stripe.com/checkout.js',
+            data-email = '',
+            data-key = 'pk_test_H2UTCXDnMnLk4fenwedAlFty',
+            data-name = 'Kibbl',
+            data-amount = '1000',
+            data-allow-remember-me = 'false'
+          )
         
   .modal-footer
     a.modal-action.modal-close.waves-effect.waves-green.btn-flat(ng-click="selectedPet = {}") Cancel
-    a.modal-action.modal-close.waves-effect.waves-green.btn-flat(ng-click="sendContact()") Send Contact To Shelter         
 
 div.row      
   ul.pagination
