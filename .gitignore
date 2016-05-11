@@ -2,3 +2,5 @@ node_modules
 .git
 public/bower_components
 npm-debug.log
+config/auth.js
+config/payment.js
