@@ -57,6 +57,19 @@ router.get('/auth/facebook/callback',
         failureRedirect : '/'
     }));
 
+// =====================================
+// TWITTER ROUTES ======================
+// =====================================
+// route for twitter authentication and login
+router.get('/auth/twitter', passport.authenticate('twitter'));
+
+// handle the callback after twitter has authenticated the user
+router.get('/auth/twitter/callback',
+    passport.authenticate('twitter', {
+        successRedirect : '/profile',
+        failureRedirect : '/'
+    }));
+
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
