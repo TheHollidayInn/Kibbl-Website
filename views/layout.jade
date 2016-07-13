@@ -71,6 +71,7 @@ html
     script(src="bower_components/Materialize/dist/js/materialize.min.js")
     script(src="bower_components/angular/angular.min.js")
     script(src="bower_components/angular-route/angular-route.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.9/angular-materialize.min.js")
     
     script(src="javascripts/app.js")
     script(src="javascripts/controllers/petCtrl.js")
@@ -79,7 +80,5 @@ html
     
     script.
       $(document).ready(function() {
-        $('select').material_select();
-        console.log($('select').material_select)
         $(".dropdown-button").dropdown();
       });

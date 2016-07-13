@@ -3,7 +3,7 @@ angular.module('PetApp')
   function($scope, $http) {
 
     //@TOOD: Move to directive
-    $('select').material_select();
+    // $('select').material_select();
 
     $scope.pets = [
       {
@@ -16,6 +16,28 @@ angular.module('PetApp')
 
     $scope.filters = {}
     $scope.type = '';
+
+    $scope.petTypes = ["All", "Dog", "Cat", "Bird"];
+    $scope.petAges = ["All", "Baby", "Young", "Adult", "Senior"];
+
+    $scope.petGenders = [
+      {
+        value: '',
+        key: "All"
+      },
+      {
+        value: 'M',
+        key: "Male"
+      },
+      {
+        value: 'F',
+        key: "Female"
+      },
+      {
+        value: 'U',
+        key: "Unkown"
+      },
+    ];
 
     sendRequest();
     function sendRequest() {

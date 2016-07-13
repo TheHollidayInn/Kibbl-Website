@@ -3,33 +3,24 @@ div.row(style="min-height:100px;")
     label Location
     input(ng-model='filters.location', type='text')
   
-  .input-field.col.s2
-    select.browser-default(ng-model='filters.type')
-      option(value='', disabled='', selected='') Choose your option
-      option(value='Dog') Dog
-      option(value='Cat') Cat
-      option(value='Bird') Bird
+  div.col.s2(input-field='')
+    select(ng-model='filters.type', material-select='', watch='')
+      option(ng-repeat='value in petTypes') {{value}}
     label Type
   
   .input-field.col.s2
     label Breed
     input(ng-model='filters.breed', type='text')
-    
-  .input-field.col.s2
-    select.browser-default(ng-model='filters.age')
-      option(value='', disabled='', selected='') Choose your option
-      option(value='Baby') Baby
-      option(value='Young') Young
-      option(value='Adult') Adult
-      option(value='Senior') Senior
+  
+  div.col.s2(input-field='')
+    select(ng-model='filters.age', material-select='', watch='')
+      option(ng-repeat='value in petAges') {{value}}
     label Age
-      
-  .input-field.col.s2
-    select.browser-default(ng-model='filters.gender')
-      option(value='', disabled='', selected='') Choose your option
-      option(value='M') Male
-      option(value='F') Female
-      option(value='U') Unknown
+  
+  
+  div.col.s2(input-field='')
+    select(ng-model='filters.gender', material-select='', watch='')
+      option(ng-repeat='option in petGenders', value="{{option.value}}") {{option.key}}
     label Gender
   
 //- @TODO: We need to show pets that have no photo!
