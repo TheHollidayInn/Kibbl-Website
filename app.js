@@ -11,6 +11,7 @@ var configDB = require('./config/database.js');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var session      = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 var paymentConfig = require('./config/payment.js');
 var stripe = require('stripe')(paymentConfig.stripe.secretKey);
@@ -35,6 +36,17 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'secretfuckingcodethatneedstobestoredsomewhereelse?',
+    resave: false,
+    saveUninitialized: false,
+    maxAge: new Date(Date.now() + 3600000),
+    store: new MongoStore(
+        {mongooseConnection: mongoose.connection},
+        function(err){
+            console.log(err || 'connect-mongodb setup ok');
+        })
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
