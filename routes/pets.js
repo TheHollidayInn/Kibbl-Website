@@ -5,6 +5,7 @@ var Pets = require('../models/pets');
 var Favorite = require('../models/favorites');
 
 var Middleware = require('../middleware');
+var _ = require('lodash');
 
 router.get('/', function(req, res, next) {
 
@@ -31,11 +32,36 @@ router.get('/', function(req, res, next) {
     query.sex = {t: req.query.gender};
   }
 
+  var pets = [];
+
   Pets.find(query)
   .limit(20)
-  .exec(function(err, pets) {
-    if (err) return res.status(400).json(err);
+  .then (function (petsFound) {
+    pets = petsFound;
+    var petIds = _.map(pets, '_id');
+
+    return Favorite.find({
+      userID: req.user._id,
+      petID: {$in: petIds}
+    }).exec();
+  })
+  .then (function (favorites) {
+    var favoritesHashedByPetId = _.keyBy(favorites, 'petID');
+
+    pets = _(pets).forEach(function(pet) {
+      if (favoritesHashedByPetId[pet._id] && favoritesHashedByPetId[pet._id].active) {
+        pet.userFavorited = true;
+      }
+    });
+
+    return pets;
+  })
+  .then(function() {
     res.status(200).json(pets);
+  })
+  .catch(function (err) {
+    console.log(err)
+    if (err) return res.status(400).json(err);
   });
 });
 
@@ -48,13 +74,33 @@ router.get('/:petId', function(req, res, next) {
 });
 
 router.post('/:petId/favorite', Middleware.isLoggedIn, function(req, res, next) {
-  var fav = new Favorite();
-  fav.userID = req.user._id;
-  fav.petID = req.params.petId;
+  Favorite.find({
+    userID: req.user._id,
+    petID: req.params.petId,
+  }).exec()
+  .then(function(favorites) {
+    if (favorites[0]) {
+      if (favorites[0].active) {
+        favorites[0].active = false;
+      } else {
+        favorites[0].active = true;
+      }
+      console.log(favorites[0].active)
+      return favorites[0].save();
+    } else {
+      var fav = new Favorite();
+      fav.userID = req.user._id;
+      fav.petID = req.params.petId;
 
-  fav.save(function(err, fav) {
+      return fav.save();
+    }
+  })
+  .then(function(fav) {
+    return res.status(200).json(fav);
+  })
+  .catch(function (err) {
+    console.log(err)
     if (err) return res.status(400).json(err);
-    res.status(200).json(fav);
   });
 });
 

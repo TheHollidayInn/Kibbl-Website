@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "bcrypt-nodejs": "latest",
+    "bluebird": "^3.4.1",
     "body-parser": "~1.13.2",
     "connect-flash": "~0.1.1",
     "connect-mongo": "^1.2.1",
@@ -15,6 +16,7 @@
     "express": "~4.13.1",
     "express-session": "~1.0.0",
     "jade": "~1.11.0",
+    "lodash": "^4.13.1",
     "mongoose": "^4.4.15",
     "morgan": "~1.6.1",
     "passport": "~0.1.17",

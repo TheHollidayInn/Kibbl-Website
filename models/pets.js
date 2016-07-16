@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var petSchema = new mongoose.Schema({
+  userFavorited: Boolean,
 },
 { collection : 'pets' });
 

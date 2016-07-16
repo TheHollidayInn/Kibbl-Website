@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 var configDB = require('./config/database.js');
+mongoose.Promise = require('bluebird');
 
 var passport = require('passport');
 var flash    = require('connect-flash');

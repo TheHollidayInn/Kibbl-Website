@@ -35,11 +35,15 @@ div.row
         div(style="height:150px;overflow:hidden;")
           {{pet.description.t}}
       .card-action
-        //- button.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}", data-toggle="modal", data-target="#petModel-{{pet._id}}") Contact
-        button.waves-effect.waves-light.btn.modal-trigger(href='#petModel', ng-click="selectPet(pet)") Contact
-        a.btn.waves-effect.waves-light.red.lighten-3.modal-trigger(href="#petDonate") Donate
-        a.btn.waves-effect.waves-light.red.lighten-3.right(ng-click="favorite(pet._id)", style="width: 40px;")
-          i.small.material-icons star_rate
+        .row
+          //- button.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}", data-toggle="modal", data-target="#petModel-{{pet._id}}") Contact
+          //- .col.m3
+          //-   button.waves-effect.waves-light.btn.modal-trigger(href='#petModel', ng-click="selectPet(pet)") Contact
+          .col.m3
+            //- a.btn.waves-effect.waves-light.red.lighten-3.modal-trigger(href="#petDonate") Donate
+          .col.m3
+            a.favorited(ng-click="favorite(pet._id, $index)", style="width: 40px;", ng-class="{active: pet.userFavorited}")
+              i.small.material-icons star_rate
 
 .modal.modal-fixed-footer(id="petModel")
   .modal-content

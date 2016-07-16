@@ -80,7 +80,15 @@ angular.module('PetApp')
       })
     }
 
-    $scope.favorite = function (petId) {
+    $scope.favorite = function (petId, $index) {
+
+      if ($scope.pets[$index].userFavorited) {
+        $scope.pets[$index].userFavorited = false;
+      } else {
+        $scope.pets[$index].userFavorited = true;
+      }
+      console.log($scope.pets[$index].userFavorited)
+
       var url = '/pets/' + petId + '/favorite';
 
       $http({

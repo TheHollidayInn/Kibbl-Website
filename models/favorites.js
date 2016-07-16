@@ -9,6 +9,7 @@ var favoriteSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Pets'
   },
+  active: { type: Boolean, default: true },
 });
 
 var Favorite = mongoose.model('Favorite', favoriteSchema);
