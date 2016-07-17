@@ -9,6 +9,9 @@ var _ = require('lodash');
 
 router.get('/', function(req, res, next) {
 
+  var limit = 100;
+  var offset = 0;
+
   var query = {};
 
   // if (req.query.location) {
@@ -32,10 +35,15 @@ router.get('/', function(req, res, next) {
     query.sex = {t: req.query.gender};
   }
 
+  if (req.query.offset) {
+    offset = parseInt(req.query.offset);
+  }
+
   var pets = [];
 
   Pets.find(query)
-  .limit(20)
+  .skip(offset)
+  .limit(limit)
   .then (function (petsFound) {
     pets = petsFound;
 
@@ -58,10 +66,14 @@ router.get('/', function(req, res, next) {
       }
     });
 
-    return pets;
+    return Pets.count().exec();
   })
-  .then(function() {
-    return res.status(200).json(pets);
+  .then(function(count) {
+    var responseData = {
+      total: count,
+      pets: pets,
+    };
+    return res.status(200).json(responseData);
   })
   .catch(function (err) {
     console.log(err)

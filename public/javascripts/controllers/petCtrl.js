@@ -37,9 +37,14 @@ angular.module('PetApp')
       },
     ];
 
+    $scope.offset = 0;
+    $scope.limit = 100;
+
     sendRequest();
     function sendRequest() {
       var url = '/pets';
+
+      $scope.filters.offset = $scope.offset;
 
       if ($scope.filters) {
         url += '?' + $.param($scope.filters);
@@ -50,15 +55,21 @@ angular.module('PetApp')
         url: url,
       })
       .then(function (response) {
-        $scope.pets = response.data;
+        $scope.pets = response.data.pets;
         setTimeout(function(){ $('.modal-trigger').leanModal(); }, 1000);
       })
+    };
+
+    $scope.queryPage = function (page) {
+      $scope.offset = page * $scope.limit;
+      window.scrollTo(0, 0);
+      sendRequest();
     }
 
     $scope.$watch('filters', function (oldValue, newValue) {
       if(oldValue == newValue) return;
       sendRequest();
-    }, true)
+    }, true);
 
     $scope.selectedPet = {};
     $scope.selectPet = function (pet) {
