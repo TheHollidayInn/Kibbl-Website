@@ -38,8 +38,12 @@ router.get('/', function(req, res, next) {
   .limit(20)
   .then (function (petsFound) {
     pets = petsFound;
-    var petIds = _.map(pets, '_id');
 
+    if (!req.user) {
+      return res.status(200).json(pets);
+    }
+
+    var petIds = _.map(pets, '_id');
     return Favorite.find({
       userID: req.user._id,
       petID: {$in: petIds}
@@ -57,7 +61,7 @@ router.get('/', function(req, res, next) {
     return pets;
   })
   .then(function() {
-    res.status(200).json(pets);
+    return res.status(200).json(pets);
   })
   .catch(function (err) {
     console.log(err)
