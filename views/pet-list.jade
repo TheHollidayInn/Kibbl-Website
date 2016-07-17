@@ -42,8 +42,27 @@ div.row
           .col.m3
             //- a.btn.waves-effect.waves-light.red.lighten-3.modal-trigger(href="#petDonate") Donate
           .col.m3
-            a.favorited(ng-click="favorite(pet._id, $index)", style="width: 40px;", ng-class="{active: pet.userFavorited}")
-              i.small.material-icons star_rate
+            if(user)
+              a.favorited(ng-click="favorite(pet._id, $index)", style="width: 40px;", ng-class="{active: pet.userFavorited}")
+                i.small.material-icons star_rate
+            else
+              a.favorited.modal-trigger(href='#loginModel', ng-click="isFavoriting = true; setPetToFavorite(pet._id, $index)", style="width: 40px;")
+                i.small.material-icons star_rate
+              
+.modal.modal-fixed-footer(id="loginModel")
+  .modal-content
+    h4 Login
+    .row
+      form.col.s12
+        .row
+          .input-field.col.s12
+            input#email.validate(type='email', ng-model="loginDetails.email")
+            label(for='email') Email
+          .input-field.col.s12
+            input#last_name.validate(type='password', ng-model="loginDetails.password")
+            label(for='last_name') Password
+  .modal-footer
+    a.modal-action.waves-effect.red.lighten-3.btn-flat(ng-click="login()") Login
 
 .modal.modal-fixed-footer(id="petModel")
   .modal-content

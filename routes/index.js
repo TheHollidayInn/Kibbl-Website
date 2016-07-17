@@ -19,6 +19,9 @@ router.get('/login', function(req, res) {
   res.render('login.jade', { message: req.flash('loginMessage') });
 });
 
+router.post('/login-angular', passport.authenticate('local-login'), function(req, res) { res.send(req.user); }); 
+
+
 // process the login form
 // router.post('/login', do all our passport stuff here);
 router.post('/login', passport.authenticate('local-login', {
