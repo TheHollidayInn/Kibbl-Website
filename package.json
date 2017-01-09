@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "preinstall": "./node_modules/bower/bin/bower install",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "dependencies": {
     "bcrypt-nodejs": "latest",
