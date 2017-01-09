@@ -1,11 +1,11 @@
+var nconf = require('nconf');
 var express = require('express');
 var router = express.Router();
 
 var passport = require('passport');
 var Middleware = require('../middleware');
 
-var paymentConfig = require('../config/payment.js');
-var stripe = require('stripe')(paymentConfig.stripe.secretKey);
+var stripe = require('stripe')(nconf.get('stripe:secretKey'));
 
 var Donations = require('../models/donations');
 
@@ -19,7 +19,7 @@ router.get('/login', function(req, res) {
   res.render('login.jade', { message: req.flash('loginMessage') });
 });
 
-router.post('/login-angular', passport.authenticate('local-login'), function(req, res) { res.send(req.user); }); 
+router.post('/login-angular', passport.authenticate('local-login'), function(req, res) { res.send(req.user); });
 
 
 // process the login form

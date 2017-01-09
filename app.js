@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-var configDB = require('./config/database.js');
 mongoose.Promise = require('bluebird');
 
 var passport = require('passport');
@@ -14,10 +13,15 @@ var flash    = require('connect-flash');
 var session      = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-var paymentConfig = require('./config/payment.js');
-var stripe = require('stripe')(paymentConfig.stripe.secretKey);
+var fs    = require('fs'),
+  nconf = require('nconf');
+  nconf.argv()
+   .env()
+   .file({ file: './config.json' });
 
-require('./config/passport')(passport);
+var stripe = require('stripe')(nconf.get('stripe:secretKey'));
+
+// require('./config/passport')(passport);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -38,7 +42,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-    secret: 'secretfuckingcodethatneedstobestoredsomewhereelse?',
+    secret: nconf.get("db:SESSION_SECRET"),
     resave: false,
     saveUninitialized: false,
     maxAge: new Date(Date.now() + 3600000),
@@ -51,7 +55,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
-app.use(session({ secret: 'ilovethepetfinderapp' })); // session secret
+app.use(session({ secret: nconf.get('db:PASSPORT_SESSION_SECRET') })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash());
@@ -68,7 +72,7 @@ app.use('/pets', pets);
 app.use('/favorites', favorites);
 app.use('/contacts', contacts);
 
-mongoose.connect(configDB.url);
+mongoose.connect(nconf.get('db:URL'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

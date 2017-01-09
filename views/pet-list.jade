@@ -25,18 +25,18 @@ div.row(style="min-height:100px;")
   
 //- @TODO: We need to show pets that have no photo!
 div.row
-  div.col.s4.pet-grid-item(ng-repeat="pet in pets", ng-if="pet.media.photos.photo[3].t")
+  div.col.s4.pet-grid-item(ng-repeat="pet in pets", ng-if="pet.media[3]")
     .card
       a(href="#/pets/{{pet._id}}")
         .card-image(style="height:300px;overflow:hidden;")
-          img(src='{{pet.media.photos.photo[3].t}}')
-          span.card-title {{pet.name.t}}
+          img(src='{{pet.media[3]}}')
+          span.card-title {{pet.name}}
       .card-content
         div(style="height:150px;overflow:hidden;")
-          {{pet.description.t}}
+          {{pet.description}}
       .card-action
         .row
-          //- button.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email.t}}", data-toggle="modal", data-target="#petModel-{{pet._id}}") Contact
+          //- button.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email}}", data-toggle="modal", data-target="#petModel-{{pet._id}}") Contact
           //- .col.m3
           //-   button.waves-effect.waves-light.btn.modal-trigger(href='#petModel', ng-click="selectPet(pet)") Contact
           .col.m3
@@ -66,7 +66,7 @@ div.row
 
 .modal.modal-fixed-footer(id="petModel")
   .modal-content
-    h4 Inquiry to Adopt: {{selectedPet.name.t}}
+    h4 Inquiry to Adopt: {{selectedPet.name}}
     .row
       form.col.s12
         .row
@@ -87,7 +87,7 @@ div.row
             
 .modal.modal-fixed-footer(id="petDonate")
   .modal-content
-    h4 Donate to Adopt: {{selectedPet.name.t}}
+    h4 Donate to Adopt: {{selectedPet.name}}
     .row
       div
         | Thanks for helping the animals. Your donation will go a long way to help the [insert-animal-shelter]
