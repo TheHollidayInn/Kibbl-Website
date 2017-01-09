@@ -3,12 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "preinstall": "./node_modules/bower/bin/bower install",
     "start": "node ./bin/www"
   },
   "dependencies": {
     "bcrypt-nodejs": "latest",
     "bluebird": "^3.4.1",
     "body-parser": "~1.13.2",
+    "bower": "^1.8.0",
     "connect-flash": "~0.1.1",
     "connect-mongo": "^1.2.1",
     "cookie-parser": "~1.3.5",
