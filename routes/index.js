@@ -6,14 +6,15 @@ var passport = require('passport');
 var Middleware = require('../middleware');
 
 var stripe = require('stripe')(nconf.get('stripe:secretKey'));
+var jwt    = require('jsonwebtoken');
 
 var Donations = require('../models/donations');
+var User = require('../models/user');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Kibbl' });
 });
-
 
 router.get('/login', function(req, res) {
   res.render('login.jade', { message: req.flash('loginMessage') });
@@ -36,6 +37,30 @@ router.post('/register', passport.authenticate('local-signup', {
   failureRedirect : '/register', // redirect back to the signup page if there is an error
   failureFlash : true // allow flash messages
 }));
+
+router.post('/api/v1/register', function (req, res) {
+  let email = req.body.email;
+  let password = req.body.password;
+
+  // @TODO: Add validation
+
+  var newUser = new User();
+  newUser.local.email = email;
+  newUser.local.passport = newUser.generateHash(password);
+
+  newUser.save()
+    .then(function (userSaved) {
+      let token =  jwt.sign(userSaved, nconf.get('JWT_SECRET'), { expiresIn: '1h' });
+
+      return res.status(201).json({
+        user: userSaved,
+        token: token,
+      });
+    })
+    .catch(function (err) {
+      return res.status(400).json({err: err});
+    });
+});
 
 router.get('/profile', Middleware.isLoggedIn, function(req, res) {
     res.render('profile.ejs', {

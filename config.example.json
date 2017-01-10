@@ -21,5 +21,6 @@
   },
   "stripe": {
     "secretKey": ""
-  }
+  },
+  "JWT_SECRET": ""
 }
