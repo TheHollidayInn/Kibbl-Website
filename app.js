@@ -13,7 +13,7 @@ var flash    = require('connect-flash');
 var session      = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-var fs    = require('fs'),
+var fs = require('fs'),
   nconf = require('nconf');
   nconf.argv()
    .env()
@@ -21,7 +21,7 @@ var fs    = require('fs'),
 
 var stripe = require('stripe')(nconf.get('stripe:secretKey'));
 
-// require('./config/passport')(passport);
+require('./config/passport')(passport);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

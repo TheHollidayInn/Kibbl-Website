@@ -55,7 +55,7 @@ angular.module('PetApp')
         url: url,
       })
       .then(function (response) {
-        $scope.pets = response.data;
+        $scope.pets = response.data.pets;
         // setTimeout(function(){ $('.modal-trigger').leanModal(); }, 1000);
       })
     };

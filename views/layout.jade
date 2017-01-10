@@ -8,6 +8,8 @@ html
 
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     
+    base(href="/")
+    
     link(rel='stylesheet', href='/stylesheets/style.css')
     //- link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.min.css')
   body(ng-app="PetApp")
@@ -21,19 +23,19 @@ html
         a(href='#!') three
     nav.white(role='navigation')
       .nav-wrapper.light-blue
-        a#logo-container.brand-logo(href='/#/') Kibbl
+        a#logo-container.brand-logo(href='/') Kibbl
         if !user
           ul.right.hide-on-med-and-down
             li
-              a(href='/login') Login
+              a(href='/login', target='_self') Login
             li
-              a(href='/register') Register
+              a(href='/register', target='_self') Register
         else
           ul.right.hide-on-med-and-down
             li
-              a(href='#/favorites') Favorites
+              a(href='/favorites') Favorites
             li
-              a(href='/logout') Logout
+              a(href='/logout', target='_self') Logout
             //- li
             //-   a.dropdown-button(href='#!', data-activates='dropdown1')
             //-     | Dropdown
@@ -67,10 +69,10 @@ html
   
     script(src="bower_components/jquery/dist/jquery.min.js")
     //- script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
-    script(src="bower_components/Materialize/dist/js/materialize.min.js")
+    //- script(src="bower_components/Materialize/dist/js/materialize.min.js")
     script(src="bower_components/angular/angular.min.js")
     script(src="bower_components/angular-route/angular-route.min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.9/angular-materialize.min.js")
+    //- script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.9/angular-materialize.min.js")
     
     script(src="javascripts/app.js")
     script(src="javascripts/controllers/petCtrl.js")
@@ -78,6 +80,6 @@ html
     script(src="javascripts/controllers/favoriteListCtrl.js")
     
     script.
-      $(document).ready(function() {
-        $(".dropdown-button").dropdown();
-      });
+      //- $(document).ready(function() {
+      //-   $(".dropdown-button").dropdown();
+      //- });

@@ -21,15 +21,11 @@ router.get('/login', function(req, res) {
 
 router.post('/login-angular', passport.authenticate('local-login'), function(req, res) { res.send(req.user); });
 
-
-// process the login form
-// router.post('/login', do all our passport stuff here);
 router.post('/login', passport.authenticate('local-login', {
   successRedirect : '/profile', // redirect to the secure profile section
   failureRedirect : '/login', // redirect back to the signup page if there is an error
   failureFlash : true // allow flash messages
 }));
-
 
 router.get('/register', function(req, res) {
   res.render('register.jade', { message: req.flash('signupMessage') });
