@@ -72,6 +72,9 @@ router.post('/api/v1/login', function (req, res) {
     .findOne({'local.email': email}).exec()
     .then(function (user) {
       if (!user) return res.status(404).json({message: 'User not found.'});
+
+      if (!user.validPassword(password)) return res.status(401).json({message: 'Password is incorrect.'});
+
       let token =  jwt.sign(user, nconf.get('JWT_SECRET'), { expiresIn: '1h' });
 
       return res.status(200).json({
