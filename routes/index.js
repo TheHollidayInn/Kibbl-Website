@@ -46,7 +46,7 @@ router.post('/api/v1/register', function (req, res) {
 
   var newUser = new User();
   newUser.local.email = email;
-  newUser.local.passport = newUser.generateHash(password);
+  newUser.local.password = newUser.generateHash(password);
 
   newUser.save()
     .then(function (userSaved) {
@@ -54,6 +54,27 @@ router.post('/api/v1/register', function (req, res) {
 
       return res.status(201).json({
         user: userSaved,
+        token: token,
+      });
+    })
+    .catch(function (err) {
+      return res.status(400).json({err: err});
+    });
+});
+
+router.post('/api/v1/login', function (req, res) {
+  let email = req.body.email;
+  let password = req.body.password;
+
+  // @TODO: Add validation
+
+  var user = User
+    .findOne({'local.email': email}).exec()
+    .then(function (user) {
+      if (!user) return res.status(404).json({message: 'User not found.'});
+      let token =  jwt.sign(user, nconf.get('JWT_SECRET'), { expiresIn: '1h' });
+
+      return res.status(200).json({
         token: token,
       });
     })
