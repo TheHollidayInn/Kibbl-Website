@@ -5,6 +5,8 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var User = require('../models/user');
 
+var nconf = require('nconf');
+
 // expose this function to our app using module.exports
 module.exports = function(passport) {
   passport.serializeUser(function(user, done) {
@@ -64,9 +66,6 @@ module.exports = function(passport) {
         });
   }));
 
-  // =========================================================================
-    // FACEBOOK ================================================================
-    // =========================================================================
     // passport.use(new FacebookStrategy({
     //
     //     // pull in our app id and secret from our auth.js file
@@ -135,11 +134,7 @@ module.exports = function(passport) {
     //     });
     //
     // }));
-    //
-    //
-    // // =========================================================================
-    // // TWITTER =================================================================
-    // // =========================================================================
+
     // passport.use(new TwitterStrategy({
     //   consumerKey     : configAuth.twitterAuth.consumerKey,
     //   consumerSecret  : configAuth.twitterAuth.consumerSecret,
@@ -198,67 +193,50 @@ module.exports = function(passport) {
     //   });
     // }));
     //
-    // // =========================================================================
-    // // GOOGLE ==================================================================
-    // // =========================================================================
-    // passport.use(new GoogleStrategy({
-    //
-    //     clientID        : configAuth.googleAuth.clientID,
-    //     clientSecret    : configAuth.googleAuth.clientSecret,
-    //     callbackURL     : configAuth.googleAuth.callbackURL,
-    //     passReqToCallback : true,
-    //
-    // },
-    // function(req, token, refreshToken, profile, done) {
-    //
-    //     // make the code asynchronous
-    //     // User.findOne won't fire until we have all our data back from Google
-    //     process.nextTick(function() {
-    //       if (!req.user) {
-    //         // try to find the user based on their google id
-    //         User.findOne({ 'google.id' : profile.id }, function(err, user) {
-    //             if (err)
-    //                 return done(err);
-    //
-    //             if (user) {
-    //
-    //                 // if a user is found, log them in
-    //                 return done(null, user);
-    //             } else {
-    //                 // if the user isnt in our database, create a new user
-    //                 var newUser          = new User();
-    //
-    //                 // set all of the relevant information
-    //                 newUser.google.id    = profile.id;
-    //                 newUser.google.token = token;
-    //                 newUser.google.name  = profile.displayName;
-    //                 newUser.google.email = profile.emails[0].value; // pull the first email
-    //
-    //                 // save the user
-    //                 newUser.save(function(err) {
-    //                     if (err)
-    //                         throw err;
-    //                     return done(null, newUser);
-    //                 });
-    //             }
-    //         });
-    //       } else {
-    //         var user          = req.user;
-    //
-    //         // set all of the relevant information
-    //         user.google.id    = profile.id;
-    //         user.google.token = token;
-    //         user.google.name  = profile.displayName;
-    //         user.google.email = profile.emails[0].value; // pull the first email
-    //
-    //         // save the user
-    //         user.save(function(err) {
-    //             if (err)
-    //                 throw err;
-    //             return done(null, user);
-    //         });
-    //       }
-    //     });
-    //
-    // }))
+
+    passport.use(new GoogleStrategy({
+      clientID        : nconf.get('googleAuth:clientID'),
+      clientSecret    : nconf.get('googleAuth:clientSecret'),
+      callbackURL     : nconf.get('googleAuth:callbackURL'),
+      passReqToCallback : true,
+    },
+    function(req, token, refreshToken, profile, done) {
+      process.nextTick(function() {
+        if (req.user) {
+          var user          = req.user;
+
+          user.google.id    = profile.id;
+          user.google.token = token;
+          user.google.name  = profile.displayName;
+          user.google.email = profile.emails[0].value; // pull the first email
+
+          return user.save()
+            .then(function() {
+              return done(null, user);
+            })
+            .catch(function (err) {
+              throw err;
+            });
+        }
+
+        return User.findOne({ 'google.id' : profile.id })
+          .then(function(user) {
+              var newUser          = new User();
+
+              newUser.google.id    = profile.id;
+              newUser.google.token = token;
+              newUser.google.name  = profile.displayName;
+              newUser.google.email = profile.emails[0].value; // pull the first email
+
+              return newUser.save();
+          })
+          .then(function(newUser) {
+            if (newUser) return done(null, newUser);
+            return done(null, user);
+          })
+          .catch(function (err) {
+              return done(err);
+          });
+      });
+    }));
 };
