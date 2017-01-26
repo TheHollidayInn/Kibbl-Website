@@ -68,7 +68,7 @@ app.use(function(req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/pets', pets);
+app.use('/api/v1/pets', pets);
 app.use('/favorites', favorites);
 app.use('/contacts', contacts);
 

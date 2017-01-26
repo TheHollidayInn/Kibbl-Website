@@ -42,13 +42,25 @@ router.post('/api/v1/register', function (req, res) {
   let email = req.body.email;
   let password = req.body.password;
 
-  // @TODO: Add validation
+  if (!email || !password) {
+    return res.status(400).json({
+      message: 'You must supply an email and password',
+    });
+  }
 
-  var newUser = new User();
-  newUser.local.email = email;
-  newUser.local.password = newUser.generateHash(password);
+  User
+    .findOne({'local.email': email}).exec()
+    .then(function (user) {
+      if (user) {
+        throw new Error('User already exists.');
+      }
 
-  newUser.save()
+      var newUser = new User();
+      newUser.local.email = email;
+      newUser.local.password = newUser.generateHash(password);
+
+      return newUser.save()
+    })
     .then(function (userSaved) {
       let token =  jwt.sign(userSaved, nconf.get('JWT_SECRET'), { expiresIn: '1h' });
 
@@ -58,6 +70,11 @@ router.post('/api/v1/register', function (req, res) {
       });
     })
     .catch(function (err) {
+      if (err.message === 'User already exists.') {
+        return res.status(401).json({
+          message: err.message,
+        });
+      }
       return res.status(400).json({err: err});
     });
 });
