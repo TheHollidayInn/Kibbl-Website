@@ -11,7 +11,7 @@ let should = chai.should();
 chai.use(chaiHttp);
 
 describe('Auth: Login', () => {
-  let exampleUsername = 'example-username';
+  let exampleUsername = 'example-username-login';
   let examplePass = 'example-pass';
 
   it('logs-in a user', (done) => {

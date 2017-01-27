@@ -23,12 +23,6 @@ var stripe = require('stripe')(nconf.get('stripe:secretKey'));
 
 require('./config/passport')(passport);
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var pets = require('./routes/pets');
-var favorites = require('./routes/favorites');
-var contacts = require('./routes/contact');
-
 var app = express();
 
 // view engine setup
@@ -66,11 +60,16 @@ app.use(function(req, res, next) {
   next();
 });
 
+var routes = require('./routes/index');
+// var users = require('./routes/users');
+var pets = require('./routes/pets');
+var favorites = require('./routes/favorites');
+var contacts = require('./routes/contact');
 app.use('/', routes);
-app.use('/users', users);
+// app.use('/api/v1/users', users);
 app.use('/api/v1/pets', pets);
-app.use('/favorites', favorites);
-app.use('/contacts', contacts);
+app.use('/api/v1/favorites', favorites);
+app.use('/api/v1/contacts', contacts);
 
 mongoose.connect(nconf.get('db:URL'));
 
