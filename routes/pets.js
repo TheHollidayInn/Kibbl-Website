@@ -47,7 +47,7 @@ router.get('/', function(req, res, next) {
     .then(function (petsFound) {
       return res.status(200).json({
         total: pets.length,
-        pets: pets,
+        pets: petsFound,
       });
     })
     .catch(function (err) {
