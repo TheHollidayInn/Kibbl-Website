@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 var server = require('../app')
 var request = require('supertest');
-var Account = require("../models/account.js");
+var User = require("../models/user.js");
 var passport = require('passport');
 
 function generateUser() {
@@ -15,8 +15,8 @@ function generateUser() {
 
   var promise = new Promise(function(resolve, reject) {
     request(server)
-     .post('/api/register')
-     .send({ username: 'test2711@test.com', password: 'password' })
+     .post('/api/v1/register')
+     .send({ email: 'test2711@test.com', password: 'password' })
      .end(function(err, res) {
        if (err) return reject(err);
        user = res.body;
