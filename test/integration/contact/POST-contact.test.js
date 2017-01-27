@@ -35,11 +35,10 @@ describe('Contact: POST', () => {
   });
 
   afterEach(function(done) {
-      Contact.remove({}, function() {
-          done();
-      });
-   });
-
+    Contact.remove({}, function() {
+      done();
+    });
+  });
 
   it('returns an error when user is not logged in', (done) => {
     request(server)

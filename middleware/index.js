@@ -26,7 +26,7 @@ middleware.hasValidToken = function (req, res, next) {
     if (err) {
       return res.json({ success: false, message: 'Failed to authenticate token.' });
     } else {
-      req.user = decoded;
+      req.user = decoded._doc;
       next();
     }
   });

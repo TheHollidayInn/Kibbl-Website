@@ -96,7 +96,7 @@ router.get('/:petId', function(req, res, next) {
   })
 });
 
-router.post('/:petId/favorite', Middleware.isLoggedIn, function(req, res, next) {
+router.post('/:petId/favorite', Middleware.hasValidToken, function(req, res, next) {
   Favorite.find({
     userID: req.user._id,
     petID: req.params.petId,
@@ -108,7 +108,6 @@ router.post('/:petId/favorite', Middleware.isLoggedIn, function(req, res, next) 
       } else {
         favorites[0].active = true;
       }
-      console.log(favorites[0].active)
       return favorites[0].save();
     } else {
       var fav = new Favorite();
@@ -119,10 +118,9 @@ router.post('/:petId/favorite', Middleware.isLoggedIn, function(req, res, next) 
     }
   })
   .then(function(fav) {
-    return res.status(200).json(fav);
+    return res.status(200).json({data: fav});
   })
   .catch(function (err) {
-    console.log(err)
     if (err) return res.status(400).json(err);
   });
 });
