@@ -40,6 +40,21 @@ router.get('/', function(req, res, next) {
 
   var pets = [];
 
+  if (!req.user) {
+    Pets.find(query)
+    .skip(offset)
+    .limit(limit)
+    .then(function (petsFound) {
+      return res.status(200).json({
+        total: pets.length,
+        pets: pets,
+      });
+    })
+    .catch(function (err) {
+      return res.status(400).json(err);
+    });
+  }
+
   Pets.find(query)
   .skip(offset)
   .limit(limit)
@@ -79,8 +94,6 @@ router.get('/', function(req, res, next) {
     return res.status(200).json(responseData);
   })
   .catch(function (err) {
-    console.log(err)
-    if (err.message === 'User Not Logged In.') return;
     if (err) return res.status(400).json(err);
   });
 });

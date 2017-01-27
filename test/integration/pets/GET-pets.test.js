@@ -31,8 +31,8 @@ describe('Pet: Get', () => {
       .set('x-access-token', userdata.token)
       .end((err, res) => {
         res.should.have.status(200);
-        console.log(Object.keys(res.body));
-        res.body.data.exist;
+        res.body.total.exist;
+        res.body.pets.exist;
         done();
       });
   });
