@@ -70,7 +70,11 @@ router.post('/api/v1/login', function (req, res) {
   let email = req.body.email;
   let password = req.body.password;
 
-  // @TODO: Add validation
+  if (!email || !password) {
+    return res.status(400).json({
+      message: 'You must supply an email and password',
+    });
+  }
 
   var user = User
     .findOne({'local.email': email}).exec()
