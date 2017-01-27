@@ -8,7 +8,6 @@ var Middleware = require('../middleware');
 var _ = require('lodash');
 
 router.get('/', function(req, res, next) {
-
   var limit = 100;
   var offset = 0;
 
@@ -48,7 +47,11 @@ router.get('/', function(req, res, next) {
     pets = petsFound;
 
     if (!req.user) {
-      return res.status(200).json(pets);
+      throw new Error('User Not Logged In.');
+      return res.status(200).json({
+        total: pets.length,
+        pets: pets,
+      });
     }
 
     var petIds = _.map(pets, '_id');
@@ -77,16 +80,20 @@ router.get('/', function(req, res, next) {
   })
   .catch(function (err) {
     console.log(err)
+    if (err.message === 'User Not Logged In.') return;
     if (err) return res.status(400).json(err);
   });
 });
 
 router.get('/:petId', function(req, res, next) {
   Pets.findOne({ _id: req.params.petId})
-  .exec(function(err, pets) {
-    if (err) return res.status(400).json(err);
-    res.status(200).json(pets);
-  });
+  .exec()
+  .then(function(pet) {
+    return res.status(200).json({data: pet});
+  })
+  .catch(function(err) {
+    return res.status(400).json({message: err});
+  })
 });
 
 router.post('/:petId/favorite', Middleware.isLoggedIn, function(req, res, next) {
