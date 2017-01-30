@@ -34,6 +34,10 @@ router.get('/', function(req, res, next) {
     query.sex = req.query.gender;
   }
 
+  if (req.query.zipCode) {
+    query['contact.zip'] = req.query.zipCode;
+  }
+
   if (req.query.offset) {
     offset = parseInt(req.query.offset);
   }
