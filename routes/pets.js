@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
   // }
 
   if (req.query.type) {
-    query.animal = {t: req.query.type};
+    query.animal = req.query.type;
   }
 
   // if (req.query.breed) {
@@ -27,11 +27,11 @@ router.get('/', function(req, res, next) {
   // }
 
   if (req.query.age) {
-    query.age = {t: req.query.age};
+    query.age = req.query.age;
   }
 
   if (req.query.gender) {
-    query.sex = {t: req.query.gender};
+    query.sex = req.query.gender;
   }
 
   if (req.query.offset) {
@@ -53,49 +53,42 @@ router.get('/', function(req, res, next) {
     .catch(function (err) {
       return res.status(400).json(err);
     });
-  }
+  } else {
+    Pets.find(query)
+    .skip(offset)
+    .limit(limit)
+    .then (function (petsFound) {
+      pets = petsFound;
 
-  Pets.find(query)
-  .skip(offset)
-  .limit(limit)
-  .then (function (petsFound) {
-    pets = petsFound;
+      var petIds = _.map(pets, '_id');
+      return Favorite.find({
+        userID: req.user._id,
+        petID: {$in: petIds}
+      }).exec();
+    })
+    .then (function (favorites) {
+      var favoritesHashedByPetId = _.keyBy(favorites, 'petID');
 
-    if (!req.user) {
-      throw new Error('User Not Logged In.');
-      return res.status(200).json({
-        total: pets.length,
-        pets: pets,
+      pets = _(pets).forEach(function(pet) {
+        if (favoritesHashedByPetId[pet._id] && favoritesHashedByPetId[pet._id].active) {
+          pet.userFavorited = true;
+        }
       });
-    }
 
-    var petIds = _.map(pets, '_id');
-    return Favorite.find({
-      userID: req.user._id,
-      petID: {$in: petIds}
-    }).exec();
-  })
-  .then (function (favorites) {
-    var favoritesHashedByPetId = _.keyBy(favorites, 'petID');
-
-    pets = _(pets).forEach(function(pet) {
-      if (favoritesHashedByPetId[pet._id] && favoritesHashedByPetId[pet._id].active) {
-        pet.userFavorited = true;
-      }
+      return Pets.count().exec();
+    })
+    .then(function(count) {
+      var responseData = {
+        total: count,
+        pets: pets,
+      };
+      return res.status(200).json(responseData);
+    })
+    .catch(function (err) {
+      console.log(err)
+      return res.status(400).json(err);
     });
-
-    return Pets.count().exec();
-  })
-  .then(function(count) {
-    var responseData = {
-      total: count,
-      pets: pets,
-    };
-    return res.status(200).json(responseData);
-  })
-  .catch(function (err) {
-    if (err) return res.status(400).json(err);
-  });
+  }
 });
 
 router.get('/:petId', function(req, res, next) {
