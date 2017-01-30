@@ -10,7 +10,7 @@ router.get('/', Middleware.hasValidToken, function(req, res, next) {
   .populate('petID')
   .exec(function(err, favorites) {
     if (err) return res.status(400).json(err);
-    res.status(200).json(favorites);
+    res.status(200).json({data:favorites});
   });
 });
 
