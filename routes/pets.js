@@ -7,6 +7,20 @@ var Favorite = require('../models/favorites');
 var Middleware = require('../middleware');
 var _ = require('lodash');
 
+// @TODO: Move this to library
+var nconf = require('nconf');
+var jwt    = require('jsonwebtoken');
+function getUserFromToken (req) {
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  return new Promise(function (resolve, reject) {
+    jwt.verify(token, nconf.get('JWT_SECRET'), function(err, decoded) {
+      let user;
+      if (decoded._doc) user = decoded._doc;
+      resolve(user);
+    });
+  });
+}
+
 router.get('/', function(req, res, next) {
   var limit = 100;
   var offset = 0;
@@ -96,14 +110,41 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:petId', function(req, res, next) {
-  Pets.findOne({ _id: req.params.petId})
-  .exec()
-  .then(function(pet) {
-    return res.status(200).json({data: pet});
-  })
-  .catch(function(err) {
-    return res.status(400).json({message: err});
-  })
+  let pet;
+  let user;
+
+  getUserFromToken(req)
+    .then(function (userFound) {
+      user = userFound;
+
+      return Pets.findOne({ _id: req.params.petId}).exec();
+    })
+    .then(function(petFound) {
+      pet = petFound;
+
+      let userId;
+
+      if (user) userId = user._id;
+
+      return Favorite.findOne({
+        userID: userId,
+        petID: pet._id,
+      }).exec();
+    })
+    .then(function(favoriteFound) {
+      let data = JSON.parse(JSON.stringify(pet)); // Clone variables but not functions
+      
+      data.favorited = false;
+
+      if (favoriteFound && favoriteFound.active === true) {
+        data.favorited = true;
+      }
+
+      return res.status(200).json({data: data});
+    })
+    .catch(function(err) {
+      return res.status(400).json({message: err});
+    });
 });
 
 router.post('/:petId/favorite', Middleware.hasValidToken, function(req, res, next) {
