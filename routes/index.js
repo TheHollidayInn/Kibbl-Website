@@ -126,6 +126,55 @@ router.get('/auth/google/callback',
   })
 );
 
+function authenticateSocialNetwork (network, accessToken) {
+  return new Promise((resolve, reject) => {
+    passport._strategies[network].userProfile(accessToken, (err, profile) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(profile);
+      }
+    });
+  });
+}
+
+router.post('/api/v1/auth/social', function (req, res) {
+  let network = req.body.network;
+  let accessToken = req.body.accessToken;
+
+  authenticateSocialNetwork (network, accessToken)
+    .then(function (profile) {
+
+      return User.findOne({ 'facebook.id' : profile.id })
+        .then(function(user) {
+          var newUser;
+
+          if (user) {
+            newUser = user;
+          } else {
+            newUser = new User();
+          }
+
+          newUser.facebook.id    = profile.id; // set the users facebook id
+          newUser.facebook.token = accessToken; // we will save the token that facebook provides to the user
+          newUser.facebook.name  = profile.displayName; // look at the passport user profile to see how names are returned
+          // newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+
+          return newUser.save();
+        });
+    })
+    .then(function(newUser) {
+      let token =  jwt.sign(newUser, nconf.get('JWT_SECRET'), { expiresIn: '1h' });
+
+      return res.status(200).json({
+        token: token,
+      });
+    })
+    .catch(function (err) {
+      res.status(403).send({err: err});
+    });
+});
+
 router.post('/charge', Middleware.isLoggedIn, function(req, res, next) {
   stripe.customers.create({
     email: req.user.local.email,
