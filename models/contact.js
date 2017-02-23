@@ -14,6 +14,7 @@ var contactSchema = new mongoose.Schema({
   email: String,
   message: String,
   fromEmailService: Boolean,
+  fromEmailServiceDetails: String,
 });
 
 var Contact = mongoose.model('Contact', contactSchema);

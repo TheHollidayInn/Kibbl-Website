@@ -26,8 +26,6 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
     text: req.body.message
   };
 
-  console.log(data)
-
   mailgun.messages().send(data, function (error, body) {
     console.log(error, body);
   });
@@ -47,6 +45,7 @@ router.post('/message-receive', function (req, res, next) {
   contact.email = req.body.recipient;
   contact.message = req.body.message;
   contact.fromEmailService = true;
+  contact.fromEmailServiceDetails = JSON.stringify(req.body);
 
   contact.save()
     .then(function(err) {
