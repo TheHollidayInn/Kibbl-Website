@@ -1,13 +1,9 @@
-var nconf = require('nconf');
 var express = require('express');
 var router = express.Router();
 
 var Contact = require('../models/contact');
 var Middleware = require('../middleware');
-
-var api_key = nconf.get('MAIL:API_KEY');
-var domain = nconf.get('MAIL:DOMAIN');
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+var Mailgun = require('../libraries/mailgun');
 
 router.post('/', Middleware.hasValidToken, function(req, res, next) {
   var contact = new Contact();
@@ -18,6 +14,8 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
   contact.email = req.body.email;
   contact.message = req.body.message;
 
+  if (req.body.inReplyTo) contact.inReplyTo = req.body.inReplyTo;
+
   // @TODO: Allow for continunig of a message thread by getting the subject and message id to reply to
   var data = {
     from: 'Koala Tea <postmaster@mg.koalatea.io>',
@@ -26,11 +24,12 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
     text: req.body.message
   };
 
-  mailgun.messages().send(data, function (error, body) {
-    console.log(error, body);
-  });
+  Mailgun.sendMessages(data)
+    .then(function (result) {
+      contact.messageId = result.id;
 
-  contact.save()
+      return contact.save();
+    })
     .then(function(err) {
       return res.status(201).json({data: contact});
     })

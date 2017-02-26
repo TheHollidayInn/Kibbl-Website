@@ -3,14 +3,18 @@ require('../../test-helpers');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let request = require('supertest');
+let sinon = require('sinon');
+let sinonStubPromise = require('sinon-stub-promise');
+sinonStubPromise(sinon);
 
 let integrationHelpers = require('../../integration-helpers');
-let server = require('../../../app');
+let server;
 
 let should = chai.should();
 chai.use(chaiHttp);
 
 let Contact = require("../../../models/contact.js");
+let Mailgun = require('../../../libraries/mailgun');
 
 describe('Contact: POST', () => {
   let contactInfo = {
@@ -23,6 +27,9 @@ describe('Contact: POST', () => {
   let userdata;
 
   before(function (done) {
+    sinon.stub(Mailgun, 'sendMessages').returnsPromise().resolves({id: 'message-id'});
+
+    // server = require('../../../app');
     integrationHelpers.generateUser()
       .then(function(generatedUser) {
         userdata = generatedUser.userData;
@@ -35,6 +42,8 @@ describe('Contact: POST', () => {
   });
 
   afterEach(function(done) {
+    Mailgun.sendMessages.restore();
+
     Contact.remove({}, function() {
       done();
     });
@@ -59,6 +68,7 @@ describe('Contact: POST', () => {
       .end((err, res) => {
         res.should.have.status(201);
         res.body.data.exist;
+        Mailgun.sendMessages.callCount.should.equal(1);
         done();
       });
   });
