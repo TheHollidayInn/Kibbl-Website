@@ -22,6 +22,7 @@ var contactSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Contact'
   },
+  createdAt: {type: Date, default: new Date()},
 });
 
 var Contact = mongoose.model('Contact', contactSchema);
