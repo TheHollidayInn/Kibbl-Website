@@ -15,6 +15,7 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
   contact.message = req.body.message;
 
   if (req.body.inReplyTo) contact.inReplyTo = req.body.inReplyTo;
+  if (req.body.originalContactId) contact.originalContactId = req.body.originalContactId;
 
   // @TODO: Allow for continunig of a message thread by getting the subject and message id to reply to
   var data = {
@@ -48,9 +49,36 @@ router.post('/message-receive', function (req, res, next) {
   contact.fromEmailService = true;
   contact.fromEmailServiceDetails = req.body;
 
-  contact.save()
+  let query = {
+    messageId: contact.inReplyTo,
+  };
+
+  Contact.findOne(query)
+    .then(function (foundMessage) {
+      let originalContactId = foundMessage.originalContactId || foundMessage._id;
+
+      contact.originalContactId = originalContactId;
+      contact.save();
+    })
     .then(function(err) {
       return res.status(201).json({data: contact});
+    })
+    .catch(function(err) {
+      return res.status(400).json(err);
+    });
+});
+
+router.get('/conversation/:id', function (req, res, next) {
+  let query = {
+    '$or': [
+      {_id: req.params.id},
+      {originalContactId: req.params.id},
+    ],
+  };
+
+  Contact.find(query)
+    .then(function(contacts) {
+      return res.status(201).json({data: contacts});
     })
     .catch(function(err) {
       return res.status(400).json(err);

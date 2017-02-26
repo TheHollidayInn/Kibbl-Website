@@ -18,6 +18,10 @@ var contactSchema = new mongoose.Schema({
   subject: String,
   fromEmailService: Boolean,
   fromEmailServiceDetails: mongoose.Schema.Types.Mixed,
+  originalContactId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Contact'
+  },
 });
 
 var Contact = mongoose.model('Contact', contactSchema);
