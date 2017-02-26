@@ -18,9 +18,9 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
   contact.email = req.body.email;
   contact.message = req.body.message;
 
-
+  // @TODO: Allow for continunig of a message thread by getting the subject and message id to reply to
   var data = {
-    from: 'Keith Holliday <postmaster@mg.koalatea.io>',
+    from: 'Koala Tea <postmaster@mg.koalatea.io>',
     to: req.body.email,
     subject: 'Testing',
     text: req.body.message
@@ -40,12 +40,14 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
 });
 
 router.post('/message-receive', function (req, res, next) {
-  console.log(req.body);
   var contact = new Contact();
-  contact.email = req.body.recipient;
-  contact.message = req.body.message;
+  contact.email = req.body.sender;
+  contact.message = req.body['stripped-text'];
+  contact.messageId = req.body['Message-Id'];
+  contact.inReplyTo = req.body['In-Reply-To'];
+  contact.subject = req.body['Subject'];
   contact.fromEmailService = true;
-  contact.fromEmailServiceDetails = JSON.stringify(req.body);
+  contact.fromEmailServiceDetails = req.body;
 
   contact.save()
     .then(function(err) {

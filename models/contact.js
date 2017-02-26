@@ -13,8 +13,11 @@ var contactSchema = new mongoose.Schema({
   lastName: String,
   email: String,
   message: String,
+  messageId: String,
+  inReplyTo: String,
+  subject: String,
   fromEmailService: Boolean,
-  fromEmailServiceDetails: String,
+  fromEmailServiceDetails: mongoose.Schema.Types.Mixed,
 });
 
 var Contact = mongoose.model('Contact', contactSchema);
