@@ -25,6 +25,8 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
     text: req.body.message
   };
 
+  if (req.body.inReplyTo) data['h:In-Reply-To'] = req.body.inReplyTo;
+
   Mailgun.sendMessages(data)
     .then(function (result) {
       contact.messageId = result.id;
