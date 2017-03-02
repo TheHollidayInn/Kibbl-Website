@@ -15,7 +15,7 @@ function getUserFromToken (req) {
   return new Promise(function (resolve, reject) {
     jwt.verify(token, nconf.get('JWT_SECRET'), function(err, decoded) {
       let user;
-      if (decoded._doc) user = decoded._doc;
+      if (decoded && decoded._doc) user = decoded._doc;
       resolve(user);
     });
   });
@@ -133,7 +133,7 @@ router.get('/:petId', function(req, res, next) {
     })
     .then(function(favoriteFound) {
       let data = JSON.parse(JSON.stringify(pet)); // Clone variables but not functions
-      
+
       data.favorited = false;
 
       if (favoriteFound && favoriteFound.active === true) {

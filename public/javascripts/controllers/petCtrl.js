@@ -1,22 +1,52 @@
 angular.module('PetApp')
 .controller('PetsCtrl', ['$scope', '$http', '$window',
   function($scope, $http, $window) {
-    $scope.pets = [
-      {
-        name: "test"
-      },
-      {
-        name: "test2"
-      }
-    ]
-
+    $scope.pets = [];
     $scope.filters = {};
     $scope.isFavoriting = false;
     $scope.loginDetails = {};
     $scope.type = '';
 
-    $scope.petTypes = ["All", "Dog", "Cat", "Bird"];
-    $scope.petAges = ["All", "Baby", "Young", "Adult", "Senior"];
+    $scope.petTypes = [
+      {
+        value: '',
+        key: "All"
+      },
+      {
+        value: 'Dog',
+        key: "Dog"
+      },
+      {
+        value: 'Cat',
+        key: "Cat"
+      },
+      {
+        value: 'Bird',
+        key: "Bird"
+      },
+    ];
+    $scope.petAges = [
+      {
+        value: '',
+        key: "All"
+      },
+      {
+        value: 'Baby',
+        key: "Baby"
+      },
+      {
+        value: 'Young',
+        key: "Young"
+      },
+      {
+        value: 'Adult',
+        key: "Adult"
+      },
+      {
+        value: 'Senior',
+        key: "Senior"
+      },
+    ];
 
     $scope.petGenders = [
       {
@@ -42,7 +72,7 @@ angular.module('PetApp')
 
     sendRequest();
     function sendRequest() {
-      var url = '/pets';
+      var url = '/api/v1/pets';
 
       $scope.filters.offset = $scope.offset;
 
@@ -81,7 +111,7 @@ angular.module('PetApp')
       $scope.contactDetails.petId = $scope.selectedPet._id;
       $http({
         method: 'POST',
-        url: '/contacts',
+        url: '/api/v1//contacts',
         data: $scope.contactDetails,
       })
       .then(function (response) {
@@ -120,7 +150,7 @@ angular.module('PetApp')
     $scope.login = function () {
       $http({
         method: 'POST',
-        url: '/login-angular',
+        url: '/api/v1//login-angular',
         data: $scope.loginDetails,
         // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       })

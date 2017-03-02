@@ -5,7 +5,7 @@ div.row(style="min-height:100px;")
   
   div.col.s2(input-field='')
     select(ng-model='filters.type', material-select='', watch='')
-      option(ng-repeat='value in petTypes') {{value}}
+      option(ng-repeat='option in petTypes', value="{{option.value}}") {{option.key}}
     label Type
   
   .input-field.col.s2
@@ -14,7 +14,7 @@ div.row(style="min-height:100px;")
   
   div.col.s2(input-field='')
     select(ng-model='filters.age', material-select='', watch='')
-      option(ng-repeat='value in petAges') {{value}}
+      option(ng-repeat='option in petAges', value="{{option.value}}") {{option.key}}
     label Age
   
   
@@ -27,7 +27,7 @@ div.row(style="min-height:100px;")
 div.row
   div.col.s4.pet-grid-item(ng-repeat="pet in pets", ng-if="pet.media[3]")
     .card
-      a(href="#/pets/{{pet._id}}")
+      a(href="/pets/{{pet._id}}")
         .card-image(style="height:300px;overflow:hidden;")
           img(src='{{pet.media[3]}}')
           span.card-title {{pet.name}}
