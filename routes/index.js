@@ -213,6 +213,10 @@ router.get('/volunteer-list.html', function(req, res, next) {
   res.render('volunteer-list');
 });
 
+router.get('/volunteer-detail.html', function(req, res, next) {
+  res.render('volunteer-detail');
+});
+
 router.get('/*', function(req, res, next) {
   res.render('index', { title: 'Kibbl' });
 });

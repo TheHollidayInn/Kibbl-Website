@@ -1,4 +1,4 @@
-angular.module('PetApp')
+angular.module('Volunteer')
 	.controller('VolunteerCtrl', ['$scope', 
 		function ($scope) {
 			$scope.opportunites = [

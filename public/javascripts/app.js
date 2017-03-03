@@ -1,4 +1,4 @@
-angular.module('PetApp', ['ngRoute'])
+angular.module('PetApp', ['ngRoute', 'Volunteer'])
 
 .config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
@@ -10,10 +10,6 @@ angular.module('PetApp', ['ngRoute'])
       .when('/pets/:petId', {
         templateUrl: 'pet-detail.html',
         controller: 'PetsDetailCtrl'
-      })
-      .when('/volunteer', {
-        templateUrl: 'volunteer-list.html',
-        controller: 'VolunteerCtrl'
       })
       .when('/favorites', {
         templateUrl: 'favorite-list.html',
