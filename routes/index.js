@@ -208,5 +208,13 @@ router.get('/favorite-list.html', function(req, res, next) {
   res.render('favorite-list');
 });
 
+router.get('*', function(req, res, next) {
+  let url = req.url;
+  url = url.split('.');
+  url = url[0].split('/');
+  console.log(url[1] === 'volunteer-list');
+  res.render(url[1]);
+});
+
 
 module.exports = router;

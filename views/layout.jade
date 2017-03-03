@@ -11,50 +11,8 @@ html
     link(type="text/css" rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.min.css")
 
   body(ng-app="PetApp")
-    .navbar.navbar-default
-      .container
-        .navbar-header
-          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand(href='javascript:void(0)') Kibbl
-        .navbar-collapse.collapse.navbar-responsive-collapse
-          ul.nav.navbar-nav
-            li.active
-              a(href='javascript:void(0)') Volunteer
-            li
-              a(href='javascript:void(0)')
-                | Events
-                .ripple-container
-            li
-              a(href='javascript:void(0)')
-                | Pets
-                .ripple-container
-            li
-              a(href='javascript:void(0)')
-                | Shelters
-                .ripple-container
-          form.navbar-form.navbar-left
-            .form-group.is-empty
-              input.form-control.col-sm-8(type='text', placeholder='Search')
-          ul.nav.navbar-nav.navbar-right
-            li
-              a(href='javascript:void(0)') Link
-            li.dropdown
-              a.dropdown-toggle(href='http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html', data-target='#', data-toggle='dropdown')
-                | Dropdown
-                b.caret
-              ul.dropdown-menu
-                li
-                  a(href='javascript:void(0)') Action
-                li
-                  a(href='javascript:void(0)') Another action
-                li
-                  a(href='javascript:void(0)') Something else here
-                li.divider
-                li
-                  a(href='javascript:void(0)') Separated link
+    
+    include ./nav
     
     .jumbotron
       .container
@@ -91,17 +49,12 @@ html
     script(src="bower_components/jquery/dist/jquery.min.js")
     script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
     script(src="bower_components/bootstrap-material-design/dist/js/material.min.js")
-    //- script(src="bower_components/Materialize/dist/js/materialize.min.js")
     script(src="bower_components/angular/angular.min.js")
     script(src="bower_components/angular-route/angular-route.min.js")
-    //- script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.9/angular-materialize.min.js")
+    
     
     script(src="javascripts/app.js")
     script(src="javascripts/controllers/petCtrl.js")
     script(src="javascripts/controllers/petDetailCtrl.js")
     script(src="javascripts/controllers/favoriteListCtrl.js")
-    
-    script.
-      //- $(document).ready(function() {
-      //-   $(".dropdown-button").dropdown();
-      //- });
+    script(src="javascripts/controllers/VolunteerCtrl.js")

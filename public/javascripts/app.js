@@ -11,6 +11,10 @@ angular.module('PetApp', ['ngRoute'])
         templateUrl: 'pet-detail.html',
         controller: 'PetsDetailCtrl'
       })
+      .when('/volunteer', {
+        templateUrl: 'volunteer-list.html',
+        controller: 'VolunteerCtrl'
+      })
       .when('/favorites', {
         templateUrl: 'favorite-list.html',
         controller: 'FavoriteListCtrl'
