@@ -1,4 +1,4 @@
-angular.module('PetApp', ['ngRoute', 'ui.materialize'])
+angular.module('PetApp', ['ngRoute'])
 
 .config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {

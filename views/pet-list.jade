@@ -25,7 +25,7 @@ div.row(style="min-height:100px;")
   
 //- @TODO: We need to show pets that have no photo!
 div.row
-  div.col.s4.pet-grid-item(ng-repeat="pet in pets", ng-if="pet.media[3]")
+  div.col-md-4.pet-grid-item(ng-repeat="pet in pets", ng-if="pet.media[3]")
     .card
       a(href="/pets/{{pet._id}}")
         .card-image(style="height:300px;overflow:hidden;")
