@@ -10,7 +10,7 @@ html
     link(type="text/css" rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css")
     link(type="text/css" rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.min.css")
 
-  body(ng-app="PetApp")
+  body(ng-app="Kibbl")
     
     include ./nav
         
@@ -36,9 +36,10 @@ html
     
     
     script(src="javascripts/app.js")
-    script(src="javascripts/controllers/petCtrl.js")
-    script(src="javascripts/controllers/petDetailCtrl.js")
     script(src="javascripts/controllers/favoriteListCtrl.js")
+    script(src="javascripts/pets/Pets.js")
+    script(src="javascripts/pets/PetCtrl.js")
+    script(src="javascripts/pets/petDetailCtrl.js")
     script(src="javascripts/volunteer/Volunteer.js")
     script(src="javascripts/volunteer/VolunteerCtrl.js")
     script(src="javascripts/volunteer/VolunteerDetailCtrl.js")

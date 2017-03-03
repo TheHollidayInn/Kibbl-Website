@@ -1,4 +1,4 @@
-angular.module('PetApp')
+angular.module('Pets')
 .controller('PetsDetailCtrl', ['$scope', '$http', '$routeParams',
   function($scope, $http, $routeParams) {
 

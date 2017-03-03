@@ -1,4 +1,4 @@
-angular.module('PetApp')
+angular.module('Kibbl')
 .controller('FavoriteListCtrl', ['$scope', '$http',
   function($scope, $http) {
     $scope.favorites = [];

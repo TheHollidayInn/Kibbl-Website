@@ -1,16 +1,8 @@
-angular.module('PetApp', ['ngRoute', 'Volunteer', 'Events'])
+angular.module('Kibbl', ['ngRoute', 'Volunteer', 'Events', 'Pets'])
 
 .config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
-    $routeProvider.
-      when('/', {
-        templateUrl: 'pet-list.html',
-        controller: 'PetsCtrl'
-      })
-      .when('/pets/:petId', {
-        templateUrl: 'pet-detail.html',
-        controller: 'PetsDetailCtrl'
-      })
+    $routeProvider
       .when('/favorites', {
         templateUrl: 'favorite-list.html',
         controller: 'FavoriteListCtrl'

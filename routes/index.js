@@ -198,11 +198,11 @@ router.post('/charge', Middleware.isLoggedIn, function(req, res, next) {
 
 //Static
 router.get('/pet-detail.html', function(req, res, next) {
-  res.render('pet-detail');
+  res.render('pets/pet-detail');
 });
 
 router.get('/pet-list.html', function(req, res, next) {
-  res.render('pet-list');
+  res.render('pets/pet-list');
 });
 
 router.get('/favorite-list.html', function(req, res, next) {
