@@ -210,11 +210,19 @@ router.get('/favorite-list.html', function(req, res, next) {
 });
 
 router.get('/volunteer-list.html', function(req, res, next) {
-  res.render('volunteer-list');
+  res.render('volunteer/volunteer-list');
 });
 
 router.get('/volunteer-detail.html', function(req, res, next) {
-  res.render('volunteer-detail');
+  res.render('volunteer/volunteer-detail');
+});
+
+router.get('/event-list.html', function(req, res, next) {
+  res.render('events/event-list');
+});
+
+router.get('/event-detail.html', function(req, res, next) {
+  res.render('events/event-detail');
 });
 
 router.get('/*', function(req, res, next) {

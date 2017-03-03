@@ -1,4 +1,4 @@
-angular.module('PetApp', ['ngRoute', 'Volunteer'])
+angular.module('PetApp', ['ngRoute', 'Volunteer', 'Events'])
 
 .config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
