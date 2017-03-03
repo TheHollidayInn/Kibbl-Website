@@ -10,6 +10,7 @@ var favoriteSchema = new mongoose.Schema({
     ref: 'Pets'
   },
   active: { type: Boolean, default: true },
+  createdAt: {type: Date, default: new Date()},
 });
 
 var Favorite = mongoose.model('Favorite', favoriteSchema);

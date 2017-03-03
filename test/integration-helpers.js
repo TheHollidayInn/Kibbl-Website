@@ -1,11 +1,10 @@
 //Require the dev-dependencies
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var server = require('../app');
 var should = chai.should();
 chai.use(chaiHttp);
 
-var server = require('../app')
+// var server = require('../app')
 var request = require('supertest');
 var User = require("../models/user.js");
 var passport = require('passport');
@@ -14,6 +13,7 @@ var faker = require('faker');
 
 function generateUser() {
   var user;
+  server = require('../app');
 
   var promise = new Promise(function(resolve, reject) {
     request(server)

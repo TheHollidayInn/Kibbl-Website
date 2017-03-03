@@ -25,7 +25,7 @@ var userSchema = mongoose.Schema({
         email        : String,
         name         : String
     }
-
+    createdAt: {type: Date, default: new Date()},
 });
 
 // methods ======================

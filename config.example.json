@@ -22,5 +22,9 @@
   "stripe": {
     "secretKey": ""
   },
+  "MAIL": {
+    "API_KEY": "",
+    "DOMAIN": ""
+  },
   "JWT_SECRET": ""
 }
