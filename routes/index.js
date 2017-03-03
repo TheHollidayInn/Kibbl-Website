@@ -1,5 +1,6 @@
 var nconf = require('nconf');
 var express = require('express');
+let fs = require('fs');
 var router = express.Router();
 
 var passport = require('passport');
@@ -208,13 +209,19 @@ router.get('/favorite-list.html', function(req, res, next) {
   res.render('favorite-list');
 });
 
-router.get('*', function(req, res, next) {
-  let url = req.url;
-  url = url.split('.');
-  url = url[0].split('/');
-  console.log(url[1] === 'volunteer-list');
-  res.render(url[1]);
+router.get('/volunteer-list.html', function(req, res, next) {
+  res.render('volunteer-list');
 });
+
+// router.get('*', function(req, res, next) {
+//   let url = req.url;
+//   url = url.split('.');
+//   url = url[0].split('/');
+
+//   let path = `../views/${url[1]}.jade`;
+//   if (!fs.existsSync(path)) return next();
+//   res.render(url[1]);
+// });
 
 
 module.exports = router;
