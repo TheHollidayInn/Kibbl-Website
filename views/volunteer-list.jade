@@ -1,13 +1,23 @@
-div.row  
-  div.col-md-6.col-md-offset-3
-    h2 Volunteer
-    ul.collection
-      li.collection-item.avatar(ng-repeat="favorite in favorites")
-        img.circle(src='{{favorite.petID.media.photos.photo[3].t}}', alt='')
-        span.title {{favorite.petID.name.t}}
+.container
+  .jumbotron
+      .container
+        h1 Volunteer
         p
-          | First Line 
-          br
-          |          Second Line
-        a.secondary-content(href='#!')
-          i.material-icons grade
+          | This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
+        p
+          a.btn.btn-primary.btn-lg(href='#', role='button') Learn more »
+
+  div.row
+    div.col-md-4.pet-grid-item(ng-repeat="opportunity in opportunites", style='400px;')
+      .card
+        .card-height-indicator
+        .card-content
+          .card-image
+            img(src='//wow.zamimg.com/uploads/blog/images/10990.png', alt='Loading image...')
+            h3.card-image-headline {{opportunity.name}}
+          .card-body
+            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          footer.card-footer
+            button.btn.btn-flat Share
+            button.btn.btn-flat.btn-warning Learn More
+

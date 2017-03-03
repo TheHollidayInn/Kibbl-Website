@@ -13,38 +13,20 @@ html
   body(ng-app="PetApp")
     
     include ./nav
-    
-    .jumbotron
-      .container
-        h1 Hello, world!
-        p
-          | This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
-        p
-          a.btn.btn-primary.btn-lg(href='#', role='button') Learn more »
-    
+        
     block content
     
-    footer.page-footer
-      .container
-        .row
-          .col.l6.s12
-            h5.white-text Footer Content
-            p.grey-text.text-lighten-4 You can use rows and columns here to organize your footer content.
-          .col.l4.offset-l2.s12
-            h5.white-text Links
-            ul
-              li
-                a.grey-text.text-lighten-3(href='#!') Link 1
-              li
-                a.grey-text.text-lighten-3(href='#!') Link 2
-              li
-                a.grey-text.text-lighten-3(href='#!') Link 3
-              li
-                a.grey-text.text-lighten-3(href='#!') Link 4
-      .footer-copyright
-        .container
-          | © 2014 Copyright Text
-          a.grey-text.text-lighten-4.right(href='#!') More Links
+    hr.featurette-divider
+
+    footer.footer.container
+      p.pull-right
+        a(href='#') Back to top
+      p
+        | © 2016 Company, Inc. · 
+        a(href='#') Privacy
+        |  · 
+        a(href='#') Terms
+
   
     script(src="bower_components/jquery/dist/jquery.min.js")
     script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
