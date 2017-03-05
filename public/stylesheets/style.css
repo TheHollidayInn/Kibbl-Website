@@ -22,7 +22,7 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
 }
 
 .how-icon {
-  background: url(https://assets.grubhub.com/img-hashed/sprites-52a9cc6e583407b170f9dcbb9dd37945.png);
+  background: url(//assets.grubhub.com/img-hashed/sprites-52a9cc6e583407b170f9dcbb9dd37945.png);
   height: 100px;
   width: 100px;
   background-size: 300%;
@@ -31,9 +31,10 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
 
 /* Banner */
 .banner {
-  background-image: url('https://res.cloudinary.com/grubhub-marketing/image/upload/v1485814935/Seasonal%20Homepage%20Images/2017/MACNCHEESE/DSK/2017WinterHeroImages_MACNCHEESE_DSK.jpg');
+  background-image: url('//www.petfinder.com/wp-content/uploads/2016/08/slide-1.jpg');
   background-size: 100%;
   padding: 5rem;
+  background-position: center;
 }
 
 .banner h1 {
