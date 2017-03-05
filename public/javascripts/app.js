@@ -7,8 +7,12 @@ angular.module('Kibbl', ['ngRoute', 'Volunteer', 'Events', 'Pets', 'Shelters'])
         templateUrl: 'favorite-list.html',
         controller: 'FavoriteListCtrl'
       })
+      .when('/', {
+        templateUrl: 'home.html',
+        controller: 'HomeCtrl'
+      })
       .otherwise({
-        redirectTo: '/volunteer'
+        redirectTo: '/'
       });
 
     // use the HTML5 History API

@@ -2,6 +2,16 @@ body {
   /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
 }
 
+.navbar.navbar-default.main-nav {
+  margin-bottom: 0px;
+}
+
+.banner {
+  background-image: url('https://res.cloudinary.com/grubhub-marketing/image/upload/v1485814935/Seasonal%20Homepage%20Images/2017/MACNCHEESE/DSK/2017WinterHeroImages_MACNCHEESE_DSK.jpg');
+  background-size: 100%;
+  padding: 5rem;
+}
+
 a.favorited {
   color: grey !important;
   cursor: pointer;

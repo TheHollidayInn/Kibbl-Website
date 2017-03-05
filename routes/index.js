@@ -233,6 +233,10 @@ router.get('/shelter-detail.html', function(req, res, next) {
   res.render('events/event-detail');
 });
 
+router.get('/home.html', function(req, res, next) {
+  res.render('home');
+});
+
 router.get('/*', function(req, res, next) {
   res.render('index', { title: 'Kibbl' });
 });
