@@ -1,4 +1,4 @@
-.navbar.navbar-default.main-nav
+.navbar.navbar-default.main-nav(ng-controller='NavCtrl')
 	.container
 		.navbar-header
 			button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
@@ -8,22 +8,21 @@
 			a.navbar-brand Kibbl
 		.navbar-collapse.collapse.navbar-responsive-collapse
 			ul.nav.navbar-nav
-				{{$location.path()}}
-				li(ng-class="{ active: $location.path() === '/home' }")
+				li(ng-class="{ active: isActive('') }")
 						a(href="/home")
 							| Home
-				li(ng-class="{ active: $location.path() === '/volunteer' }")
+				li(ng-class="{ active: isActive('volunteer') }")
 					a(href="/volunteer")
 						| Volunteer
-				li
+				li(ng-class="{ active: isActive('events') }")
 					a(href="/events")
 						| Events
 						.ripple-container
-				li
+				li(ng-class="{ active: isActive('pets') }")
 					a(href="/pets")
 						| Pets
 						.ripple-container
-				li
+				li(ng-class="{ active: isActive('shelters') }")
 					a(href="/shelters")
 						| Shelters
 						.ripple-container
