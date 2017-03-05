@@ -28,7 +28,7 @@
     .col-md-8
       .well(style="height:250px")
         .col-md-3(ng-repeat="photo in pet.media", ng-if='$index % 5 === 3')
-          img(src="{{photo}}", style="width:100%;")
+          img(ng-src="{{photo}}", style="width:100%;")
       .well
         h3 Description
         p {{pet.description}}
