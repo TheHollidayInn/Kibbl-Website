@@ -5,12 +5,13 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     base(href="/")
     
+    link(href="https://fonts.googleapis.com/css?family=Poppins:400,500" rel="stylesheet")
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.min.css')
     link(type="text/css" rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css")
     link(type="text/css" rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.min.css")
 
-  body(ng-app="Kibbl")
+  body.kibbl(ng-app="Kibbl")
     
     include ./nav
         

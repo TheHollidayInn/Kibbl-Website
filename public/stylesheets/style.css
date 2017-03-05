@@ -1,17 +1,29 @@
-body {
-  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kibbl h5, .kibbl h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
 }
 
 .navbar.navbar-default.main-nav {
   margin-bottom: 0px;
 }
 
+.main.container-fluid {
+  padding: 0px;
+}
+
+/* Banner */
 .banner {
   background-image: url('https://res.cloudinary.com/grubhub-marketing/image/upload/v1485814935/Seasonal%20Homepage%20Images/2017/MACNCHEESE/DSK/2017WinterHeroImages_MACNCHEESE_DSK.jpg');
   background-size: 100%;
   padding: 5rem;
 }
 
+.banner h1 {
+  color: #fff;
+  font-size: 55px;
+}
+
+/* Favorites */
 a.favorited {
   color: grey !important;
   cursor: pointer;

@@ -1,22 +1,72 @@
+.container-fluid.banner
+  .container
+    h1 Volunteer
+    p
+      | This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
+    p
+      a.btn.btn-primary.btn-lg(href='#', role='button') Learn more »
+
 .container
-  h1 Volunteer
-  p
-    | This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
-  p
-    a.btn.btn-primary.btn-lg(href='#', role='button') Learn more »
+  div.row
+    h2 Volunteer
+    div.col-md-4.pet-grid-item(ng-repeat="opportunity in opportunites", style='400px;')
+      .card
+        .card-height-indicator
+        .card-content
+          .card-image
+            a(href='/volunteer/1', style='display:block')
+              img(src='//wow.zamimg.com/uploads/blog/images/10990.png', alt='Loading image...')
+            h3.card-image-headline {{opportunity.name}}
+          .card-body
+            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          footer.card-footer
+            button.btn.btn-flat Share
+            button.btn.btn-flat.btn-warning Learn More
 
-div.row
-  div.col-md-4.pet-grid-item(ng-repeat="opportunity in opportunites", style='400px;')
-    .card
-      .card-height-indicator
-      .card-content
-        .card-image
-          a(href='/volunteer/1', style='display:block')
-            img(src='//wow.zamimg.com/uploads/blog/images/10990.png', alt='Loading image...')
-          h3.card-image-headline {{opportunity.name}}
-        .card-body
-          p Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-        footer.card-footer
-          button.btn.btn-flat Share
-          button.btn.btn-flat.btn-warning Learn More
+  div.row
+    h2 Events
+    div.col-md-4.pet-grid-item(ng-repeat="opportunity in opportunites", style='400px;')
+      .card
+        .card-height-indicator
+        .card-content
+          .card-image
+            a(href='/volunteer/1', style='display:block')
+              img(src='//wow.zamimg.com/uploads/blog/images/10990.png', alt='Loading image...')
+            h3.card-image-headline {{opportunity.name}}
+          .card-body
+            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          footer.card-footer
+            button.btn.btn-flat Share
+            button.btn.btn-flat.btn-warning Learn More
 
+  div.row
+    h2 Pets
+    div.col-md-4.pet-grid-item(ng-repeat="opportunity in opportunites", style='400px;')
+      .card
+        .card-height-indicator
+        .card-content
+          .card-image
+            a(href='/volunteer/1', style='display:block')
+              img(src='//wow.zamimg.com/uploads/blog/images/10990.png', alt='Loading image...')
+            h3.card-image-headline {{opportunity.name}}
+          .card-body
+            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          footer.card-footer
+            button.btn.btn-flat Share
+            button.btn.btn-flat.btn-warning Learn More
+
+  div.row
+    h2 Shelters
+    div.col-md-4.pet-grid-item(ng-repeat="opportunity in opportunites", style='400px;')
+      .card
+        .card-height-indicator
+        .card-content
+          .card-image
+            a(href='/volunteer/1', style='display:block')
+              img(src='//wow.zamimg.com/uploads/blog/images/10990.png', alt='Loading image...')
+            h3.card-image-headline {{opportunity.name}}
+          .card-body
+            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          footer.card-footer
+            button.btn.btn-flat Share
+            button.btn.btn-flat.btn-warning Learn More
