@@ -1,6 +1,8 @@
 angular.module('Kibbl')
 	.controller('HomeCtrl', ['$scope', 
 		function ($scope) {
+
+			amplitude.getInstance().logEvent('VISIT_HOME');
       
 			$scope.events = [
 				{
