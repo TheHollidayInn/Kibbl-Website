@@ -53,5 +53,11 @@ a.favorited.active {
 
 /* Grid */
 .grid-item {
-  width: 400px;
+  margin-bottom: 3rem;
+  overflow: none;
+}
+
+.card-body {
+  overflow: hidden;
+  margin-bottom: 3rem;
 }

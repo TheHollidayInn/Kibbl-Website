@@ -237,9 +237,9 @@ router.get('/home.html', function(req, res, next) {
   res.render('home');
 });
 
-router.get('/*', function(req, res, next) {
-  res.render('index', { title: 'Kibbl' });
-});
+// router.get('/*', function(req, res, next) {
+//   res.render('index', { title: 'Kibbl' });
+// });
 
 // router.get('*', function(req, res, next) {
 //   let url = req.url;

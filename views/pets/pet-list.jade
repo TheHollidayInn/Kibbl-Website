@@ -1,54 +1,62 @@
-div.row(style="min-height:100px;")  
-  div.form-group.col.s2
-    label Location
-    input(ng-model='filters.location', type='text')
-  
-  div.col.s2(input-field='')
-    select(ng-model='filters.type', material-select='', watch='')
-      option(ng-repeat='option in petTypes', value="{{option.value}}") {{option.key}}
-    label Type
-  
-  .input-field.col.s2
-    label Breed
-    input(ng-model='filters.breed', type='text')
-  
-  div.col.s2(input-field='')
-    select(ng-model='filters.age', material-select='', watch='')
-      option(ng-repeat='option in petAges', value="{{option.value}}") {{option.key}}
-    label Age
-  
-  
-  div.col.s2(input-field='')
-    select(ng-model='filters.gender', material-select='', watch='')
-      option(ng-repeat='option in petGenders', value="{{option.value}}") {{option.key}}
-    label Gender
-  
+.container
+  .jumbotron
+      .container
+        h1 Pets
+        p
+          | This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
+        p
+          a.btn.btn-primary.btn-lg(href='#', role='button') Learn mor
+
+.container
+  div.col-md-12.well(style="min-height:100px;")  
+    div.form-group.col-md-2
+      label Location
+      input(ng-model='filters.location', type='text')
+    
+    div.col-md-2(input-field='')
+      label Type
+      br
+      select(ng-model='filters.type', material-select='', watch='')
+        option(ng-repeat='option in petTypes', value="{{option.value}}") {{option.key}}
+    
+    .input-field.col-md-2
+      label Breed
+      input(ng-model='filters.breed', type='text')
+    
+    div.col-md-2(input-field='')
+      label Age
+      br
+      select(ng-model='filters.age', material-select='', watch='')
+        option(ng-repeat='option in petAges', value="{{option.value}}") {{option.key}}
+    
+    
+    div.col-md-2(input-field='')
+      label Gender
+      br
+      select(ng-model='filters.gender', material-select='', watch='')
+        option(ng-repeat='option in petGenders', value="{{option.value}}") {{option.key}}
+    
 //- @TODO: We need to show pets that have no photo!
-div.row
-  div.col-md-4.pet-grid-item(ng-repeat="pet in pets", ng-if="pet.media[3]")
-    .card
-      a(href="/pets/{{pet._id}}")
-        .card-image(style="height:300px;overflow:hidden;")
-          img(src='{{pet.media[3]}}')
-          span.card-title {{pet.name}}
-      .card-content
-        div(style="height:150px;overflow:hidden;")
-          {{pet.description}}
-      .card-action
-        .row
-          //- button.btn.waves-effect.waves-light.red.lighten-3(href="mailto:{{pet.contact.email}}", data-toggle="modal", data-target="#petModel-{{pet._id}}") Contact
-          //- .col.m3
-          //-   button.waves-effect.waves-light.btn.modal-trigger(href='#petModel', ng-click="selectPet(pet)") Contact
-          .col.m3
-            //- a.btn.waves-effect.waves-light.red.lighten-3.modal-trigger(href="#petDonate") Donate
-          .col.m3
+.container
+  div.row
+    div.col-md-4.grid-item(ng-repeat="pet in pets", ng-if="pet.media[3]")
+      .card
+        .card-height-indicator
+        .card-content
+          .card-image
+            a(href="/pets/{{pet._id}}", style='display:block')
+              img(src='{{pet.media[3]}}', alt='Loading image...')
+            h3.card-image-headline {{pet.name}}
+          .card-body
+            p {{pet.description}}
+          footer.card-footer
             if(user)
-              a.favorited(ng-click="favorite(pet._id, $index)", style="width: 40px;", ng-class="{active: pet.userFavorited}")
-                i.small.material-icons star_rate
-            else
-              a.favorited.modal-trigger(href='#loginModel', ng-click="isFavoriting = true; setPetToFavorite(pet._id, $index)", style="width: 40px;")
-                i.small.material-icons star_rate
-              
+                a.favorited(ng-click="favorite(pet._id, $index)", style="width: 40px;", ng-class="{active: pet.userFavorited}")
+                  button.btn.btn-flat Share
+              else
+                a.favorited.modal-trigger(href='#loginModel', ng-click="isFavoriting = true; setPetToFavorite(pet._id, $index)", style="width: 40px;")
+                  button.btn.btn-flat.btn-warning Learn More
+            
 .modal.modal-fixed-footer(id="loginModel")
   .modal-content
     h4 Login

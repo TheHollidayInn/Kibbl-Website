@@ -91,6 +91,7 @@ if (app.get('env') === 'development') {
     //   message: err.message,
     //   error: err
     // });
+    return res.render('index', { title: 'Kibbl' });
     return res.status(err.status).json({
       message: err.message,
       error: err
@@ -106,6 +107,7 @@ app.use(function(err, req, res, next) {
   //   message: err.message,
   //   error: {}
   // });
+  return res.render('index', { title: 'Kibbl' });
   return res.status(err.status).json({
     message: err.message,
     error: {}
