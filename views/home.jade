@@ -1,15 +1,37 @@
 .container-fluid.banner
   .container
-    h1 Volunteer
-    p
-      | This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
-    p
-      a.btn.btn-primary.btn-lg(href='#', role='button') Learn more »
+    h1.text-center Kibbl
+    //- p.text-center
+    //-   | This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
+
+.container-fluid.how-section
+  .container
+    .how-title
+      .h2.text-center How to Kibbl
+      p.text-center Helpings animals made easy.
+
+    .col-md-4
+      .text-center
+        span.how-icon
+      .h3.text-center Find What You Want
+      p.text-center find volunteer, events, pets and shelters
+    
+    .col-md-4
+      .text-center
+        span.how-icon
+      .h3.text-center Get Notified
+      p.text-center Subscribe to shelters to get notified about activity
+
+    .col-md-4
+      .text-center
+        span.how-icon
+      .h3.text-center Communicate
+      p.text-center Send messages to talk with shelters
 
 .container
   div.row
     h2 Volunteer
-    div.col-md-4.pet-grid-item(ng-repeat="opportunity in opportunites", style='400px;')
+    div.col-md-4.grid-item(ng-repeat="opportunity in opportunities")
       .card
         .card-height-indicator
         .card-content
@@ -25,7 +47,7 @@
 
   div.row
     h2 Events
-    div.col-md-4.pet-grid-item(ng-repeat="opportunity in opportunites", style='400px;')
+    div.col-md-4.grid-item(ng-repeat="opportunity in events")
       .card
         .card-height-indicator
         .card-content
@@ -41,7 +63,7 @@
 
   div.row
     h2 Pets
-    div.col-md-4.pet-grid-item(ng-repeat="opportunity in opportunites", style='400px;')
+    div.col-md-4.grid-item(ng-repeat="opportunity in pets")
       .card
         .card-height-indicator
         .card-content
@@ -57,7 +79,7 @@
 
   div.row
     h2 Shelters
-    div.col-md-4.pet-grid-item(ng-repeat="opportunity in opportunites", style='400px;')
+    div.col-md-4.grid-item(ng-repeat="opportunity in shelters")
       .card
         .card-height-indicator
         .card-content

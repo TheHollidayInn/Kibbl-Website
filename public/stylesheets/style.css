@@ -11,6 +11,24 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
   padding: 0px;
 }
 
+.how-section {
+  background: #efefef;
+  padding: 6rem;
+}
+
+.how-title {
+  margin: 2rem;
+  margin-bottom: 6rem;
+}
+
+.how-icon {
+  background: url(https://assets.grubhub.com/img-hashed/sprites-52a9cc6e583407b170f9dcbb9dd37945.png);
+  height: 100px;
+  width: 100px;
+  background-size: 300%;
+  display: inline-block;
+}
+
 /* Banner */
 .banner {
   background-image: url('https://res.cloudinary.com/grubhub-marketing/image/upload/v1485814935/Seasonal%20Homepage%20Images/2017/MACNCHEESE/DSK/2017WinterHeroImages_MACNCHEESE_DSK.jpg');
@@ -31,4 +49,9 @@ a.favorited {
 
 a.favorited.active {
   color: red !important;
+}
+
+/* Grid */
+.grid-item {
+  width: 400px;
 }
