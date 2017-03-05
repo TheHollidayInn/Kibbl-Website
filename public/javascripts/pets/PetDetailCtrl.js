@@ -13,8 +13,7 @@ angular.module('Pets')
         url: url,
       })
       .then(function (response) {
-        console.log(response);
-        $scope.pet = response.data;
+        $scope.pet = response.data.data;
       })
     }
 

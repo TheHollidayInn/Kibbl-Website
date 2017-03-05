@@ -7,7 +7,7 @@ angular.module('Pets', ['ngRoute'])
         templateUrl: 'pet-list.html',
         controller: 'PetListCtrl'
       })
-      .when('/pets/:id', {
+      .when('/pets/:petId', {
         templateUrl: 'pet-detail.html',
         controller: 'PetDetailCtrl'
       });

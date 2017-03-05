@@ -1,18 +1,26 @@
-h2 {{pet.name.t}}
+.container-fluid.banner
+  .container
+    h1.text-center {{pet.name}}
 
-div
-  {{pet.description.t}}
+.container(style="margin-top: 2rem;")
+  .row
+    .col-md-1
+    .col-md-3(ng-repeat="photo in pet.media", style="height:300px", ng-if='$index % 5 === 3')
+      img(src="{{photo}}", style="width:100%;")
 
-ul
-  li Age: {{pet.age.t}}
-  li Type: {{pet.animal.t}}
-  li Age: {{pet.age.t}}
+  .row
+    .col-md-4
+      .well
+        h3 Details
+        ul
+          li Age: {{pet.age}}
+          li Type: {{pet.animal}}
 
-h3 Breeds
-ul
-  li(ng-repeat("breed in pet.breeds")) {{breed.t}}
+        h3 Breed
+        ul
+          li(ng-repeat="breed in pet.breeds") {{breed}}
 
-h3 Images
-div.row
-  div.col-md-4(ng-repeat="photo in pet.media.photos.photo")
-    img(src="{{photo.t}}", style="width:100%;")
+    .col-md-8
+      .well
+        h3 Description
+        p {{pet.description}}
