@@ -9,6 +9,7 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
 
 .main.container-fluid {
   padding: 0px;
+  margin-top: 50px;
 }
 
 .how-section {

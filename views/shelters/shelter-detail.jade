@@ -1,18 +1,34 @@
-h2 {{opportunity.name}}
+.container-fluid.banner
+  .container
+    h1.text-center {{pet.name}}
 
-div
-  {{opportunity.description}}
+.container(style="margin-top: 2rem;")
+  .row
+    .col-md-4
+      .well
+        h3 Details
+        ul
+          li Age: {{pet.age}}
+          li Type: {{pet.animal}}
 
-ul
-  li Age: {{opportunity.age}}
-  li Type: {{opportunity.animal}}
-  li Age: {{opportunity.age}}
+        h3 Breed
+        ul
+          li(ng-repeat="breed in pet.breeds") {{breed}}
+      
+      .well
+        h3 Actions
+        ul
+          li
+            button.btn.btn-raised.btn-primary Favorite
+          li
+            button.btn.btn-raised.btn-primary Share
+          li
+            button.btn.btn-raised.btn-primary Contact
 
-h3 Breeds
-ul
-  li(ng-repeat("breed in opportunity.breeds")) {{breed}}
-
-h3 Images
-div.row
-  div.col-md-4(ng-repeat="photo in opportunity.media.photos.photo")
-    img(src="{{photo}}", style="width:100%;")
+    .col-md-8
+      .well(style="height:250px")
+        .col-md-3(ng-repeat="photo in pet.media", ng-if='$index % 5 === 3')
+          img(src="{{photo}}", style="width:100%;")
+      .well
+        h3 Description
+        p {{pet.description}}
