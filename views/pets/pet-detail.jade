@@ -4,11 +4,6 @@
 
 .container(style="margin-top: 2rem;")
   .row
-    .col-md-1
-    .col-md-3(ng-repeat="photo in pet.media", style="height:300px", ng-if='$index % 5 === 3')
-      img(src="{{photo}}", style="width:100%;")
-
-  .row
     .col-md-4
       .well
         h3 Details
@@ -21,6 +16,9 @@
           li(ng-repeat="breed in pet.breeds") {{breed}}
 
     .col-md-8
+      .well(style="height:250px")
+        .col-md-3(ng-repeat="photo in pet.media", ng-if='$index % 5 === 3')
+          img(src="{{photo}}", style="width:100%;")
       .well
         h3 Description
         p {{pet.description}}
