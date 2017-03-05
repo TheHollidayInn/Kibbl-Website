@@ -1,5 +1,5 @@
 angular.module('Pets')
-.controller('PetsListCtrl', ['$scope', '$http', '$window',
+.controller('PetListCtrl', ['$scope', '$http', '$window',
   function($scope, $http, $window) {
     $.material.init()
 

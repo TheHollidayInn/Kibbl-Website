@@ -1,0 +1,18 @@
+h2 {{opportunity.name}}
+
+div
+  {{opportunity.description}}
+
+ul
+  li Age: {{opportunity.age}}
+  li Type: {{opportunity.animal}}
+  li Age: {{opportunity.age}}
+
+h3 Breeds
+ul
+  li(ng-repeat("breed in opportunity.breeds")) {{breed}}
+
+h3 Images
+div.row
+  div.col-md-4(ng-repeat="photo in opportunity.media.photos.photo")
+    img(src="{{photo}}", style="width:100%;")

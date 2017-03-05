@@ -8,7 +8,11 @@
 			a.navbar-brand Kibbl
 		.navbar-collapse.collapse.navbar-responsive-collapse
 			ul.nav.navbar-nav
-				li.active
+				{{$location.path()}}
+				li(ng-class="{ active: $location.path() === '/home' }")
+						a(href="/home")
+							| Home
+				li(ng-class="{ active: $location.path() === '/volunteer' }")
 					a(href="/volunteer")
 						| Volunteer
 				li
@@ -23,19 +27,17 @@
 					a(href="/shelters")
 						| Shelters
 						.ripple-container
-			form.navbar-form.navbar-left
-				.form-group.is-empty
-					input.form-control.col-sm-8(type='text', placeholder='Search')
+			//- form.navbar-form.navbar-left
+			//- 	.form-group.is-empty
+			//- 		input.form-control.col-sm-8(type='text', placeholder='Search')
 			ul.nav.navbar-nav.navbar-right
-					li
-						a Link
-					li.dropdown
-						a.dropdown-toggle(href='http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html', data-target='#', data-toggle='dropdown')
-							| Profile
-							b.caret
-							ul.dropdown-menu
-								li
-									a Favorites
-								li.divider
-								li
-									a Messages
+				li.dropdown
+					a.dropdown-toggle(href='http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html', data-target='#', data-toggle='dropdown')
+						| Profile
+						b.caret
+					ul.dropdown-menu
+						li
+							a Favorites
+						li.divider
+						li
+							a Messages

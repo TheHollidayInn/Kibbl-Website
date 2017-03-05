@@ -1,5 +1,5 @@
 angular.module('Pets')
-.controller('PetsDetailCtrl', ['$scope', '$http', '$routeParams',
+.controller('PetDetailCtrl', ['$scope', '$http', '$routeParams',
   function($scope, $http, $routeParams) {
 
     $scope.pet = {};

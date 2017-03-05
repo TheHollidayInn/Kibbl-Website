@@ -225,6 +225,14 @@ router.get('/event-detail.html', function(req, res, next) {
   res.render('events/event-detail');
 });
 
+router.get('/shelter-list.html', function(req, res, next) {
+  res.render('events/event-list');
+});
+
+router.get('/shelter-detail.html', function(req, res, next) {
+  res.render('events/event-detail');
+});
+
 router.get('/*', function(req, res, next) {
   res.render('index', { title: 'Kibbl' });
 });

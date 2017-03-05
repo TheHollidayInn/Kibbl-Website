@@ -1,4 +1,4 @@
-angular.module('Kibbl', ['ngRoute', 'Volunteer', 'Events', 'Pets'])
+angular.module('Kibbl', ['ngRoute', 'Volunteer', 'Events', 'Pets', 'Shelters'])
 
 .config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
@@ -8,7 +8,7 @@ angular.module('Kibbl', ['ngRoute', 'Volunteer', 'Events', 'Pets'])
         controller: 'FavoriteListCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/volunteer'
       });
 
     // use the HTML5 History API
