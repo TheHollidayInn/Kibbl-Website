@@ -1,6 +1,6 @@
 angular.module('Events')
-	.controller('EventListCtrl', ['$scope', 
-		function ($scope) {
+	.controller('EventListCtrl', ['$scope', 'EventService', 
+		function ($scope, EventService) {
 			$scope.events = [
 				{
 					name: 'Test 1',
@@ -12,4 +12,9 @@ angular.module('Events')
 					name: 'Test 3',
 				},
 			];
+
+			EventService.getEvents()
+				.then(function (events) {
+					$scope.events = events;
+				});
 		}]);

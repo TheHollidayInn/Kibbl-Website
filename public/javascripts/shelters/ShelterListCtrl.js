@@ -1,6 +1,6 @@
 angular.module('Shelters')
-	.controller('ShelterListCtrl', ['$scope', 
-		function ($scope) {
+	.controller('ShelterListCtrl', ['$scope', 'ShelterService',
+		function ($scope, ShelterService) {
 			$scope.events = [
 				{
 					name: 'Test 1',
@@ -12,4 +12,9 @@ angular.module('Shelters')
 					name: 'Test 3',
 				},
 			];
+
+			ShelterService.get()
+				.then(function (opportunites) {
+					$scope.events = opportunites;
+				});
 		}]);
