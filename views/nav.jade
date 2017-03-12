@@ -2,11 +2,11 @@
 	.container
 		.navbar-header
 			button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
-			span.icon-bar
-			span.icon-bar
-			span.icon-bar
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
 			a.navbar-brand Kibbl
-		.navbar-collapse.collapse.navbar-responsive-collapse
+		.navbar-collapse.collapse.navbar-responsive-collapse(style='max-height: 4000px;')
 			ul.nav.navbar-nav
 				li(ng-class="{ active: isActive('') }")
 						a(href="/home")
