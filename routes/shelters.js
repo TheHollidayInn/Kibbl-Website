@@ -12,4 +12,17 @@ router.get('/', Middleware.hasValidToken, function(req, res, next) {
   });
 });
 
+router.get('/:shelterId', function(req, res, next) {
+  let pet;
+  let user;
+  // @TODO: Check for user status on evnet (attending, subscribed?)
+  Shelter.findOne({ _id: req.params.shelterId}).exec()
+    .then(function(favoriteFound) {
+      return res.status(200).json({data: favoriteFound});
+    })
+    .catch(function(err) {
+      return res.status(400).json({message: err});
+    });
+});
+
 module.exports = router;
