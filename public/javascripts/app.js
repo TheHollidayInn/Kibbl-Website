@@ -36,12 +36,14 @@ angular.module('Kibbl', ['ngRoute', 'ngStorage',
           config.headers = config.headers || {};
           if ($localStorage.token) {
             config.headers.Authorization = 'Bearer ' + $localStorage.token;
+            config.headers['x-access-token'] = $localStorage.token;
           }
           return config;
         },
         'responseError': function (response) {
+          // @TODO: Should not redirect after failed login/register
           if (response.status === 401 || response.status === 403) {
-            $location.path('/signin');
+            $location.path('/login');
           }
           return $q.reject(response);
         }

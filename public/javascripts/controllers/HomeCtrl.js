@@ -54,11 +54,11 @@ angular.module('Kibbl')
 		$scope.tokenClaims = Auth.getTokenClaims();
 
 		function successAuth(res) {
-			$localStorage.token = res.token;
+			$localStorage.token = res.data.token;
 			window.location = "/";
 		}
 		
-		$scope.signin = function () {
+		$scope.login = function () {
 			var formData = {
 				email: $scope.email,
 				password: $scope.password,

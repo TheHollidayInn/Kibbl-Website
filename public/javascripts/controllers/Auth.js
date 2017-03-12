@@ -24,7 +24,7 @@ angular.module('Kibbl')
                var encoded = token.split('.')[1];
                user = JSON.parse(urlBase64Decode(encoded));
            }
-           return user;
+           return user._doc;
        }
 
        var tokenClaims = getClaimsFromToken();
