@@ -1,13 +1,11 @@
 div.row  
   div.col-md-6.col-md-offset-3
     h2 Favorites
-    ul.collection
-      li.collection-item.avatar(ng-repeat="favorite in favorites")
-        img.circle(ng-src='{{favorite.petID.media.photos.photo[3].t}}', alt='')
-        span.title {{favorite.petID.name.t}}
-        p
-          | First Line 
-          br
-          |          Second Line
-        a.secondary-content(href='#!')
-          i.material-icons grade
+    .list-group(ng-repeat="favorite in favorites")
+      .list-group-item
+        .row-picture
+          img.circle(src='http://lorempixel.com/56/56/people/1', alt='icon')
+        .row-content
+          h4.list-group-item-heading Tile with avatar
+          p.list-group-item-text Donec id elit non mi porta gravida at eget metus
+      .list-group-separator
