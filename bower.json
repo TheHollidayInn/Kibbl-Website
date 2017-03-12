@@ -20,6 +20,7 @@
     "bootstrap": "^3.3.6",
     "angular-route": "^1.5.5",
     "angular-materialize": "^0.1.9",
-    "bootstrap-material-design": "0.5.10"
+    "bootstrap-material-design": "0.5.10",
+    "ngstorage": "^0.3.11"
   }
 }

@@ -30,7 +30,11 @@
 			//- 	.form-group.is-empty
 			//- 		input.form-control.col-sm-8(type='text', placeholder='Search')
 			ul.nav.navbar-nav.navbar-right
-				li.dropdown
+				li.dropdown(ng-if='::!isLoggedIn()')
+					a(href="/register") Register
+				li.dropdown(ng-if='::!isLoggedIn()')
+					a(href="/login") Login
+				li.dropdown(ng-if='::isLoggedIn()')
 					a.dropdown-toggle(href='http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html', data-target='#', data-toggle='dropdown')
 						| Profile
 						b.caret

@@ -1,8 +1,11 @@
-angular.module('Kibbl', ['ngRoute', 
+angular.module('Kibbl', ['ngRoute', 'ngStorage',
   'Volunteer', 'Events', 'Pets', 'Shelters', 'Messages', 'Notifications'])
-
-.config(['$routeProvider', '$locationProvider',
-  function($routeProvider, $locationProvider) {
+.constant('urls', {
+  BASE: '/',
+  BASE_API: '/api/v1/'
+})
+.config(['$routeProvider', '$locationProvider', '$httpProvider',
+  function($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/favorites', {
         templateUrl: 'favorite-list.html',
@@ -12,10 +15,36 @@ angular.module('Kibbl', ['ngRoute',
         templateUrl: 'home.html',
         controller: 'HomeCtrl'
       })
+      .when('/login', {
+        templateUrl: 'login.html',
+        controller: 'HomeCtrl'
+      })
+      .when('/register', {
+          templateUrl: 'register.html',
+          controller: 'HomeCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
 
     // use the HTML5 History API
     $locationProvider.html5Mode(true);
+
+    $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
+      return {
+        'request': function (config) {
+          config.headers = config.headers || {};
+          if ($localStorage.token) {
+            config.headers.Authorization = 'Bearer ' + $localStorage.token;
+          }
+          return config;
+        },
+        'responseError': function (response) {
+          if (response.status === 401 || response.status === 403) {
+            $location.path('/signin');
+          }
+          return $q.reject(response);
+        }
+      };
+    }]);
   }]);

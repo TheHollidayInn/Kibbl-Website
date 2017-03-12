@@ -16,13 +16,13 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Kibbl' });
 });
 
-router.get('/login', function(req, res) {
+router.get('/login.html', function(req, res) {
   res.render('login.jade', { message: req.flash('loginMessage') });
 });
 
 router.post('/login-angular', passport.authenticate('local-login'), function(req, res) { res.send(req.user); });
 
-router.get('/register', function(req, res) {
+router.get('/register.html', function(req, res) {
   res.render('register.jade', { message: req.flash('signupMessage') });
 });
 
