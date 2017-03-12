@@ -6,6 +6,7 @@ var Schema = new mongoose.Schema({
     ref: 'User'
   },
   shelterId: {type: String},
+  active: {type: Boolean, default: false},
   createdAt: {type: Date, default: new Date()},
 });
 
