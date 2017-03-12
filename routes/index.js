@@ -233,6 +233,18 @@ router.get('/shelter-detail.html', function(req, res, next) {
   res.render('events/event-detail');
 });
 
+router.get('/message-list.html', function(req, res, next) {
+  res.render('messages/message-list');
+});
+
+router.get('/message-detail.html', function(req, res, next) {
+  res.render('messages/message-detail');
+});
+
+router.get('/notification-list.html', function(req, res, next) {
+  res.render('notifications/notification-list');
+});
+
 router.get('/home.html', function(req, res, next) {
   res.render('home');
 });

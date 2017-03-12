@@ -1,0 +1,24 @@
+.container
+  .jumbotron
+      .container
+        h1 Volunteer
+        p
+          | This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
+        p
+          a.btn.btn-primary.btn-lg(href='#', role='button') Learn more »
+
+  div.row
+    div.col-md-4.pet-grid-item(ng-repeat="opportunity in messages", style='400px;')
+      .card
+        .card-height-indicator
+        .card-content
+          .card-image
+            a(href='/volunteer/1', style='display:block')
+              img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
+            h3.card-image-headline {{opportunity.name}}
+          .card-body
+            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          footer.card-footer
+            button.btn.btn-flat Share
+            button.btn.btn-flat.btn-warning Learn More
+

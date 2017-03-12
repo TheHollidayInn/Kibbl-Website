@@ -1,4 +1,5 @@
-angular.module('Kibbl', ['ngRoute', 'Volunteer', 'Events', 'Pets', 'Shelters'])
+angular.module('Kibbl', ['ngRoute', 
+  'Volunteer', 'Events', 'Pets', 'Shelters', 'Messages', 'Notifications'])
 
 .config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
