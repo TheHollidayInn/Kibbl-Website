@@ -5,7 +5,7 @@ angular.module('Kibbl')
 
     sendRequest();
     function sendRequest() {
-      var url = '/favorites';
+      var url = '/api/v1/favorites';
 
       $http({
         method: 'GET',
@@ -13,6 +13,10 @@ angular.module('Kibbl')
       })
       .then(function (response) {
         $scope.favorites = response.data;
+      })
+      .catch(function (err) {
+        console.log(err);
+        // @TODO: Login check
       })
     }
   }]);
