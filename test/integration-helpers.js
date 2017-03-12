@@ -4,7 +4,7 @@ var chaiHttp = require('chai-http');
 var should = chai.should();
 chai.use(chaiHttp);
 
-// var server = require('../app')
+var server = require('../app')
 var request = require('supertest');
 var User = require("../models/user.js");
 var passport = require('passport');
