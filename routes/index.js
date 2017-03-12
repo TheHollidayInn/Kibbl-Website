@@ -11,9 +11,45 @@ var jwt    = require('jsonwebtoken');
 
 var Donations = require('../models/donations');
 var User = require('../models/user');
+var Event = require('../models/events');
+var Shelter = require('../models/shelters');
+var VolunteerOpportunity = require('../models/volunteerOpportunity');
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Kibbl' });
+});
+
+router.get('/api/v1/latest', function(req, res, next) {
+  let events = [];
+  let shelters = [];
+  let volunteerOpportunity = [];
+
+  Event.find().sort({createdAt: -1}).exec()
+    .then(function (eventsFound) {
+      let events = eventsFound;
+
+      return Shelter.find().sort({createdAt: -1}).exec();
+    })
+    .then(function (sheltersFound) {
+      let shelters = sheltersFound;
+
+      return VolunteerOpportunity.find().sort({createdAt: -1}).exec();
+    })
+    .then(function(volunteersFound) {
+      let volunteerOpportunity = volunteersFound;
+
+      return res.status(200).json({
+        data: {
+          events,
+          shelters,
+          volunteerOpportunity
+        },
+      });
+    })
+    .catch(function(err) {
+      console.log(err)
+      return res.status(400).json({message: err});
+    });
 });
 
 router.get('/login.html', function(req, res) {
