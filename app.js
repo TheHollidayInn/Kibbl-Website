@@ -65,11 +65,18 @@ var routes = require('./routes/index');
 var pets = require('./routes/pets');
 var favorites = require('./routes/favorites');
 var contacts = require('./routes/contact');
+var shelters = require('./routes/shelters');
+var events = require('./routes/events');
+var volunteer = require('./routes/volunteer');
+
 app.use('/', routes);
 // app.use('/api/v1/users', users);
 app.use('/api/v1/pets', pets);
 app.use('/api/v1/favorites', favorites);
 app.use('/api/v1/contacts', contacts);
+app.use('/api/v1/shelters', shelters);
+app.use('/api/v1/events', events);
+app.use('/api/v1/volunteer', volunteer);
 
 mongoose.connect(nconf.get('db:URL'));
 
