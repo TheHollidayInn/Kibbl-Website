@@ -70,6 +70,20 @@ router.post('/message-receive', function (req, res, next) {
     });
 });
 
+router.get('/conversations', Middleware.hasValidToken, function (req, res, next) {
+  let query = {
+    'userID': req.user._id,
+  };
+
+  Contact.find(query).distinct('email')
+    .then(function(contacts) {
+      return res.status(201).json({data: contacts});
+    })
+    .catch(function(err) {
+      return res.status(400).json(err);
+    });
+});
+
 router.get('/conversation/:id', function (req, res, next) {
   let query = {
     '$or': [
