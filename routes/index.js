@@ -13,6 +13,7 @@ var Donations = require('../models/donations');
 var User = require('../models/user');
 var Event = require('../models/events');
 var Shelter = require('../models/shelters');
+var Pet = require('../models/pets');
 var VolunteerOpportunity = require('../models/volunteerOpportunity');
 
 router.get('/', function(req, res, next) {
@@ -22,26 +23,34 @@ router.get('/', function(req, res, next) {
 router.get('/api/v1/latest', function(req, res, next) {
   let events = [];
   let shelters = [];
+  let pets = [];
   let volunteerOpportunity = [];
+  let limit = 3;
 
-  Event.find().sort({createdAt: -1}).exec()
+  Event.find().sort({createdAt: -1}).limit(limit).exec()
     .then(function (eventsFound) {
-      let events = eventsFound;
+      events = eventsFound;
 
-      return Shelter.find().sort({createdAt: -1}).exec();
+      return Shelter.find().sort({createdAt: -1}).limit(limit).exec();
     })
     .then(function (sheltersFound) {
-      let shelters = sheltersFound;
+      shelters = sheltersFound;
 
-      return VolunteerOpportunity.find().sort({createdAt: -1}).exec();
+      return Pet.find().sort({createdAt: -1}).limit(limit).exec();
+    })
+    .then(function (petsFound) {
+      pets = petsFound;
+
+      return VolunteerOpportunity.find().sort({createdAt: -1}).limit(limit).exec();
     })
     .then(function(volunteersFound) {
-      let volunteerOpportunity = volunteersFound;
+      volunteerOpportunity = volunteersFound;
 
       return res.status(200).json({
         data: {
           events,
           shelters,
+          pets,
           volunteerOpportunity
         },
       });

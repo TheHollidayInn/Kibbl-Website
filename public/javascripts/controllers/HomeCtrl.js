@@ -1,57 +1,24 @@
 angular.module('Kibbl')
-.controller('HomeCtrl', ['$scope', '$localStorage', 'Auth',
-	function ($scope, $localStorage, Auth) {
+.controller('HomeCtrl', ['$scope', '$localStorage', 'Auth', '$http',
+	function ($scope, $localStorage, Auth, $http) {
 		amplitude.getInstance().logEvent('VISIT_HOME');
 		
-		$scope.events = [
-			{
-				name: 'Test 1',
-			},
-			{
-				name: 'Test 2',
-			},
-			{
-				name: 'Test 3',
-			},
-		];
+		$scope.events = [];
+		$scope.pets = [];
+		$scope.opportunities = [];
+		$scope.shelters = [];
 
-		$scope.pets = [
-			{
-				name: 'Test 1',
-			},
-			{
-				name: 'Test 2',
-			},
-			{
-				name: 'Test 3',
-			},
-		];
-
-		$scope.opportunities = [
-			{
-				name: 'Test 1',
-			},
-			{
-				name: 'Test 2',
-			},
-			{
-				name: 'Test 3',
-			},
-		];
-
-		$scope.shelters = [
-			{
-				name: 'Test 1',
-			},
-			{
-				name: 'Test 2',
-			},
-			{
-				name: 'Test 3',
-			},
-		];
 		$scope.token = $localStorage.token;
 		$scope.tokenClaims = Auth.getTokenClaims();
+
+		$http.get('/api/v1/latest', {})
+			.then(function (response) {
+				var latest = response.data.data;
+				$scope.events = latest.events;
+				$scope.pets = latest.pets;
+				$scope.opportunities = latest.opportunities;
+				$scope.shelters = latest.shelters;
+			});
 
 		function successAuth(res) {
 			$localStorage.token = res.data.token;
