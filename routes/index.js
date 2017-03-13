@@ -95,7 +95,7 @@ router.post('/api/v1/register', function (req, res) {
       return newUser.save()
     })
     .then(function (userSaved) {
-      let token =  jwt.sign(userSaved, nconf.get('JWT_SECRET'), { expiresIn: '1h' });
+      let token =  jwt.sign(userSaved, nconf.get('JWT_SECRET'), { expiresIn: '40000h' });
 
       return res.status(201).json({
         user: userSaved,
@@ -129,7 +129,7 @@ router.post('/api/v1/login', function (req, res) {
 
       if (!user.validPassword(password)) return res.status(401).json({message: 'Password is incorrect.'});
 
-      let token =  jwt.sign(user, nconf.get('JWT_SECRET'), { expiresIn: '1h' });
+      let token =  jwt.sign(user, nconf.get('JWT_SECRET'), { expiresIn: '40000h' });
 
       return res.status(200).json({
         token: token,

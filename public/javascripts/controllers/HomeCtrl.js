@@ -16,7 +16,7 @@ angular.module('Kibbl')
 				var latest = response.data.data;
 				$scope.events = latest.events;
 				$scope.pets = latest.pets;
-				$scope.opportunities = latest.opportunities;
+				$scope.opportunities = latest.volunteerOpportunity;
 				$scope.shelters = latest.shelters;
 			});
 
