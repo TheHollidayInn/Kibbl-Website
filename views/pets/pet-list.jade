@@ -1,39 +1,32 @@
-.container
-  .jumbotron
-      .container
-        h1 Pets
-        p
-          | This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
-        p
-          a.btn.btn-primary.btn-lg(href='#', role='button') Learn mor
-
-.container
+.container-fluid(style='padding:0px;')
   div.col-md-12.well(style="min-height:100px;")  
+    .form-group.col-md-2
+      h1 Pets
+    
     div.form-group.col-md-2
       label Location
-      input(ng-model='filters.location', type='text')
+      input.form-control(ng-model='filters.location', type='text')
     
-    div.col-md-2(input-field='')
+    div.form-group.col-md-2(input-field='')
       label Type
       br
-      select(ng-model='filters.type', material-select='', watch='')
+      select.form-control(ng-model='filters.type', material-select='', watch='')
         option(ng-repeat='option in petTypes', value="{{option.value}}") {{option.key}}
     
-    .input-field.col-md-2
+    .form-group.col-md-2
       label Breed
-      input(ng-model='filters.breed', type='text')
+      input.form-control(ng-model='filters.breed', type='text')
     
-    div.col-md-2(input-field='')
+    div.form-group.col-md-2(input-field='')
       label Age
       br
-      select(ng-model='filters.age', material-select='', watch='')
+      select.form-control(ng-model='filters.age', material-select='', watch='')
         option(ng-repeat='option in petAges', value="{{option.value}}") {{option.key}}
-    
-    
-    div.col-md-2(input-field='')
+
+    div.form-group.col-md-2(input-field='')
       label Gender
       br
-      select(ng-model='filters.gender', material-select='', watch='')
+      select.form-control(ng-model='filters.gender', material-select='', watch='')
         option(ng-repeat='option in petGenders', value="{{option.value}}") {{option.key}}
     
 //- @TODO: We need to show pets that have no photo!

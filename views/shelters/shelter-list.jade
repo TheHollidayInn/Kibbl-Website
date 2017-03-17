@@ -1,12 +1,29 @@
-.container
-  .jumbotron
-      .container
-        h1 Shelters
-        p
-          | This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
-        p
-          a.btn.btn-primary.btn-lg(href='#', role='button') Learn more »
+.container-fluid(style='padding:0px;')
+  div.col-md-12.well(style="min-height:100px;")  
+    .form-group.col-md-2
+      h1 Shelters
+    
+    div.form-group.col-md-2
+      label Location
+      input.form-control(ng-model='filters.location', type='text')
+    
+    div.form-group.col-md-2(input-field='')
+      label Type
+      br
+      select.form-control(ng-model='filters.type', material-select='', watch='')
+        option(ng-repeat='option in petTypes', value="{{option.value}}") {{option.key}}
+    
+    .form-group.col-md-2
+      label Breed
+      input.form-control(ng-model='filters.breed', type='text')
+    
+    div.form-group.col-md-2(input-field='')
+      label Age
+      br
+      select.form-control(ng-model='filters.age', material-select='', watch='')
+        option(ng-repeat='option in petAges', value="{{option.value}}") {{option.key}}
 
+.container
   div.row
     div.col-md-4.pet-grid-item(ng-repeat="shelter in shelters", style='400px;')
       .card
