@@ -1,6 +1,6 @@
 .container-fluid.banner
   .container
-    h1.text-center {{pet.name}}
+    h1.text-center {{event.name}}
 
 .container(style="margin-top: 2rem;")
   .row
@@ -8,12 +8,9 @@
       .well
         h3 Details
         ul
-          li Age: {{pet.age}}
-          li Type: {{pet.animal}}
-
-        h3 Breed
-        ul
-          li(ng-repeat="breed in pet.breeds") {{breed}}
+          li Date: {{event.date}}
+          li Time: {{event.time}}
+          li Location: {{event.location}}
       
       .well
         h3 Actions
@@ -26,9 +23,9 @@
             button.btn.btn-raised.btn-primary Contact
 
     .col-md-8
-      .well(style="height:250px")
-        .col-md-3(ng-repeat="photo in pet.media", ng-if='$index % 5 === 3')
-          img(src="{{photo}}", style="width:100%;")
+      .well(style="height:250px", ng-if='event.media')
+        .col-md-3(ng-repeat="photo in event.media", ng-if='$index % 5 === 3')
+          img(ng-src="{{photo}}", style="width:100%;")
       .well
         h3 Description
-        p {{pet.description}}
+        p {{event.description}}

@@ -36,59 +36,59 @@
         .card-height-indicator
         .card-content
           .card-image
-            a(href='/volunteer/1', style='display:block')
+            a(href='/volunteer/{{opportunity._id}}', style='display:block')
               img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
             h3.card-image-headline {{opportunity.name}}
           .card-body
-            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            p {{opportunity.description}}
           footer.card-footer
-            button.btn.btn-flat Share
-            button.btn.btn-flat.btn-warning Learn More
+            a.btn.btn-flat.btn-primary(href='/volunteer/{{opportunity._id}}') 
+              | Learn More
 
   div.row
     h2 Latest Events
-    div.col-md-4.grid-item(ng-repeat="opportunity in events")
+    div.col-md-4.grid-item(ng-repeat="event in events")
       .card
         .card-height-indicator
         .card-content
           .card-image
-            a(href='/volunteer/1', style='display:block')
+            a(href='/events/{{event._id}}', style='display:block')
               img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
-            h3.card-image-headline {{opportunity.name}}
+            h3.card-image-headline {{event.name}}
           .card-body
-            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            p {{event.description}}
           footer.card-footer
-            button.btn.btn-flat Share
-            button.btn.btn-flat.btn-warning Learn More
+            a.btn.btn-flat.btn-primary(href='/events/{{event._id}}') 
+              | Learn More
 
   div.row
     h2 Latest Pets
-    div.col-md-4.grid-item(ng-repeat="opportunity in pets")
+    div.col-md-4.grid-item(ng-repeat="pet in pets")
       .card
         .card-height-indicator
         .card-content
           .card-image
-            a(href='/volunteer/1', style='display:block')
+            a(href='/pets/{{pet._id}}', style='display:block')
               img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
-            h3.card-image-headline {{opportunity.name}}
+            h3.card-image-headline {{pet.name}}
           .card-body
-            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            p {{pet.description}}
           footer.card-footer
-            button.btn.btn-flat Share
-            button.btn.btn-flat.btn-warning Learn More
+            a.btn.btn-flat.btn-primary(href='/pets/{{pet._id}}') 
+              | Learn More
 
   div.row
     h2 Latest Shelters
-    div.col-md-4.grid-item(ng-repeat="opportunity in shelters")
+    div.col-md-4.grid-item(ng-repeat="shelter in shelters")
       .card
         .card-height-indicator
         .card-content
           .card-image
-            a(href='/volunteer/1', style='display:block')
+            a(href='/shelter/{{shelter._id}}', style='display:block')
               img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
-            h3.card-image-headline {{opportunity.name}}
+            h3.card-image-headline {{shelter.name}}
           .card-body
-            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            p {{shelter.description}}
           footer.card-footer
-            button.btn.btn-flat Share
-            button.btn.btn-flat.btn-warning Learn More
+            a.btn.btn-flat.btn-primary(href='/shelters/{{shelter._id}}') 
+              | Learn More
