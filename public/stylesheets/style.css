@@ -3,6 +3,38 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
   font-weight: 500;
 }
 
+.navbar, .navbar.navbar-default {
+  background-color: #ff9933 !important;
+  color: rgba(255,255,255,.84);
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #752F00 !important;
+}
+
+/* Logo */
+.logo1 {
+  background-image: url('../images/kibbl-logo-dog.png');
+  height: 60px;
+  width: 60px;
+  background-size: 100%;
+  float: left;
+  background-position: -10px -13px;
+  background-repeat: no-repeat;
+  overflow: none;
+}
+
+.logo2 {
+  background-image: url('../images/kibbl-logo-word.png');
+  height: 60px;
+  width: 80px;
+  background-size: 100%;
+  float: left;
+  background-repeat: no-repeat;
+  background-position: -10px 0px;
+  overflow: none;
+}
+
 .navbar.navbar-default.main-nav {
   margin-bottom: 0px;
 }
