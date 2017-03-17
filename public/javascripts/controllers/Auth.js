@@ -39,7 +39,8 @@ angular.module('Kibbl')
            logout: function (success) {
                tokenClaims = {};
                delete $localStorage.token;
-               success();
+               return $http.post(urls.BASE_API + 'logout', {});
+            //    success();
            },
            getTokenClaims: function () {
                return tokenClaims;

@@ -7,8 +7,9 @@ angular.module('Kibbl')
     };
     
     $scope.isLoggedIn = function () {
-      let user = Auth.getTokenClaims()
-      return !user || !!user._id;
+      let user = Auth.getTokenClaims();
+
+      return Boolean(user && user._id);
     }
 
     $scope.logout = function () {

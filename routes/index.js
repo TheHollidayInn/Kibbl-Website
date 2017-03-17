@@ -140,9 +140,9 @@ router.post('/api/v1/login', function (req, res) {
     });
 });
 
-router.get('/logout', function(req, res) {
+router.post('/api/v1/logout', function(req, res) {
     req.logout();
-    res.redirect('/');
+    res.status(200).json('');
 });
 
 router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
