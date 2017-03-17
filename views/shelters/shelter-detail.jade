@@ -14,8 +14,10 @@
       .well
         h3 Actions
         ul
-          li
+          li(ng-if='!shelter.subscribed')
             button.btn.btn-raised.btn-primary(ng-click='subscribe()') Subscribe
+          li(ng-if='shelter.subscribed')
+            button.btn.btn-raised.btn-primary(ng-click='subscribe(true)') Unubscribe
           li
             button.btn.btn-raised.btn-primary Favorite
           li

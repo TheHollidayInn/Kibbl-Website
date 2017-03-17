@@ -16,9 +16,12 @@ angular.module('Shelters')
 				})
 			}
 
-			$scope.subscribe = function () {
-				var url = '/api/v1/notifications/';
+			$scope.subscribe = function (unsubscribe) {
+				if (unsubscribe && !confirm('Are you sure you want to unsubscribe?')) return;
 
+				$scope.shelter.subscribed = !$scope.shelter.subscribed;
+
+				var url = '/api/v1/notifications/';
 				$http({
 					method: 'POST',
 					url: url,
