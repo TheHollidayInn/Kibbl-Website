@@ -12,6 +12,10 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
   color: #752F00 !important;
 }
 
+.card, .well {
+  box-shadow: none !important;
+}
+
 /* Logo */
 .logo1 {
   background-image: url('../images/kibbl-logo-dog.png');
