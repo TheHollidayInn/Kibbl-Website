@@ -4,7 +4,7 @@ var router = express.Router();
 var VolunteerOpportunity = require('../models/volunteerOpportunity');
 var Middleware = require('../middleware');
 
-router.get('/', Middleware.hasValidToken, function(req, res, next) {
+router.get('/', function(req, res, next) {
   VolunteerOpportunity.find({})
   .exec(function(err, favorites) {
     if (err) return res.status(400).json(err);
