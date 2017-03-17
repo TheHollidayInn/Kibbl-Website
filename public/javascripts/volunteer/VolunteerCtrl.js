@@ -15,6 +15,6 @@ angular.module('Volunteer')
 
 			VolunteerService.get()
 				.then(function (opportunites) {
-					$scope.opportunites = opportunites;
+					$scope.opportunites = opportunites.data;
 				});
 		}]);
