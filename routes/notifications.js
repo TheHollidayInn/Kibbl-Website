@@ -7,7 +7,7 @@ var Middleware = require('../middleware');
 router.post('/', Middleware.hasValidToken, function(req, res, next) {
   Notification.find({
     userID: req.user._id,
-    petshelterIdID: req.params.shelterId,
+    shelterId: req.body.shelterId,
   }).exec()
   .then(function(favorites) {
     if (favorites[0]) {
@@ -20,7 +20,8 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
     } else {
       var fav = new Notification();
       fav.userID = req.user._id;
-      fav.shelterId = req.params.shelterId;
+      fav.shelterId = req.body.shelterId;
+      fav.active = true;
 
       return fav.save();
     }

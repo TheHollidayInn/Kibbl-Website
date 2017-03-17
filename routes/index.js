@@ -271,11 +271,11 @@ router.get('/event-detail.html', function(req, res, next) {
 });
 
 router.get('/shelter-list.html', function(req, res, next) {
-  res.render('events/event-list');
+  res.render('shelters/shelter-list');
 });
 
 router.get('/shelter-detail.html', function(req, res, next) {
-  res.render('events/event-detail');
+  res.render('shelters/shelter-detail');
 });
 
 router.get('/message-list.html', function(req, res, next) {

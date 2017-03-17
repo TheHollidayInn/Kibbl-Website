@@ -1,7 +1,7 @@
 angular.module('Shelters')
 	.controller('ShelterListCtrl', ['$scope', 'ShelterService',
 		function ($scope, ShelterService) {
-			$scope.events = [
+			$scope.shelters = [
 				{
 					name: 'Test 1',
 				},
@@ -14,7 +14,7 @@ angular.module('Shelters')
 			];
 
 			ShelterService.get()
-				.then(function (opportunites) {
-					$scope.events = opportunites;
+				.then(function (response) {
+					$scope.shelters = response.data;
 				});
 		}]);

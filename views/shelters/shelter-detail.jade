@@ -1,6 +1,6 @@
 .container-fluid.banner
   .container
-    h1.text-center {{pet.name}}
+    h1.text-center {{shelter.name}}
 
 .container(style="margin-top: 2rem;")
   .row
@@ -8,16 +8,14 @@
       .well
         h3 Details
         ul
-          li Age: {{pet.age}}
-          li Type: {{pet.animal}}
+          li Age: {{shelter.age}}
+          li Type: {{shelter.animal}}
 
-        h3 Breed
-        ul
-          li(ng-repeat="breed in pet.breeds") {{breed}}
-      
       .well
         h3 Actions
         ul
+          li
+            button.btn.btn-raised.btn-primary(ng-click='subscribe()') Subscribe
           li
             button.btn.btn-raised.btn-primary Favorite
           li
@@ -26,9 +24,9 @@
             button.btn.btn-raised.btn-primary Contact
 
     .col-md-8
-      .well(style="height:250px")
-        .col-md-3(ng-repeat="photo in pet.media", ng-if='$index % 5 === 3')
-          img(src="{{photo}}", style="width:100%;")
+      //- .well(style="height:250px")
+      //-   .col-md-3(ng-repeat="photo in shelter.media", ng-if='$index % 5 === 3')
+      //-     img(ng-src="{{photo}}", style="width:100%;")
       .well
         h3 Description
-        p {{pet.description}}
+        p {{shelter.description}}

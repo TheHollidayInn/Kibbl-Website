@@ -68,6 +68,7 @@ var contacts = require('./routes/contact');
 var shelters = require('./routes/shelters');
 var events = require('./routes/events');
 var volunteer = require('./routes/volunteer');
+var notifications = require('./routes/notifications');
 
 app.use('/', routes);
 // app.use('/api/v1/users', users);
@@ -77,6 +78,7 @@ app.use('/api/v1/contacts', contacts);
 app.use('/api/v1/shelters', shelters);
 app.use('/api/v1/events', events);
 app.use('/api/v1/volunteer', volunteer);
+app.use('/api/v1/notifications', notifications);
 
 mongoose.connect(nconf.get('db:URL'));
 
