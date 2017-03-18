@@ -1,17 +1,7 @@
 angular.module('Notifications')
 	.controller('NotificationListCtrl', ['$scope', 'NotificationService', 
 		function ($scope, NotificationService) {
-			$scope.notifications = [
-				{
-					name: 'Test 1',
-				},
-				{
-					name: 'Test 2',
-				},
-				{
-					name: 'Test 3',
-				},
-			];
+			$scope.notifications = [];
 
 			NotificationService.getNotifications()
 				.then(function (notifications) {

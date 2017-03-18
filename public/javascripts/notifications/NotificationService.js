@@ -4,7 +4,7 @@ angular.module('Notifications')
     var api = {};
 
     api.getNotifications = function () {
-      var url = '/api/v1/pets';
+      var url = '/api/v1/notifications';
 
       return $http({
         method: 'GET',
