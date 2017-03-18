@@ -1,19 +1,23 @@
 section.container
-  div.col-md-6.col-md-offset-3
-    h2 Register
-    form
-      .form-group
-        label Email
-        input.form-control(type='text', name='email', ng-model='email')
-      .form-group
-        label Password
-        input.form-control(type='password', name='password', ng-model='password')
-      button.btn.btn-warning.btn-lg(ng-click='register()') Register
-    hr
-    p
-      | Need an account? 
-      a(href='/signup') Signup
-    p
-      | Or go 
-      a(href='/') home
-      | .
+  .col-md-6.col-md-offset-3
+    .card
+        .card-height-indicator
+        .card-content
+          .card-body(style='height:auto;')
+            h2 Register
+            form
+              .form-group
+                label Email
+                input.form-control(type='text', name='email', ng-model='email')
+              .form-group
+                label Password
+                input.form-control(type='password', name='password', ng-model='password')
+              button.btn.btn-primary.btn-raised.btn-lg(ng-click='register()') Register
+            //- hr
+            //- p
+            //-   | Need an account? 
+            //-   a(href='/signup') Signup
+            //- p
+            //-   | Or go 
+            //-   a(href='/') home
+            //-   | .
