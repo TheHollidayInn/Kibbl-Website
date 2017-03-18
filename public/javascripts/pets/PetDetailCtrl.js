@@ -14,7 +14,19 @@ angular.module('Pets')
       })
       .then(function (response) {
         $scope.pet = response.data.data;
-      })
+      });
     }
+
+    $scope.favorite = function () {
+      var url = '/api/v1/pets/' + $routeParams.petId + '/favorite';
+
+      $http({
+        method: 'POST',
+        url: url,
+      })
+      .then(function (response) {
+        // $scope.pet = response.data.data;
+      });
+    };
 
   }]);
