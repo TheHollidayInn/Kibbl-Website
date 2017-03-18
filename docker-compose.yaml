@@ -1,0 +1,16 @@
+db:
+  image: mongo
+  ports:
+    - "27017:27017"
+  command: "--smallfiles --logpath=/dev/null"
+web:
+  build: .
+  command: npm run dev
+  # volumes:
+  #   - .:/kibbl
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  environment:
+    PORT: 3000 # this is optional, allows express to use process.env.PORT instead of a raw 3000
