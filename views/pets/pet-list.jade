@@ -45,21 +45,6 @@
           footer.card-footer
             button.btn.btn-flat Share
             button.btn.btn-flat.btn-warning Learn More
-            
-.modal.modal-fixed-footer(id="loginModel")
-  .modal-content
-    h4 Login
-    .row
-      form.col.s12
-        .row
-          .input-field.col.s12
-            input#email.validate(type='email', ng-model="loginDetails.email")
-            label(for='email') Email
-          .input-field.col.s12
-            input#last_name.validate(type='password', ng-model="loginDetails.password")
-            label(for='last_name') Password
-  .modal-footer
-    a.modal-action.waves-effect.red.lighten-3.btn-flat(ng-click="login()") Login
 
 .modal.modal-fixed-footer(id="petModel")
   .modal-content
@@ -81,44 +66,3 @@
           .col.s12
             label(for='message') Message
             textarea#message.validate(type='message', ng-model="contactDetails.message")
-            
-.modal.modal-fixed-footer(id="petDonate")
-  .modal-content
-    h4 Donate to Adopt: {{selectedPet.name}}
-    .row
-      div
-        | Thanks for helping the animals. Your donation will go a long way to help the [insert-animal-shelter]
-        | Please note that we take 5% of the donation to help support the site. The rest goes to the shelter!
-        
-        form(action='/charge', method='POST')
-          script.stripe-button(
-            src = 'https://checkout.stripe.com/checkout.js',
-            data-email = '',
-            data-key = 'pk_test_H2UTCXDnMnLk4fenwedAlFty',
-            data-name = 'Kibbl',
-            data-amount = '1000',
-            data-allow-remember-me = 'false'
-          )
-        
-  .modal-footer
-    a.modal-action.modal-close.waves-effect.waves-green.btn-flat(ng-click="selectedPet = {}") Cancel
-
-div.row      
-  ul.pagination
-    li.disabled
-      a(href='#!')
-        i.material-icons chevron_left
-    li.active
-      a(ng-click="queryPage(1)") 1
-    li.waves-effect
-      a(ng-click="queryPage(2)") 2
-    li.waves-effect
-      a(href='#!') 3
-    li.waves-effect
-      a(href='#!') 4
-    li.waves-effect
-      a(href='#!') 5
-    li.waves-effect
-      a(href='#!')
-        i.material-icons chevron_right
-    

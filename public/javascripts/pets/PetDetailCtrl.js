@@ -18,8 +18,9 @@ angular.module('Pets')
     }
 
     $scope.favorite = function () {
-      var url = '/api/v1/pets/' + $routeParams.petId + '/favorite';
+      $scope.pet.favorited = !$scope.pet.favorited;
 
+      var url = '/api/v1/pets/' + $routeParams.petId + '/favorite';
       $http({
         method: 'POST',
         url: url,

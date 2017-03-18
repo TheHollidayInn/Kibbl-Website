@@ -1,11 +1,17 @@
+.container-fluid(style='padding:0px;')
+  div.col-md-12.well(style="min-height:100px;")  
+    .form-group.col-md-2
+      h1 Favorites
+
 div.row  
   div.col-md-6.col-md-offset-3
-    h2 Favorites
     .list-group(ng-repeat="favorite in favorites")
       .list-group-item
         .row-picture
-          img.circle(src='http://lorempixel.com/56/56/people/1', alt='icon')
+          img.circle(ng-src='{{favorite.petID.media[3]}}', alt='icon')
         .row-content
-          h4.list-group-item-heading Tile with avatar
-          p.list-group-item-text Donec id elit non mi porta gravida at eget metus
+          h4.list-group-item-heading {{favorite.petID.name}}
+          p.list-group-item-text {{favorite.petID.description | limitTo:140}}
+          a.btn.btn-flat.btn-raised.btn-primary(href='/pets/{{favorite.petID._id}}') View
+          a.btn.btn-flat.btn-raised.btn-warning(ng-click='unfavorite(favorite.petID._id, $index)') Unfavorite
       .list-group-separator

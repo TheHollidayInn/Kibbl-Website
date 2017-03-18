@@ -19,7 +19,8 @@
         h3 Actions
         ul
           li
-            button.btn.btn-raised.btn-primary(ng-click='favorite()') Favorite
+            button.btn.btn-raised.btn-primary(ng-click='favorite()', ng-if='!pet.favorited') Favorite
+            button.btn.btn-raised.btn-warning(ng-click='favorite()', ng-if='pet.favorited') Unfavorite
           li
             button.btn.btn-raised.btn-primary Share
           li
@@ -28,7 +29,7 @@
     .col-md-8
       .well(style="height:250px")
         .col-md-3(ng-repeat="photo in pet.media", ng-if='$index % 5 === 3')
-          img(ng-src="{{photo}}", style="width:100%;")
+          div.img-display(style="background-image:url({{photo}});")
       .well
         h3 Description
         p {{pet.description}}
