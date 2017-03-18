@@ -39,6 +39,30 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
   overflow: none;
 }
 
+.banner-logo1 {
+  background-image: url('../images/kibbl-logo-dog.png');
+  height: 60px;
+  width: 60px;
+  background-size: 100%;
+  float: left;
+  background-position: -10px -13px;
+  background-repeat: no-repeat;
+  overflow: none;
+}
+
+.banner-logo2 {
+  background-image: url('../images/kibbl-logo-word.png');
+  height: 60px;
+  width: 80px;
+  background-size: 100%;
+  float: left;
+  background-repeat: no-repeat;
+  background-position: -10px 0px;
+  overflow: none;
+}
+
+/* Nav */
+
 .navbar.navbar-default.main-nav {
   margin-bottom: 0px;
 }
