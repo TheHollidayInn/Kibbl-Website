@@ -3,6 +3,19 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
   font-weight: 500;
 }
 
+.navbar-brand {
+  margin-left: -160px !important; 
+}
+
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 520px) {
+  .navbar-brand {
+    margin-left: 0px !important; 
+  }
+}
+
+
 .navbar, .navbar.navbar-default {
   background-color: #ff9933 !important;
   color: rgba(255,255,255,.84);
