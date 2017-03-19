@@ -35,7 +35,13 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
 });
 
 router.get('/', Middleware.hasValidToken, function (req, res, next) {
-  Notification.find({userID: req.user._id})
+  Notification
+    .find({
+      userID: req.user._id,
+      active: true,
+    })
+    .populate('shelterId')
+    .exec()
     .then(function(contacts) {
       return res.status(201).json({data: contacts});
     })
