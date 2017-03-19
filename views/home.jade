@@ -30,6 +30,22 @@
 
 .container
   div.row
+      h2 Latest Events
+      div.col-md-4.grid-item(ng-repeat="event in events")
+        .card
+          .card-height-indicator
+          .card-content
+            .card-image
+              a(href='/events/{{event._id}}', style='display:block')
+                img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
+              h3.card-image-headline {{event.name}}
+            .card-body
+              p {{event.description | limitTo: 140}}
+            footer.card-footer
+              a.btn.btn-flat.btn-primary(href='/events/{{event._id}}') 
+                | Learn More
+
+  div.row
     h2 Latest Volunteer Opportunities
     div.col-md-4.grid-item(ng-repeat="opportunity in opportunities")
       .card
@@ -40,25 +56,9 @@
               img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
             h3.card-image-headline {{opportunity.name}}
           .card-body
-            p {{opportunity.description}}
+            p {{opportunity.description | limitTo: 140}}
           footer.card-footer
             a.btn.btn-flat.btn-primary(href='/volunteer/{{opportunity._id}}') 
-              | Learn More
-
-  div.row
-    h2 Latest Events
-    div.col-md-4.grid-item(ng-repeat="event in events")
-      .card
-        .card-height-indicator
-        .card-content
-          .card-image
-            a(href='/events/{{event._id}}', style='display:block')
-              img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
-            h3.card-image-headline {{event.name}}
-          .card-body
-            p {{event.description}}
-          footer.card-footer
-            a.btn.btn-flat.btn-primary(href='/events/{{event._id}}') 
               | Learn More
 
   div.row
@@ -72,7 +72,7 @@
               img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
             h3.card-image-headline {{pet.name}}
           .card-body
-            p {{pet.description}}
+            p {{pet.description | limitTo: 140}}
           footer.card-footer
             a.btn.btn-flat.btn-primary(href='/pets/{{pet._id}}') 
               | Learn More
@@ -88,7 +88,7 @@
               img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
             h3.card-image-headline {{shelter.name}}
           .card-body
-            p {{shelter.description}}
+            p {{shelter.description | limitTo: 140}}
           footer.card-footer
             a.btn.btn-flat.btn-primary(href='/shelters/{{shelter._id}}') 
               | Learn More
