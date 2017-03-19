@@ -1,7 +1,8 @@
 angular.module('Shelters')
-	.controller('ShelterDetailCtrl', ['$scope', '$routeParams', '$http',
-		function ($scope, $routeParams, $http) {
+	.controller('ShelterDetailCtrl', ['$scope', '$routeParams', '$http', '$uibModal',
+		function ($scope, $routeParams, $http, $uibModal) {
 			$scope.shelter = {};
+			$scope.contactDetails = {};
 
 			sendRequest();
 			function sendRequest() {
@@ -34,4 +35,31 @@ angular.module('Shelters')
 				})
 			};
 
+			$scope.sendContact = function () {
+				let data = angular.copy($scope.contactDetails);
+				data.to = 'keithrholliday@gmail.com';
+		
+				var url = '/api/v1/contacts/';
+				$http({
+					method: 'POST',
+					url: url,
+					data: data,
+				})
+				.then(function (response) {
+					console.log(response)
+				})
+			};
+
+			// $scope.contact = function () {
+			// 	$uibModal.open({
+			// 		// animation: $ctrl.animationsEnabled,
+			// 		// ariaLabelledBy: 'modal-title-top',
+			// 		// ariaDescribedBy: 'modal-body-top',
+			// 		templateUrl: 'contact-modal.html',
+			// 		// size: 'sm',
+			// 		controller: function($scope) {
+			// 			$scope.name = 'top';  
+			// 		}
+			// 	});
+			// };
 		}]);

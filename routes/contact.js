@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
 
@@ -34,6 +35,9 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
       return contact.save();
     })
     .then(function(err) {
+      if (!req.body.originalContactId) contact.originalContactId = contact._id;
+      contact.save();
+
       return res.status(201).json({data: contact});
     })
     .catch(function(err) {
@@ -76,8 +80,8 @@ router.get('/conversations', Middleware.hasValidToken, function (req, res, next)
   };
 
   Contact.aggregate( [
-    { $match: { userID: req.user._id } },
-    { $group : { _id : "$originalContactId", email: { $push: "$email" } } },
+    { $match: { userID: mongoose.Schema.Types.ObjectId(req.user._id) } },
+    { $group : { _id : "$email", email: { $push: "$email" } } },
     ])
     .then(function(contacts) {
       return res.status(201).json({data: contacts});

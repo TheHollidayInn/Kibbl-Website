@@ -31,5 +31,22 @@ angular.module('Messages')
       })
     };
 
+    api.sendMessage = function () {
+      var url = '/api/v1/contacts/conversations';
+
+      return $http({
+        method: 'POST',
+        url: url,
+        body: {
+
+        },
+      })
+      .then(function (response) {
+        let messages = response.data;
+        //$rootScope.$broadcast('messages', messages); // @TODO: use message bus. See Angular 
+        return messages;
+      })
+    };
+
     return api;
   }]);

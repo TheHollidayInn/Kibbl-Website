@@ -23,7 +23,7 @@
           li
             button.btn.btn-raised.btn-primary Share
           li
-            button.btn.btn-raised.btn-primary Contact
+            button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
 
     .col-md-8
       //- .well(style="height:250px")
@@ -32,3 +32,34 @@
       .well
         h3 Description
         p {{shelter.description}}
+
+  // Modals
+  #contact.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') ×
+          h4#myModalLabel.modal-title.w-100 Contact
+        .modal-body
+          form.col.s12
+            .row
+              .form-group.col.s6
+                label(for='first_name') First Name
+                input#first_name.validate.form-control(type='text', ng-model="contactDetails.first_name")
+              .form-group.col.s6
+                label(for='last_name') Last Name
+                input#last_name.validate.form-control(type='text', ng-model="contactDetails.last_name")
+            .row
+              .form-group.col.s12
+                label(for='email') Email
+                input#email.validate.form-control(type='email', ng-model="contactDetails.email")
+            .row
+              .col.s12.form-group
+                label(for='message') Message
+                textarea#message.validate.form-control(type='message', ng-model="contactDetails.message")
+        .modal-footer
+          button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+          button.btn.btn-primary(type='button', ng-click='sendContact()', data-dismiss="modal") Save changes
+
+

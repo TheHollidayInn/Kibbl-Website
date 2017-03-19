@@ -1,4 +1,4 @@
-angular.module('Kibbl', ['ngRoute', 'ngStorage',
+angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap',
   'Volunteer', 'Events', 'Pets', 'Shelters', 'Messages', 'Notifications'])
 .constant('urls', {
   BASE: '/',
