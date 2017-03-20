@@ -4,7 +4,11 @@ var Schema = new mongoose.Schema({
   name: String,
   description: String,
   location: String,
-  date: String,
+  loctionDetails: {
+    zipCode: String,
+  },
+  type: String,
+  date: Date,
   time: String,
   createdAt: {type: Date, default: new Date()},
 });

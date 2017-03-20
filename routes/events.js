@@ -1,11 +1,32 @@
-var express = require('express');
-var router = express.Router();
+let moment = require('moment');
+let express = require('express');
+let router = express.Router();
 
-var Event = require('../models/events');
-var Middleware = require('../middleware');
+let Event = require('../models/events');
+let Middleware = require('../middleware');
 
 router.get('/', function(req, res, next) {
-  Event.find({})
+  let query = {};
+
+  if (req.query.zipCode) {
+    query['loctionDetails.zipCode'] = req.query.zipCode;
+  }
+
+  if (req.query.type) {
+    query.type = req.query.type;
+  }
+
+  if (req.query.startDate) {
+    if (!query.date) query.date = {};
+    query.date.$gte = moment(req.query.startDate).toISOString();
+  }
+
+  if (req.query.endDate) {
+    if (!query.date) query.date = {};
+    query.date.$lte = moment(req.query.endDate).toISOString();
+  }
+
+  Event.find(query)
   .populate('petID')
   .exec(function(err, favorites) {
     if (err) return res.status(400).json(err);
