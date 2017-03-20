@@ -25,12 +25,9 @@ angular.module('Events')
 		}
 
 		$scope.getEvents = function () {
-			console.log($scope.filters, $scope.googleplaceAutocompletePlace)
-
 			if ($scope.filters.autocomplete) {
-				console.log(getPostCode($scope.filters.autocomplete))
+				$scope.filters.zipCode = getPostCode($scope.filters.autocomplete);
 			}
-
 
 			if ($scope.filters.type) $scope.filters.type = $scope.filters.type.name;
 
