@@ -4,14 +4,14 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
 }
 
 .navbar-brand {
-  margin-left: -160px !important; 
+  /*margin-left: -160px !important; */
 }
 
 
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-width : 520px) {
   .navbar-brand {
-    margin-left: 0px !important; 
+    margin-left: 0px !important;
   }
 }
 
