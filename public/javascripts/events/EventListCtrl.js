@@ -1,5 +1,5 @@
 angular.module('Events')
-.controller('EventListCtrl', ['$scope', 'EventService', 
+.controller('EventListCtrl', ['$scope', 'EventService',
 	function ($scope, EventService) {
 		$scope.events = [];
 		$scope.eventTypes = [
@@ -14,7 +14,26 @@ angular.module('Events')
 		];
 		$scope.filters = {};
 
+		function getPostCode(place) {
+			for (var i = 0; i < place.address_components.length; i++) {
+	      for (var j = 0; j < place.address_components[i].types.length; j++) {
+	        if (place.address_components[i].types[j] == "postal_code") {
+	          return place.address_components[i].long_name;
+	        }
+	      }
+	    }
+		}
+
 		$scope.getEvents = function () {
+			console.log($scope.filters, $scope.googleplaceAutocompletePlace)
+
+			if ($scope.filters.autocomplete) {
+				console.log(getPostCode($scope.filters.autocomplete))
+			}
+
+
+			if ($scope.filters.type) $scope.filters.type = $scope.filters.type.name;
+
 			EventService.getEvents($scope.filters)
 			.then(function (response) {
 				$scope.events = response.data;
@@ -48,5 +67,5 @@ angular.module('Events')
 		$scope.popup2 = {
 			opened: false
 		};
-			
+
 	}]);

@@ -1,10 +1,10 @@
 angular.module('Events')
-.factory('EventService', ['$http', '$rootScope',
-  function ($http, $rootScope) {
+.factory('EventService', ['$http', '$rootScope', '$httpParamSerializer',
+  function ($http, $rootScope, $httpParamSerializer) {
     var api = {};
 
-    api.getEvents = function () {
-      var url = '/api/v1/events';
+    api.getEvents = function (data) {
+      var url = '/api/v1/events?' + $httpParamSerializer(data);
 
       return $http({
         method: 'GET',
@@ -12,7 +12,7 @@ angular.module('Events')
       })
       .then(function (response) {
         let events = response.data;
-        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular 
+        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular
         return events;
       })
     };
@@ -26,7 +26,7 @@ angular.module('Events')
       })
       .then(function (response) {
         let events = response.data;
-        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular 
+        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular
         return events;
       })
     };

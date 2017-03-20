@@ -1,6 +1,5 @@
 angular.module('Kibbl')
 .directive('googleplaceAutocomplete', function () {
-  console.log("SD")
   return {
     restrict: 'EA',
     require: 'ngModel',
@@ -9,9 +8,14 @@ angular.module('Kibbl')
       googleplaceAutocomplete: '=',
     },
     link: function postLink(scope, element, attrs, model) {
-      console.log("SD");
       var options = scope.googleplaceAutocomplete;
-      console.log(element)
+      // @TODO: How to get city zipCode
+      var options = {
+        types: ['address'],
+        componentRestrictions: {
+          country: 'us'
+        }
+      };
       var autocomplete = new google.maps.places.Autocomplete(element[0], options);
 
       google.maps.event.addListener(autocomplete, 'place_changed', function () {

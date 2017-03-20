@@ -5,7 +5,7 @@
     
     .form-group.col-md-2
       label Location
-      input.form-control(ng-model='filters.location', type='text', googleplace-autocomplete)
+      input.form-control(ng-model='filters.location', type='text', googleplace-autocomplete, googleplace-autocomplete-place='filters.autocomplete')
     
     .form-group.col-md-2
       label Type
@@ -56,4 +56,3 @@
           footer.card-footer
             a.btn.btn-flat.btn-primary(href='/events/{{event._id}}') 
               | Learn More
-
