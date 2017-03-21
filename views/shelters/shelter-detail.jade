@@ -14,12 +14,12 @@
       .well
         h3 Actions
         ul
-          li(ng-if='!shelter.subscribed')
-            button.btn.btn-raised.btn-primary(ng-click='subscribe()') Subscribe
-          li(ng-if='shelter.subscribed')
-            button.btn.btn-raised.btn-primary(ng-click='subscribe(true)') Unubscribe
           li
-            button.btn.btn-raised.btn-primary Favorite
+            button.btn.btn-raised.btn-primary(ng-click='subscribe()', ng-if='!shelter.subscribed') Subscribe
+            button.btn.btn-raised.btn-warning(ng-click='subscribe(true)', ng-if='shelter.subscribed') Unubscribe
+          li
+            button.btn.btn-raised.btn-primary(ng-click='favorite()', ng-if='!shelter.favorited') Favorite
+            button.btn.btn-raised.btn-warning(ng-click='favorite()', ng-if='shelter.favorited') Unfavorite
           li
             button.btn.btn-raised.btn-primary Share
           li
@@ -61,5 +61,3 @@
         .modal-footer
           button.btn.btn-secondary(type='button', data-dismiss='modal') Close
           button.btn.btn-primary(type='button', ng-click='sendContact()', data-dismiss="modal") Save changes
-
-

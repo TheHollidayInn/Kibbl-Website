@@ -27,4 +27,21 @@ angular.module('Events')
 					$scope.event = response.data.data;
 				})
 			}
+
+			$scope.favorite = function () {
+	      $scope.event.favorited = !$scope.event.favorited;
+
+	      var url = '/api/v1/favorites';
+	      $http({
+	        method: 'POST',
+	        url: url,
+					data: {
+						type: 'event',
+						itemId: $scope.event._id,
+					},
+	      })
+	      .then(function (response) {
+	        // $scope.pet = response.data.data;
+	      });
+	    };
 		}]);

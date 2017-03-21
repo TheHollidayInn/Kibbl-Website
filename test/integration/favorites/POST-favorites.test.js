@@ -31,6 +31,18 @@ describe('Favorite: POST', () => {
     Favorite.remove({}, function() {
       done();
     });
+    Pet.remove({}, function() {
+      done();
+    });
+    Shelter.remove({}, function() {
+      done();
+    });
+    Volunteer.remove({}, function() {
+      done();
+    });
+    Event.remove({}, function() {
+      done();
+    });
   });
 
   it('returns an error when user is not logged in', (done) => {

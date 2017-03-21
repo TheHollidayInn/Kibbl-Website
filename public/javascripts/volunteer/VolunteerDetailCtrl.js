@@ -15,4 +15,17 @@ angular.module('Volunteer')
 				$scope.volunteer = response.data.data;
 			})
 		}
+
+		$scope.favorite = function () {
+			$scope.volunteer.favorited = !$scope.volunteer.favorited;
+
+			var url = '/api/v1/favorites?type=volunteer&itemId=' + $scope.volunteer._id;
+			$http({
+				method: 'POST',
+				url: url,
+			})
+			.then(function (response) {
+				// $scope.pet = response.data.data;
+			});
+		};
 	}]);

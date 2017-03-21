@@ -16,7 +16,8 @@
         h3 Actions
         ul
           li
-            button.btn.btn-raised.btn-primary Favorite
+            button.btn.btn-raised.btn-primary(ng-click='favorite()', ng-if='!event.favorited') Favorite
+            button.btn.btn-raised.btn-warning(ng-click='favorite()', ng-if='event.favorited') Unfavorite
           li
             button.btn.btn-raised.btn-primary Share
           li

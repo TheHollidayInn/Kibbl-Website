@@ -31,14 +31,14 @@ angular.module('Shelters')
 					},
 				})
 				.then(function (response) {
-					
+
 				})
 			};
 
 			$scope.sendContact = function () {
 				let data = angular.copy($scope.contactDetails);
 				data.to = 'keithrholliday@gmail.com';
-		
+
 				var url = '/api/v1/contacts/';
 				$http({
 					method: 'POST',
@@ -50,6 +50,19 @@ angular.module('Shelters')
 				})
 			};
 
+			$scope.favorite = function () {
+	      $scope.shelter.favorited = !$scope.shelter.favorited;
+
+	      var url = '/api/v1/favorites?type=shelter&itemId=' + $scope.shelter._id;
+	      $http({
+	        method: 'POST',
+	        url: url,
+	      })
+	      .then(function (response) {
+	        // $scope.pet = response.data.data;
+	      });
+	    };
+
 			// $scope.contact = function () {
 			// 	$uibModal.open({
 			// 		// animation: $ctrl.animationsEnabled,
@@ -58,7 +71,7 @@ angular.module('Shelters')
 			// 		templateUrl: 'contact-modal.html',
 			// 		// size: 'sm',
 			// 		controller: function($scope) {
-			// 			$scope.name = 'top';  
+			// 			$scope.name = 'top';
 			// 		}
 			// 	});
 			// };
