@@ -9,6 +9,18 @@ var favoriteSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Pets'
   },
+  volunteerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'VolunteerOpportunity'
+  },
+  shelterId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Shelters'
+  },
+  eventId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Events'
+  },
   active: { type: Boolean, default: true },
   createdAt: {type: Date, default: new Date()},
 });

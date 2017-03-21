@@ -4,6 +4,8 @@ let should = chai.should();
 chai.use(chaiHttp);
 global.server = require('../app');
 global.request = require('supertest');
+let Bluebird = require('bluebird');
+Bluebird.promisifyAll(global.request);
 let passport = require('passport');
 let faker = require('faker');
 
