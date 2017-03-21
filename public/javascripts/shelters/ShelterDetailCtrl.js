@@ -53,10 +53,14 @@ angular.module('Shelters')
 			$scope.favorite = function () {
 	      $scope.shelter.favorited = !$scope.shelter.favorited;
 
-	      var url = '/api/v1/favorites?type=shelter&itemId=' + $scope.shelter._id;
+	      var url = '/api/v1/favorites';
 	      $http({
 	        method: 'POST',
 	        url: url,
+					data: {
+						type: 'shelter',
+						itemId: $scope.shelter._id,
+					},
 	      })
 	      .then(function (response) {
 	        // $scope.pet = response.data.data;
