@@ -19,10 +19,14 @@ angular.module('Volunteer')
 		$scope.favorite = function () {
 			$scope.volunteer.favorited = !$scope.volunteer.favorited;
 
-			var url = '/api/v1/favorites?type=volunteer&itemId=' + $scope.volunteer._id;
+			var url = '/api/v1/favorites';
 			$http({
 				method: 'POST',
 				url: url,
+				data: {
+					type: 'volunteer',
+					itemId: $scope.volunteer._id,
+				},
 			})
 			.then(function (response) {
 				// $scope.pet = response.data.data;
