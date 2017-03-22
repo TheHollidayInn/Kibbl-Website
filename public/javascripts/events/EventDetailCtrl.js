@@ -50,6 +50,8 @@ angular.module('Events')
 			$scope.sendContact = function () {
 				let data = angular.copy($scope.contactDetails);
 				data.to = 'keithrholliday@gmail.com';
+				data.type = 'event';
+				data.itemId = $scope.event._id;
 
 				var url = '/api/v1/contacts/';
 				$http({

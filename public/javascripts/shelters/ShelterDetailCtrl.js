@@ -51,6 +51,8 @@ angular.module('Shelters')
 			$scope.sendContact = function () {
 				let data = angular.copy($scope.contactDetails);
 				data.to = 'keithrholliday@gmail.com';
+				data.type = 'shelter';
+				data.itemId = $scope.shelter._id;
 
 				var url = '/api/v1/contacts/';
 				$http({

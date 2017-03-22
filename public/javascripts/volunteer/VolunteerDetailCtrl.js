@@ -45,4 +45,21 @@ angular.module('Volunteer')
 				// $scope.pet = response.data.data;
 			});
 		};
+
+		$scope.sendContact = function () {
+			let data = angular.copy($scope.contactDetails);
+			data.to = 'keithrholliday@gmail.com';
+			data.type = 'volunteer';
+			data.itemId = $scope.volunteer._id;
+
+			var url = '/api/v1/contacts/';
+			$http({
+				method: 'POST',
+				url: url,
+				data: data,
+			})
+			.then(function (response) {
+				console.log(response)
+			})
+		};
 	}]);
