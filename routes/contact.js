@@ -7,13 +7,26 @@ var Middleware = require('../middleware');
 var Mailgun = require('../libraries/mailgun');
 
 router.post('/', Middleware.hasValidToken, function(req, res, next) {
-  var contact = new Contact();
+  let type = req.body.type;
+  let itemId = req.body.itemId;
+
+  let contact = new Contact();
   contact.userID = req.user._id;
   contact.petID = req.body.petId;
   contact.firstName = req.body.firstName;
   contact.lastName = req.body.lastName;
   contact.email = req.body.email;
   contact.message = req.body.message;
+
+  if (type === 'pet') {
+    contact.petID = itemId;
+  } else if (type === 'shelter') {
+    contact.shelterId = itemId;
+  } else if (type === 'volunteer') {
+    contact.volunteerId = itemId;
+  } else if (type === 'event') {
+    contact.eventId = itemId;
+  }
 
   if (req.body.inReplyTo) contact.inReplyTo = req.body.inReplyTo;
   if (req.body.originalContactId) contact.originalContactId = req.body.originalContactId;

@@ -8,6 +8,9 @@ let Bluebird = require('bluebird');
 Bluebird.promisifyAll(global.request);
 let passport = require('passport');
 let faker = require('faker');
+global.sinon = require('sinon');
+let sinonStubPromise = require('sinon-stub-promise');
+sinonStubPromise(global.sinon);
 
 let User = require("../models/user.js");
 

@@ -1,17 +1,11 @@
 require('../../test-helpers');
-
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let request = require('supertest');
-let sinon = require('sinon');
-let sinonStubPromise = require('sinon-stub-promise');
-sinonStubPromise(sinon);
-
 let integrationHelpers = require('../../integration-helpers');
-let server;
 
-let should = chai.should();
-chai.use(chaiHttp);
+let Pet = require("../../../models/pets");
+let Shelter = require("../../../models/shelters");
+let Volunteer = require("../../../models/volunteerOpportunity");
+let Event = require("../../../models/events");
+let Favorite = require('../../../models/favorites');
 
 let Contact = require("../../../models/contact.js");
 let Mailgun = require('../../../libraries/mailgun');
@@ -41,12 +35,25 @@ describe('Contact: POST', () => {
       })
   });
 
-  afterEach(function(done) {
+  after(function(done) {
     Mailgun.sendMessages.restore();
 
-    Contact.remove({}, function() {
-      done();
-    });
+    Contact.remove()
+      .then(function () {
+        return Pet.remove();
+      })
+      .then(function () {
+        return Shelter.remove();
+      })
+      .then(function () {
+        return Volunteer.remove();
+      })
+      .then(function () {
+        return Event.remove();
+      })
+      .then(function () {
+        done();
+      });
   });
 
   it('returns an error when user is not logged in', (done) => {
@@ -69,6 +76,75 @@ describe('Contact: POST', () => {
         res.should.have.status(201);
         res.body.data.exist;
         Mailgun.sendMessages.callCount.should.equal(1);
+        done();
+      });
+  });
+
+  it('creates a contact message with event', (done) => {
+    let pet = new Event();
+    pet.save()
+      .then((petSaved) => {
+        return request(server)
+          .post('/api/v1/contacts')
+          .send({
+            type: 'event',
+            itemId: petSaved._id,
+          })
+          .set('x-access-token', userdata.token)
+          .endAsync();
+      })
+      .then((res) => {
+        res.should.have.status(201);
+        let favorite = res.body.data;
+        favorite.eventId.should.eql(pet._id+'');
+        favorite.userID.should.equal(userdata.user._id);
+        Mailgun.sendMessages.callCount.should.equal(2);
+        done();
+      });
+  });
+
+  it('creates a contact message with volunteer', (done) => {
+    let pet = new Volunteer();
+    pet.save()
+      .then((petSaved) => {
+        return request(server)
+          .post('/api/v1/contacts')
+          .send({
+            type: 'volunteer',
+            itemId: petSaved._id,
+          })
+          .set('x-access-token', userdata.token)
+          .endAsync();
+      })
+      .then((res) => {
+        res.should.have.status(201);
+        let favorite = res.body.data;
+        favorite.volunteerId.should.eql(pet._id+'');
+        favorite.userID.should.equal(userdata.user._id);
+        Mailgun.sendMessages.callCount.should.equal(3);
+        done();
+      });
+  });
+
+  it('creates a contact message with shelter', (done) => {
+    let pet = new Volunteer();
+    pet.save()
+      .then((petSaved) => {
+        return request(server)
+          .post('/api/v1/contacts')
+          .send({
+            type: 'shelter',
+            itemId: petSaved._id,
+          })
+          .set('x-access-token', userdata.token)
+          .endAsync();
+      })
+      .then((res) => {
+        res.should.have.status(201);
+        let favorite = res.body.data;
+        favorite.shelterId.should.eql(pet._id+'');
+        favorite.userID.should.equal(userdata.user._id);
+        Mailgun.sendMessages.callCount.should.equal(4);
         done();
       });
   });
