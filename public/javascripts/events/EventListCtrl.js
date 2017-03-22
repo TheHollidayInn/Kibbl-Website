@@ -64,5 +64,4 @@ angular.module('Events')
 		$scope.popup2 = {
 			opened: false
 		};
-
 	}]);

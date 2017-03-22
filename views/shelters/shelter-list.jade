@@ -3,25 +3,19 @@
     .form-group.col-md-2
       h1 Shelters
     
-    div.form-group.col-md-2
+    .form-group.col-md-2
       label Location
-      input.form-control(ng-model='filters.location', type='text')
-    
-    div.form-group.col-md-2(input-field='')
-      label Type
-      br
-      select.form-control(ng-model='filters.type', material-select='', watch='')
-        option(ng-repeat='option in petTypes', value="{{option.value}}") {{option.key}}
+      input.form-control(ng-model='filters.location', type='text', googleplace-autocomplete, googleplace-autocomplete-place='filters.autocomplete')
     
     .form-group.col-md-2
-      label Breed
-      input.form-control(ng-model='filters.breed', type='text')
-    
-    div.form-group.col-md-2(input-field='')
-      label Age
+      label Type
       br
-      select.form-control(ng-model='filters.age', material-select='', watch='')
-        option(ng-repeat='option in petAges', value="{{option.value}}") {{option.key}}
+      select.form-control(ng-model='filters.type', 
+        ng-options="type.name for type in eventTypes track by type.id")
+          option(value="") - Select Option -
+
+    .form-group.col-md-2
+      button.btn.btn-primary.btn-raised(ng-click='getEvents()') Filter
 
 .container
   div.row
@@ -38,4 +32,3 @@
           footer.card-footer
             a.btn.btn-flat.btn-primary(href='/shelters/{{shelter._id}}') 
               | Learn More
-

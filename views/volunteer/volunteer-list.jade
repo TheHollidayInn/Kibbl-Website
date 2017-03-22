@@ -2,26 +2,44 @@
   div.col-md-12.well(style="min-height:100px;")  
     .form-group.col-md-2
       h1 Volunteer
-
-    div.form-group.col-md-2
-      label Location
-      input.form-control(ng-model='filters.location', type='text')
-    
-    div.form-group.col-md-2(input-field='')
-      label Type
-      br
-      select.form-control(ng-model='filters.type', material-select='', watch='')
-        option(ng-repeat='option in petTypes', value="{{option.value}}") {{option.key}}
     
     .form-group.col-md-2
-      label Breed
-      input.form-control(ng-model='filters.breed', type='text')
+      label Location
+      input.form-control(ng-model='filters.location', type='text', googleplace-autocomplete, googleplace-autocomplete-place='filters.autocomplete')
     
-    div.form-group.col-md-2(input-field='')
-      label Age
+    .form-group.col-md-2
+      label Type
       br
-      select.form-control(ng-model='filters.age', material-select='', watch='')
-        option(ng-repeat='option in petAges', value="{{option.value}}") {{option.key}}
+      select.form-control(ng-model='filters.type', 
+        ng-options="type.name for type in eventTypes track by type.id")
+          option(value="") - Select Option -
+    
+    .form-group.col-md-2
+      label Between
+      p.input-group
+        input.form-control(type='text', 
+          uib-datepicker-popup='{{format}}', 
+          ng-model='filters.startDate', 
+          is-open='popup1.opened', 
+          datepicker-options='dateOptions', ng-required='true', close-text='Close', alt-input-formats='altInputFormats')
+        span.input-group-btn
+          button.btn.btn-default(type='button', ng-click='open1()')
+            i.glyphicon.glyphicon-calendar
+
+    .form-group.col-md-2
+      label And
+      p.input-group
+        input.form-control(type='text', 
+          uib-datepicker-popup='{{format}}', 
+          ng-model='filters.endDate', 
+          is-open='popup2.opened', 
+          datepicker-options='dateOptions', ng-required='true', close-text='Close', alt-input-formats='altInputFormats')
+        span.input-group-btn
+          button.btn.btn-default(type='button', ng-click='open2()')
+            i.glyphicon.glyphicon-calendar
+    
+    .form-group.col-md-2
+      button.btn.btn-primary.btn-raised(ng-click='getEvents()') Filter
 
 .container
   div.row
@@ -38,4 +56,3 @@
           footer.card-footer
             a.btn.btn-flat.btn-primary(href='/volunteer/{{opportunity._id}}') 
               | Learn More
-
