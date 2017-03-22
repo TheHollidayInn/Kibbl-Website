@@ -37,7 +37,8 @@
       .well
         h3 Description
         p {{shelter.description}}
-      include ../comments
+      
+      comments(item-id='shelter._id')
 
   // Modals
   #contact.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')

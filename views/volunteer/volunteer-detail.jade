@@ -35,7 +35,8 @@
       .well
         h3 Description
         p {{volunteer.description}}
-      include ../comments
+      
+      comments(item-id='volunteer._id')
 
 // Modals
 #contact.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')

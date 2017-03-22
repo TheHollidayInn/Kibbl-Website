@@ -294,6 +294,10 @@ router.get('/contact-modal.html', function(req, res, next) {
   res.render('modals/contact');
 });
 
+router.get('/comments-directive.html', function(req, res, next) {
+  res.render('comments');
+});
+
 router.get('/home.html', function(req, res, next) {
   res.render('home');
 });

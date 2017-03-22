@@ -4,22 +4,26 @@ angular.module('Comments')
 		$scope.comments = [];
 
 		$scope.getComments = function (itemId) {
-			CommentService.getComments()
+			CommentService.getComments(itemId)
 			.then(function (response) {
-				$scope.comments = response.data;
+				$scope.comments = response.comments;
 			});
 		}
-		$scope.getComments();
+
+		$scope.$watch('itemId', function (newValue, oldValue) {
+			if (!newValue) return;
+			$scope.getComments($scope.itemId);
+		});
 
 		$scope.addComment = function (text, itemId) {
-			$scope.comments.push({
-				user: '',
-				text: text,
-			})
+			// $scope.comments.push({
+			// 	user: '',
+			// 	text: text,
+			// })
 			$scope.commentText = '';
 			CommentService.addComment(text, itemId)
 				.then(function (response) {
-					$scope.comments += response.data;
+					$scope.comments.push(response.comment);
 				});
 		};
 	}]);

@@ -39,7 +39,8 @@
       .well
         h3 Description
         p {{pet.description}}
-      include ../comments
+      
+      comments(item-id='pet._id')
 
 // Modals
 #contact.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')

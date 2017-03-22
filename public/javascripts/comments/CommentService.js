@@ -4,6 +4,7 @@ angular.module('Comments')
     var api = {};
 
     api.getComments = function (itemId) {
+      console.log(itemId)
       var url = '/api/v1/comments?itemId=' + itemId;
 
       return $http({
@@ -15,13 +16,16 @@ angular.module('Comments')
         //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular
         return events;
       })
+      .catch(function (err) {
+
+      });
     };
 
-    api.addComment = function (itemId, text) {
+    api.addComment = function (text, itemId) {
       var url = '/api/v1/comments';
 
       return $http({
-        method: 'GET',
+        method: 'POST',
         url: url,
         data: {
           itemId: itemId,
