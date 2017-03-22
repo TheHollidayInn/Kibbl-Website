@@ -20,7 +20,27 @@ function getUserFromToken (req) {
 }
 
 router.get('/', function(req, res, next) {
-  VolunteerOpportunity.find({})
+  let query = {};
+
+  if (req.query.zipCode) {
+    query['loctionDetails.zipCode'] = req.query.zipCode;
+  }
+
+  if (req.query.type) {
+    query.type = req.query.type;
+  }
+
+  if (req.query.startDate) {
+    if (!query.date) query.date = {};
+    query.date.$gte = moment(req.query.startDate).toISOString();
+  }
+
+  if (req.query.endDate) {
+    if (!query.date) query.date = {};
+    query.date.$lte = moment(req.query.endDate).toISOString();
+  }
+
+  VolunteerOpportunity.find(query)
   .exec(function(err, favorites) {
     if (err) return res.status(400).json(err);
     res.status(200).json({data:favorites});

@@ -7,6 +7,10 @@ var Schema = new mongoose.Schema({
     email: String,
     phone: String,
   },
+  loctionDetails: {
+    zipCode: String,
+  },
+  type: String,
   shelterId: String,
   createdAt: {type: Date, default: new Date()},
 });
