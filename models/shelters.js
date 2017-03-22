@@ -3,6 +3,10 @@ var mongoose = require('mongoose');
 var Schema = new mongoose.Schema({
   name: String,
   description: String,
+  loctionDetails: {
+    zipCode: String,
+  },
+  type: String,
   createdAt: {type: Date, default: new Date()},
 });
 

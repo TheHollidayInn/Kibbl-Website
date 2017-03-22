@@ -21,7 +21,17 @@ function getUserFromToken (req) {
 }
 
 router.get('/', function(req, res, next) {
-  Shelter.find({})
+  let query = {};
+
+  if (req.query.zipCode) {
+    query['loctionDetails.zipCode'] = req.query.zipCode;
+  }
+
+  if (req.query.type) {
+    query.type = req.query.type;
+  }
+
+  Shelter.find(query)
   .exec(function(err, favorites) {
     if (err) return res.status(400).json(err);
     res.status(200).json({data: favorites});
@@ -48,7 +58,7 @@ router.get('/:shelterId', function(req, res, next) {
     })
     .then(function (notification) {
       if (notification && notification.active) subscribed = true;
-      
+
       return Favorite.findOne({
         userID: userId,
         shelterId: req.params.shelterId,
