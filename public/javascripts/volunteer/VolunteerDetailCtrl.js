@@ -1,7 +1,20 @@
 angular.module('Volunteer')
-.controller('VolunteerDetailCtrl', ['$scope', '$routeParams', '$http',
-		function ($scope, $routeParams, $http) {
+.controller('VolunteerDetailCtrl', ['$scope', '$routeParams', '$http', '$location',
+		function ($scope, $routeParams, $http, $location) {
 		$scope.volunteer = {};
+
+		// Social stuffs @TODO: Make a directive
+		$scope.tweetDetails = {
+			url: $location.absUrl(),
+			text: 'Check out this amazing event on Kibbl: ',
+		};
+		$scope.twitterUrl = 'https://twitter.com/intent/tweet?' + $.param($scope.tweetDetails)
+
+		$scope.faceBookDetails = {
+			api_key: 1773720656197985,
+			href: $location.absUrl(),
+		};
+		$scope.facebookUrl = 'https://www.facebook.com/login.php?' + $.param($scope.faceBookDetails);
 
 		sendRequest();
 		function sendRequest() {
