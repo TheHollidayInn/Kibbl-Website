@@ -3,15 +3,17 @@ angular.module('Events')
 		function ($scope, $routeParams, $http, $location) {
 			$scope.event = {};
 			$scope.url = $location.absUrl();
+
+			// Social stuffs @TODO: Make a directive
 			$scope.tweetDetails = {
 				url: $location.absUrl(),
+				text: 'Check out this amazing event on Kibbl: ',
 			};
-			console.log($.param($scope.tweetDetails))
+			$scope.twitterUrl = 'https://twitter.com/intent/tweet?' + $.param($scope.tweetDetails)
+
 			$scope.faceBookDetails = {
-				skip_api_login: 1,
-				api_key: 1467820943460899,
-				signed_next: 1,
-				next: 'https%3A%2F%2Fwww.facebook.com%2Fv2.2%2Fdialog%2Fshare%3Fhref%3Dhttps%253A%252F%252Fwww.producthunt.com%252Fposts%252Fnoun-project-for-mac-2-0%26quote%26client_id%3D1467820943460899%26ret%3Dlogin&',
+				api_key: 1773720656197985,
+				href: $location.absUrl(),
 			};
 			$scope.facebookUrl = 'https://www.facebook.com/login.php?' + $.param($scope.faceBookDetails);
 
