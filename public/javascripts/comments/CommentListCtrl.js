@@ -3,7 +3,7 @@ angular.module('Comments')
 	function ($scope, CommentService) {
 		$scope.comments = [];
 
-		$scope.getComments = function () {
+		$scope.getComments = function (itemId) {
 			CommentService.getComments()
 			.then(function (response) {
 				$scope.comments = response.data;
@@ -11,15 +11,15 @@ angular.module('Comments')
 		}
 		$scope.getComments();
 
-		$scope.addComment = function (text) {
+		$scope.addComment = function (text, itemId) {
 			$scope.comments.push({
 				user: '',
 				text: text,
 			})
 			$scope.commentText = '';
-			// CommentService.addComment(text)
-			// 	.then(function (response) {
-			// 		$scope.comments += response.data;
-			// 	});
+			CommentService.addComment(text, itemId)
+				.then(function (response) {
+					$scope.comments += response.data;
+				});
 		};
 	}]);

@@ -3,12 +3,30 @@ angular.module('Comments')
   function ($http, $rootScope, $httpParamSerializer) {
     var api = {};
 
-    api.getComments = function (data) {
-      var url = '/api/v1/comments?' + $httpParamSerializer(data);
+    api.getComments = function (itemId) {
+      var url = '/api/v1/comments?itemId=' + itemId;
 
       return $http({
         method: 'GET',
         url: url,
+      })
+      .then(function (response) {
+        let events = response.data;
+        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular
+        return events;
+      })
+    };
+
+    api.addComment = function (itemId, text) {
+      var url = '/api/v1/comments';
+
+      return $http({
+        method: 'GET',
+        url: url,
+        data: {
+          itemId: itemId,
+          text: text,
+        },
       })
       .then(function (response) {
         let events = response.data;
