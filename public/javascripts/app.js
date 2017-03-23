@@ -1,5 +1,5 @@
 angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap',
-  'Volunteer', 'Events', 'Pets', 'Shelters', 'Messages', 'Notifications', 'Comments'])
+  'Volunteer', 'Events', 'Pets', 'Shelters', 'Messages', 'Notifications', 'Comments', 'Feedback'])
 .constant('urls', {
   BASE: '/',
   BASE_API: '/api/v1/'

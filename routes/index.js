@@ -298,6 +298,14 @@ router.get('/comments-directive.html', function(req, res, next) {
   res.render('comments');
 });
 
+router.get('/feedback-list.html', function(req, res, next) {
+  res.render('feedback/feedback-list');
+});
+
+router.get('/feedback-detail.html', function(req, res, next) {
+  res.render('feedback/feedback-detail');
+});
+
 router.get('/home.html', function(req, res, next) {
   res.render('home');
 });

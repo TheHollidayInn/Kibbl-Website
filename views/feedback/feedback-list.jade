@@ -1,0 +1,26 @@
+.container-fluid(style='padding:0px;')
+  div.col-md-12.well(style="min-height:100px;")  
+    .form-group.col-md-3
+      h1 Submit Feedback
+
+.row(ng-if='feedback.length === 0')
+  .col-md-6.col-md-offset-3.well
+    h2.text-center No feedback yet!
+
+.row
+  .well.col-md-6.col-md-offset-3
+    h3.col-md-12 Have some feedback for us?
+    .col-md-12
+      textarea.form-control.col-md-8(placeholder="What do you think?", ng-model='commentText')
+      button.btn.btn-raised.pull-right(ng-click='addFeedback(commentText)') Send
+
+div.row  
+  div.col-md-6.col-md-offset-3
+    .list-group(ng-repeat="feedback in feedbacks")
+      .list-group-item
+        .row-picture
+          img.circle(ng-src='../images/kibbl-logo-dog.png', alt='icon')
+        .row-content
+          h4.list-group-item-heading {{feedback.text}}
+          //- a.btn.btn-flat.btn-raised.btn-primary(href='/messages/{{message}}') View
+      .list-group-separator
