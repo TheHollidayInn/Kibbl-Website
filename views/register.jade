@@ -13,11 +13,6 @@ section.container
                 label Password
                 input.form-control(type='password', name='password', ng-model='password')
               button.btn.btn-primary.btn-raised.btn-lg(ng-click='register()') Register
-            //- hr
-            //- p
-            //-   | Need an account? 
-            //-   a(href='/signup') Signup
-            //- p
-            //-   | Or go 
-            //-   a(href='/') home
-            //-   | .
+            hr
+            p
+              button.btn.btn-primary.btn-raised.btn-lg(fb-login type="button", style='background-color:#3b5998') Facebook

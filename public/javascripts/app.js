@@ -1,11 +1,11 @@
-angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap',
+angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap', 'socialLogin',
   'Volunteer', 'Events', 'Pets', 'Shelters', 'Messages', 'Notifications', 'Comments', 'Feedback'])
 .constant('urls', {
   BASE: '/',
   BASE_API: '/api/v1/'
 })
-.config(['$routeProvider', '$locationProvider', '$httpProvider',
-  function($routeProvider, $locationProvider, $httpProvider) {
+.config(['$routeProvider', '$locationProvider', '$httpProvider', 'socialProvider',
+  function($routeProvider, $locationProvider, $httpProvider, socialProvider) {
     $routeProvider
       .when('/favorites', {
         templateUrl: 'favorite-list.html',
@@ -26,6 +26,10 @@ angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap',
       .otherwise({
         redirectTo: '/'
       });
+
+    // socialProvider.setGoogleKey("YOUR GOOGLE CLIENT ID");
+    // socialProvider.setLinkedInKey("YOUR LINKEDIN CLIENT ID");
+    socialProvider.setFbKey({appId: "1773720656197985", apiVersion: "v2.8"});
 
     // use the HTML5 History API
     $locationProvider.html5Mode(true);

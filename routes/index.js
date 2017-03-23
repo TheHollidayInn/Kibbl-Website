@@ -190,7 +190,7 @@ router.post('/api/v1/auth/social', function (req, res) {
 
   authenticateSocialNetwork (network, accessToken)
     .then(function (profile) {
-
+      // @TODO: Generalize for other
       return User.findOne({ 'facebook.id' : profile.id })
         .then(function(user) {
           var newUser;

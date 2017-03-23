@@ -1,5 +1,19 @@
 angular.module('Kibbl')
-   .factory('Auth', ['$http', '$localStorage', 'urls', function ($http, $localStorage, urls) {
+   .factory('Auth', ['$http', '$localStorage', 'urls', '$rootScope',
+    function ($http, $localStorage, urls, $rootScope) {
+
+      $rootScope.$on('event:social-sign-in-success', function(event, userDetails){
+        var data = {
+          network: userDetails.provider,
+          accessToken: userDetails.token,
+        };
+        $http.post('/api/v1/auth/social', data)
+          .then(function (response) {
+            $localStorage.token = response.data.token;
+      			window.location = "/";
+          });
+      });
+
        function urlBase64Decode(str) {
            var output = str.replace('-', '+').replace('_', '/');
            switch (output.length % 4) {
