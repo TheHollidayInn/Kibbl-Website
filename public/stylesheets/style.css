@@ -7,6 +7,12 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
   /*margin-left: -160px !important; */
 }
 
+.banner-logo {
+  height: 15rem;
+  display: block;
+  margin: 0 auto;
+}
+
 
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-width : 520px) {
