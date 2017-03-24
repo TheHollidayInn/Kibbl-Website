@@ -115,7 +115,7 @@ router.get('/conversations/:id', Middleware.hasValidToken, function (req, res, n
     .then(function(contact) {
       return Contact.find({
         originalContactId: contact.originalContactId,
-      });
+      }).sort({createdAt: -1});
     })
     .then(function(contacts) {
       return res.status(201).json({data: contacts});
