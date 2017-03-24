@@ -14,6 +14,6 @@ div.row
         .row-picture
           img.circle(ng-src='../images/kibbl-logo-dog.png', alt='icon')
         .row-content
-          h4.list-group-item-heading {{message}}
-          a.btn.btn-flat.btn-raised.btn-primary(href='/messages/{{message}}') View
+          h4.list-group-item-heading {{message._id}}
+          a.btn.btn-flat.btn-raised.btn-primary(href='/messages/{{message._id}}') View
       .list-group-separator

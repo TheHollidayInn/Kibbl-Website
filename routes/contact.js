@@ -12,9 +12,8 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
 
   let contact = new Contact();
   contact.userID = req.user._id;
-  contact.petID = req.body.petId;
-  contact.firstName = req.body.firstName;
-  contact.lastName = req.body.lastName;
+  if (req.body.firstName) contact.firstName = req.body.firstName;
+  if (req.body.lastName) contact.lastName = req.body.lastName;
   contact.email = req.body.email;
   contact.message = req.body.message;
 
@@ -74,15 +73,17 @@ router.post('/message-receive', function (req, res, next) {
 
   Contact.findOne(query)
     .then(function (foundMessage) {
-      let originalContactId = foundMessage.originalContactId || foundMessage._id;
-
-      contact.originalContactId = originalContactId;
+      if (foundMessage) {
+        let originalContactId = foundMessage.originalContactId || foundMessage._id;
+        contact.originalContactId = originalContactId;
+      }
       contact.save();
     })
     .then(function(err) {
       return res.status(201).json({data: contact});
     })
     .catch(function(err) {
+      console.log(err)
       return res.status(400).json(err);
     });
 });
@@ -92,8 +93,8 @@ router.get('/conversations', Middleware.hasValidToken, function (req, res, next)
     'userID': req.user._id,
   };
 
-  Contact.aggregate( [
-    { $match: { userID: mongoose.Schema.Types.ObjectId(req.user._id) } },
+  Contact.aggregate([
+    { $match: { userID: mongoose.Types.ObjectId(req.user._id) } },
     { $group : { _id : "$email", email: { $push: "$email" } } },
     ])
     .then(function(contacts) {
@@ -104,15 +105,18 @@ router.get('/conversations', Middleware.hasValidToken, function (req, res, next)
     });
 });
 
-router.get('/conversation/:id', function (req, res, next) {
+router.get('/conversations/:id', Middleware.hasValidToken, function (req, res, next) {
   let query = {
-    '$or': [
-      {_id: req.params.id},
-      {originalContactId: req.params.id},
-    ],
+    userID: req.user._id,
+    email: req.params.id
   };
 
-  Contact.find(query)
+  Contact.findOne(query)
+    .then(function(contact) {
+      return Contact.find({
+        originalContactId: contact.originalContactId,
+      });
+    })
     .then(function(contacts) {
       return res.status(201).json({data: contacts});
     })
