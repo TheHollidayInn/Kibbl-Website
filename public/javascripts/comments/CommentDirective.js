@@ -1,5 +1,5 @@
 angular.module('Comments')
-.directive('comments', function () {
+.directive('comments', [function () {
   return {
     restrict: 'E',
     scope: {
@@ -13,4 +13,4 @@ angular.module('Comments')
     link: function postLink(scope, element, attrs, model) {
     }
   };
-});
+}]);

@@ -1,6 +1,7 @@
 node_modules
 .git
 public/bower_components
+public/dist
 npm-debug.log
 config.json
 yarn-error.log
