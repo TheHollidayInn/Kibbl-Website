@@ -23,6 +23,7 @@
     "bootstrap-material-design": "0.5.10",
     "ngstorage": "^0.3.11",
     "angular-bootstrap": "^2.5.0",
-    "angularjs-social-login": "^2.5.0"
+    "angularjs-social-login": "^2.5.0",
+    "angulartics": "^1.4.0"
   }
 }

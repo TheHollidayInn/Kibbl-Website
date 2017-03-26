@@ -1,4 +1,6 @@
 angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap', 'socialLogin',
+  'angulartics',
+  'angulartics.google.analytics',
   'Volunteer', 'Events', 'Pets', 'Shelters', 'Messages', 'Notifications', 'Comments', 'Feedback'])
 .constant('urls', {
   BASE: '/',
