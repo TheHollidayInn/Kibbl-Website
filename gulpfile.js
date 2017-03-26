@@ -72,7 +72,7 @@ gulp.task('concat', function() {
 
   files = dependentjsfiles.concat(['public/dist/uglify.js']);
 
-  return gulp.src(files)
-    .pipe(concat('all-2.js'))
+  return gulp.src(dependentjsfiles)
+    .pipe(concat('deps.js'))
     .pipe(gulp.dest('public/dist'));
 });
