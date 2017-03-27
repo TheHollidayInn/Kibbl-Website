@@ -1,6 +1,6 @@
 angular.module('Volunteer')
-.controller('VolunteerDetailCtrl', ['$scope', '$routeParams', '$http', '$location',
-		function ($scope, $routeParams, $http, $location) {
+.controller('VolunteerDetailCtrl', ['$scope', '$routeParams', '$http', '$location', 'MessageService',
+		function ($scope, $routeParams, $http, $location, MessageService) {
 		$scope.volunteer = {};
 
 		// Social stuffs @TODO: Make a directive
@@ -52,14 +52,6 @@ angular.module('Volunteer')
 			data.type = 'volunteer';
 			data.itemId = $scope.volunteer._id;
 
-			var url = '/api/v1/contacts/';
-			$http({
-				method: 'POST',
-				url: url,
-				data: data,
-			})
-			.then(function (response) {
-				console.log(response)
-			})
+			MessageService.sendMessage(data);
 		};
 	}]);

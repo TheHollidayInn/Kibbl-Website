@@ -1,6 +1,6 @@
 angular.module('Events')
-	.controller('EventDetailCtrl', ['$scope', '$routeParams', '$http', '$location',
-		function ($scope, $routeParams, $http, $location) {
+	.controller('EventDetailCtrl', ['$scope', '$routeParams', '$http', '$location', 'MessageService',
+		function ($scope, $routeParams, $http, $location, MessageService) {
 			$scope.event = {};
 			$scope.url = $location.absUrl();
 
@@ -53,14 +53,6 @@ angular.module('Events')
 				data.type = 'event';
 				data.itemId = $scope.event._id;
 
-				var url = '/api/v1/contacts/';
-				$http({
-					method: 'POST',
-					url: url,
-					data: data,
-				})
-				.then(function (response) {
-					console.log(response)
-				})
+				MessageService.sendMessage(data);
 			};
 		}]);

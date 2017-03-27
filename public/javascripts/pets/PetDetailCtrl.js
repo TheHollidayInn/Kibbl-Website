@@ -1,6 +1,6 @@
 angular.module('Pets')
-.controller('PetDetailCtrl', ['$scope', '$http', '$routeParams', '$location',
-  function($scope, $http, $routeParams, $location) {
+.controller('PetDetailCtrl', ['$scope', '$http', '$routeParams', '$location', 'MessageService',
+  function($scope, $http, $routeParams, $location, MessageService) {
     $scope.pet = {};
 
     // Social stuffs @TODO: Make a directive
@@ -48,14 +48,6 @@ angular.module('Pets')
       data.type = 'pet';
       data.itemId = $scope.pet._id;
 
-      var url = '/api/v1/contacts/';
-      $http({
-        method: 'POST',
-        url: url,
-        data: data,
-      })
-      .then(function (response) {
-        console.log(response)
-      })
+      MessageService.sendMessage(data);
     };
   }]);
