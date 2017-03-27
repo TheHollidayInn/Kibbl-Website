@@ -12,7 +12,7 @@ angular.module('Messages')
       })
       .then(function (response) {
         let messages = response.data;
-        //$rootScope.$broadcast('messages', messages); // @TODO: use message bus. See Angular 
+        //$rootScope.$broadcast('messages', messages); // @TODO: use message bus. See Angular
         return messages;
       })
     };
@@ -26,24 +26,22 @@ angular.module('Messages')
       })
       .then(function (response) {
         let messages = response.data;
-        //$rootScope.$broadcast('messages', messages); // @TODO: use message bus. See Angular 
+        //$rootScope.$broadcast('messages', messages); // @TODO: use message bus. See Angular
         return messages;
       })
     };
 
-    api.sendMessage = function () {
+    api.sendMessage = function (data) {
       var url = '/api/v1/contacts/conversations';
 
       return $http({
         method: 'POST',
         url: url,
-        body: {
-
-        },
+        body: data,
       })
       .then(function (response) {
         let messages = response.data;
-        //$rootScope.$broadcast('messages', messages); // @TODO: use message bus. See Angular 
+        //$rootScope.$broadcast('messages', messages); // @TODO: use message bus. See Angular
         return messages;
       })
     };

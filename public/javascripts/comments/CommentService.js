@@ -4,7 +4,6 @@ angular.module('Comments')
     var api = {};
 
     api.getComments = function (itemId) {
-      console.log(itemId)
       var url = '/api/v1/comments?itemId=' + itemId;
 
       return $http({

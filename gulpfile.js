@@ -76,3 +76,7 @@ gulp.task('concat', function() {
     .pipe(concat('deps.js'))
     .pipe(gulp.dest('public/dist'));
 });
+
+gulp.task('watch', function() {
+  gulp.watch('public/javascript/**/*.js', ['concat']);
+});

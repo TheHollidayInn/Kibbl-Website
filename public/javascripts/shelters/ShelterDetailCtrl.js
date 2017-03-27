@@ -1,6 +1,6 @@
 angular.module('Shelters')
-	.controller('ShelterDetailCtrl', ['$scope', '$routeParams', '$http', '$uibModal', '$location',
-		function ($scope, $routeParams, $http, $uibModal, $location) {
+	.controller('ShelterDetailCtrl', ['$scope', '$routeParams', '$http', '$uibModal', '$location', 'NotificationService', 'MessageService',
+		function ($scope, $routeParams, $http, $uibModal, $location, NotificationService, MessageService) {
 			$scope.shelter = {};
 			$scope.contactDetails = {};
 
@@ -35,17 +35,7 @@ angular.module('Shelters')
 
 				$scope.shelter.subscribed = !$scope.shelter.subscribed;
 
-				var url = '/api/v1/notifications/';
-				$http({
-					method: 'POST',
-					url: url,
-					data: {
-						shelterId: $routeParams.id,
-					},
-				})
-				.then(function (response) {
-
-				})
+				var result = NotificationService.subscribe($routeParams.id, $scope.shelter);
 			};
 
 			$scope.sendContact = function () {
@@ -54,15 +44,7 @@ angular.module('Shelters')
 				data.type = 'shelter';
 				data.itemId = $scope.shelter._id;
 
-				var url = '/api/v1/contacts/';
-				$http({
-					method: 'POST',
-					url: url,
-					data: data,
-				})
-				.then(function (response) {
-					console.log(response)
-				})
+				MessageService.sendMessage(data);
 			};
 
 			$scope.favorite = function () {
