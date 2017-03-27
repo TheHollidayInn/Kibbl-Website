@@ -1,5 +1,6 @@
 var nconf = require('nconf');
 var jwt    = require('jsonwebtoken');
+let User = require('../models/user');
 
 var middleware = {}
 
@@ -26,8 +27,15 @@ middleware.hasValidToken = function (req, res, next) {
     if (err) {
       return res.status(403).json({ success: false, message: 'Failed to authenticate token.' });
     } else {
-      req.user = decoded._doc;
-      next();
+      let userDoc = decoded._doc;
+      User.findById(userDoc._id).exec()
+        .then((user) => {
+          req.user = user;
+          next();
+        })
+        .catch((err) => {
+          return res.status(403).json({err});
+        });
     }
   });
 }

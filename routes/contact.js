@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
+let moment = require('moment');
 
 var Contact = require('../models/contact');
 var Middleware = require('../middleware');
@@ -9,6 +10,19 @@ var Mailgun = require('../libraries/mailgun');
 router.post('/', Middleware.hasValidToken, function(req, res, next) {
   let type = req.body.type;
   let itemId = req.body.itemId;
+
+  let lastUpdateMonth = moment(req.user.limits.lastReset).month();
+  let currentMonth = moment().month();
+  if (currentMonth !== lastUpdateMonth) {
+    req.user.limits.lastReset = new Date();
+    req.user.limits.monthlyContacts = 0;
+  }
+
+  if (req.user.limits.monthlyContacts === 10) {
+    return res.status(401).json({message: 'You have reached your monthly limit on sending contacts.'});
+  }
+
+  req.user.limits.monthlyContacts += 1;
 
   let contact = new Contact();
   contact.userID = req.user._id;
@@ -49,6 +63,7 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
     .then(function(err) {
       if (!req.body.originalContactId) contact.originalContactId = contact._id;
       contact.save();
+      req.user.save();
 
       return res.status(201).json({data: contact});
     })

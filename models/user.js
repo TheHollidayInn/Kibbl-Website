@@ -25,6 +25,10 @@ var userSchema = mongoose.Schema({
         email        : String,
         name         : String
     },
+    limits: {
+      monthlyContacts: {type: Number, default: 0},
+      lastReset: {type: Date, default: new Date()},
+    },
     createdAt: {type: Date, default: new Date()},
 });
 

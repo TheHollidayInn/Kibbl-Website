@@ -6,6 +6,7 @@ let Shelter = require("../../../models/shelters");
 let Volunteer = require("../../../models/volunteerOpportunity");
 let Event = require("../../../models/events");
 let Favorite = require('../../../models/favorites');
+let User = require('../../../models/user');
 
 let Contact = require("../../../models/contact.js");
 let Mailgun = require('../../../libraries/mailgun');
@@ -146,6 +147,24 @@ describe('Contact: POST', () => {
         favorite.userID.should.equal(userdata.user._id);
         Mailgun.sendMessages.callCount.should.equal(4);
         done();
+      });
+  });
+
+  it('prevents user from sending more than 10 messages a month', (done) => {
+    let user = User
+      .update({_id: userdata.user._id}, {$set: {'limits.monthlyContacts': 10}})
+      .exec()
+      .then((user) => {
+        request(server)
+          .post('/api/v1/contacts')
+          .set('x-access-token', userdata.token)
+          .send(contactInfo)
+          .end((err, res) => {
+            res.should.have.status(401);
+            res.body.message.exist;
+            Mailgun.sendMessages.callCount.should.equal(0);
+            done();
+          });
       });
   });
 });
