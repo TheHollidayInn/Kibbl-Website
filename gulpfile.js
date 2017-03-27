@@ -16,6 +16,7 @@ var dependentjsfiles = [
   'public/bower_components/angularjs-social-login/angularjs-social-login.js',
   'public/bower_components/angulartics/dist/angulartics.min.js',
   'public/bower_components/angulartics-google-analytics/dist/angulartics-ga.min.js',
+  'public/bower_components/bootstrap-sweetalert/dist/sweetalert.min.js',
 ];
 
 var jsfiles = [

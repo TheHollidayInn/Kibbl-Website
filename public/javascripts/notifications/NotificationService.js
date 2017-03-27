@@ -35,7 +35,7 @@ angular.module('Notifications')
       .catch(function (response) {
         var message = response.data.message
         item.subscribed = !item.subscribed;
-        alert(message);
+        swal("Uh oh!", message, "warning")
       });
     };
 
