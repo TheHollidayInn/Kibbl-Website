@@ -27,6 +27,7 @@ var userSchema = mongoose.Schema({
     },
     limits: {
       monthlyContacts: {type: Number, default: 0},
+      subs: {type: Number, default: 0},
       lastReset: {type: Date, default: new Date()},
     },
     createdAt: {type: Date, default: new Date()},

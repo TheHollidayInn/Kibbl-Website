@@ -1,19 +1,9 @@
 require('../../test-helpers');
-
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let request = require('supertest');
-let sinon = require('sinon');
-let sinonStubPromise = require('sinon-stub-promise');
-sinonStubPromise(sinon);
-
 let integrationHelpers = require('../../integration-helpers');
-let server;
 
-let should = chai.should();
-chai.use(chaiHttp);
-
-let Notification = require("../../../models/notifications.js");
+let Notification = require("../../../models/notifications");
+let User = require("../../../models/user");
+let Volunteer = require("../../../models/volunteerOpportunity");
 
 describe('Notification: POST', () => {
   let contactInfo = {
@@ -59,6 +49,31 @@ describe('Notification: POST', () => {
       .end((err, res) => {
         res.should.have.status(201);
         res.body.data.exist;
+        done();
+      });
+  });
+
+  it('prevents user from subscribing to more than 10 a month', (done) => {
+    User
+      .update({_id: userdata.user._id}, {$set: {'limits.subs': 10}})
+      .exec()
+      .then((user) => {
+        let pet = new Volunteer();
+        return pet.save();
+      })
+      .then((petSaved) => {
+        return request(server)
+          .post('/api/v1/notifications')
+          .set('x-access-token', userdata.token)
+          .send({
+            type: 'shelter',
+            itemId: petSaved._id,
+          })
+          .endAsync();
+      })
+      .then((res) => {
+        res.should.have.status(401);
+        res.body.message.should.eql('You have reached your limit of 10 subscriptions.');
         done();
       });
   });

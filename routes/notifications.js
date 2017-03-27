@@ -13,20 +13,29 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
     if (favorites[0]) {
       if (favorites[0].active) {
         favorites[0].active = false;
+        req.user.limits.subs -= 1;
       } else {
+        if (req.user.limits.subs === 10) return res.status(401).json({message: 'You have reached your limit of 10 subscriptions.'});
         favorites[0].active = true;
+        req.user.limits.subs += 1;
       }
       return favorites[0].save();
     } else {
+      if (req.user.limits.subs === 10) return res.status(401).json({message: 'You have reached your limit of 10 subscriptions.'});
+
       var fav = new Notification();
       fav.userID = req.user._id;
       fav.shelterId = req.body.shelterId;
       fav.active = true;
+      req.user.limits.subs += 1;
 
       return fav.save();
     }
   })
   .then(function(fav) {
+    if (!fav._id) return;
+    req.user.save();
+
     return res.status(200).json({data: fav});
   })
   .catch(function (err) {
