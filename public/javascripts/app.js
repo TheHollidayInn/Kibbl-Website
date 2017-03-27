@@ -48,9 +48,9 @@ angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap', 'socialLogin',
         },
         'responseError': function (response) {
           // @TODO: Should not redirect after failed login/register
-          // if (response.status === 401 || response.status === 403) {
-          //   $location.path('/login');
-          // }
+          if ((response.status === 401 || response.status === 403) && response.data.message === 'No token provided.') {
+            $location.path('/login');
+          }
           return $q.reject(response);
         }
       };
