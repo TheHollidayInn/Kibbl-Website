@@ -1,35 +1,30 @@
+link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' type='text/css')
+link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css')
+
 .container-fluid.banner
   .container
     h1.text-center {{event.name}}
-
+.navbar.navbar-detail 
+  .container
+    .row
+      .col-md-9
+      .col-md-3
+        button.btn.btn-raised.btn-primary.btn-contact Contact
+        button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!event.favorited')
+          i(style="font-size: 2rem;").material-icons star_border
+        button.btn.btn-raised.btn-primary.btn-favorite-active(ng-click='favorite()', ng-if='event.favorited')
+          i(style="font-size: 2rem;").material-icons star
 .container(style="margin-top: 2rem;")
   .row
-    .col-md-4
+    .col-md-3
       .well
         h3 Details
         ul
           li Date: {{event.date}}
           li Time: {{event.time}}
           li Location: {{event.location}}
-      
-      .well
-        h3 Actions
-        ul
-          li
-            button.btn.btn-raised.btn-primary(ng-click='favorite()', ng-if='!event.favorited') Favorite
-            button.btn.btn-raised.btn-warning(ng-click='favorite()', ng-if='event.favorited') Unfavorite
-          li
-            button.btn.btn-raised.btn-primary Share
-          li
-            a.btn.btn-raised(target="_new", href='{{twitterUrl}}')
-              | Tweet
-          li
-            a.btn.btn-raised(target="_new", ng-href='{{facebookUrl}}')
-              | Facebook
-          li
-            button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
 
-    .col-md-8
+    .col-md-6
       .well(style="height:250px", ng-if='event.media')
         .col-md-3(ng-repeat="photo in event.media", ng-if='$index % 5 === 3')
           img(ng-src="{{photo}}", style="width:100%;")
@@ -38,7 +33,14 @@
         p {{event.description}}
 
       comments(item-id='event._id')
-      
+    .col-md-3
+      .well
+        a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='{{facebookUrl}}')
+          i.fa.fa-facebook-official
+          |  Share
+        a.btn.btn-block.btn-raised.btn-twitter(target="_new", href='{{twitterUrl}}')
+          i.fa.fa-twitter-square
+          |  Tweet
 // Modals
 #contact.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
   .modal-dialog(role='document')
