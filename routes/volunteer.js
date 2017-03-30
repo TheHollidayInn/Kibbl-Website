@@ -41,6 +41,8 @@ router.get('/', function(req, res, next) {
   }
 
   VolunteerOpportunity.find(query)
+  .limit(20)
+  .sort('-createdAt')
   .exec(function(err, favorites) {
     if (err) return res.status(400).json(err);
     res.status(200).json({data:favorites});

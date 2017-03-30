@@ -25,7 +25,10 @@ router.get('/', Middleware.hasValidToken, function(req, res, next) {
     userID: req.user._id,
   };
 
-  return Feedback.find(query).exec()
+  return Feedback.find(query)
+    .limit(20)
+    .sort('-createdAt')
+    .exec()
     .then(function (feedback) {
       return res.status(200).json({feedback});
     })

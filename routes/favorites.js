@@ -11,6 +11,8 @@ router.get('/', Middleware.hasValidToken, function(req, res, next) {
     active: true,
   })
   .populate('petID')
+  .limit(20)
+  .sort('-createdAt')
   .exec(function(err, favorites) {
     if (err) return res.status(400).json(err);
     res.status(200).json({data:favorites});
