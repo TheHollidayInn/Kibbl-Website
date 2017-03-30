@@ -40,6 +40,11 @@ router.get('/', function(req, res, next) {
     query.date.$lte = moment(req.query.endDate).toISOString();
   }
 
+  if (req.query.createdAt) {
+    if (!query.createdAt) query.createdAt = {};
+    query.date.$lte = moment(req.query.createdAtBefore);
+  }
+
   VolunteerOpportunity.find(query)
   .limit(20)
   .sort('-createdAt')

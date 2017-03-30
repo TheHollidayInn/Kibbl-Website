@@ -41,13 +41,18 @@ router.get('/', function(req, res, next) {
     query.date.$lte = moment(req.query.endDate).toISOString();
   }
 
+  if (req.query.createdAtBefore) {
+    if (!query.createdAt) query.createdAt = {};
+    query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();
+  }
+
   Event.find(query)
-  .limit(20)
-  .sort('-createdAt')
-  .exec(function(err, favorites) {
-    if (err) return res.status(400).json(err);
-    res.status(200).json({data:favorites});
-  });
+    .limit(20)
+    .sort('-createdAt')
+    .exec(function(err, favorites) {
+      if (err) return res.status(400).json(err);
+      res.status(200).json({data:favorites});
+    });
 });
 
 router.get('/:eventId', function(req, res, next) {

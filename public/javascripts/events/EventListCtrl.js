@@ -33,10 +33,17 @@ angular.module('Events')
 
 			EventService.getEvents($scope.filters)
 			.then(function (response) {
-				$scope.events = response.data;
+				$scope.events += response.data;
 			});
 		}
 		$scope.getEvents();
+
+		// test paging @TODO: This needs to be a scroll
+		// if (!hasPaged) {
+		// 	$scope.filters.createdAtBefore = $scope.events[$scope.events.length -1].createdAt;
+		// 	$scope.getEvents();
+		// 	hasPaged = true;
+		// }
 
 		$scope.dateOptions = {
 			// dateDisabled: disabled,

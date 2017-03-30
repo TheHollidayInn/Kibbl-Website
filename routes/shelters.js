@@ -31,6 +31,11 @@ router.get('/', function(req, res, next) {
     query.type = req.query.type;
   }
 
+  if (req.query.createdAt) {
+    if (!query.createdAt) query.createdAt = {};
+    query.date.$lte = moment(req.query.createdAtBefore);
+  }
+
   Shelter.find(query)
   .limit(20)
   .sort('-createdAt')
