@@ -1,10 +1,10 @@
 angular.module('Volunteer')
-.factory('VolunteerService', ['$http', '$rootScope',
-  function ($http, $rootScope) {
+.factory('VolunteerService', ['$http', '$rootScope', '$httpParamSerializer',
+  function ($http, $rootScope, $httpParamSerializer) {
     var api = {};
 
-    api.get = function () {
-      var url = '/api/v1/volunteer';
+    api.get = function (data) {
+      var url = '/api/v1/volunteer?' + $httpParamSerializer(data);
 
       return $http({
         method: 'GET',
@@ -12,7 +12,7 @@ angular.module('Volunteer')
       })
       .then(function (response) {
         let events = response.data;
-        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular 
+        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular
         return events;
       })
     };
@@ -26,7 +26,7 @@ angular.module('Volunteer')
       })
       .then(function (response) {
         let events = response.data;
-        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular 
+        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular
         return events;
       })
     };

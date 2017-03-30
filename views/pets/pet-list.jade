@@ -31,7 +31,7 @@
     
 //- @TODO: We need to show pets that have no photo!
 .container
-  div.row
+  div.row(infinite-scroll="scroll()", infinite-scroll-distance="1")
     div.col-md-4.grid-item(ng-repeat="pet in pets", ng-if="pet.media[3]")
       .card
         .card-height-indicator

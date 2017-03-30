@@ -31,12 +31,18 @@ angular.module('Volunteer')
 
 				if ($scope.filters.type) $scope.filters.type = $scope.filters.type.name;
 
-				VolunteerService.get()
-					.then(function (opportunites) {
-						$scope.opportunites = opportunites.data;
+				VolunteerService.get($scope.filters)
+					.then(function (response) {
+						$scope.opportunites = $scope.opportunites.concat(response.data);
 					});
 			}
 			$scope.getEvents();
+
+			$scope.scroll = function () {
+				if (!$scope.opportunites[$scope.opportunites.length - 1]) return;
+				$scope.filters.createdAtBefore = $scope.opportunites[$scope.opportunites.length - 1].createdAt;
+				$scope.getEvents();
+			}
 
 			$scope.dateOptions = {
 				// dateDisabled: disabled,

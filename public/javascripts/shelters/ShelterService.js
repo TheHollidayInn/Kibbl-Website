@@ -1,10 +1,10 @@
 angular.module('Shelters')
-.factory('ShelterService', ['$http', '$rootScope',
-  function ($http, $rootScope) {
+.factory('ShelterService', ['$http', '$rootScope', '$httpParamSerializer',
+  function ($http, $rootScope, $httpParamSerializer) {
     var api = {};
 
-    api.get = function () {
-      var url = '/api/v1/shelters';
+    api.get = function (data) {
+      var url = '/api/v1/shelters?' + $httpParamSerializer(data);
 
       return $http({
         method: 'GET',
@@ -12,7 +12,7 @@ angular.module('Shelters')
       })
       .then(function (response) {
         let events = response.data;
-        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular 
+        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular
         return events;
       })
     };
@@ -26,7 +26,7 @@ angular.module('Shelters')
       })
       .then(function (response) {
         let events = response.data;
-        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular 
+        //$rootScope.$broadcast('events', events); // @TODO: use event bus. See Angular
         return events;
       })
     };

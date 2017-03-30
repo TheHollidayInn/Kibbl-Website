@@ -1,6 +1,7 @@
+angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500);
 angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap', 'socialLogin',
   'angulartics',
-  'angulartics.google.analytics',
+  'angulartics.google.analytics', 'infinite-scroll',
   'Volunteer', 'Events', 'Pets', 'Shelters', 'Messages', 'Notifications', 'Comments', 'Feedback'])
 .constant('urls', {
   BASE: '/',

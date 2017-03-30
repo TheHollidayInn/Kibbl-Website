@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var moment = require('moment');
 
 var VolunteerOpportunity = require('../models/volunteerOpportunity');
 let Favorite = require('../models/favorites');
@@ -40,9 +41,9 @@ router.get('/', function(req, res, next) {
     query.date.$lte = moment(req.query.endDate).toISOString();
   }
 
-  if (req.query.createdAt) {
+  if (req.query.createdAtBefore) {
     if (!query.createdAt) query.createdAt = {};
-    query.date.$lte = moment(req.query.createdAtBefore);
+    query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();
   }
 
   VolunteerOpportunity.find(query)

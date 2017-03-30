@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var moment = require('moment');
 
 var Pets = require('../models/pets');
 var Favorite = require('../models/favorites');
@@ -54,6 +55,11 @@ router.get('/', function(req, res, next) {
 
   if (req.query.offset) {
     offset = parseInt(req.query.offset);
+  }
+
+  if (req.query.createdAtBefore) {
+    if (!query.createdAt) query.createdAt = {};
+    query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();
   }
 
   var pets = [];

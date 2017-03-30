@@ -87,10 +87,15 @@ angular.module('Pets')
         url: url,
       })
       .then(function (response) {
-        $scope.pets = response.data.pets;
-        // setTimeout(function(){ $('.modal-trigger').leanModal(); }, 1000);
+        $scope.pets = $scope.pets.concat(response.data.pets);
       })
     };
+
+    $scope.scroll = function () {
+      if (!$scope.pets[$scope.pets.length - 1]) return;
+			$scope.filters.createdAtBefore = $scope.pets[$scope.pets.length -1].createdAt;
+			sendRequest();
+		}
 
     $scope.queryPage = function (page) {
       $scope.offset = page * $scope.limit;

@@ -31,12 +31,18 @@ angular.module('Shelters')
 
 				if ($scope.filters.type) $scope.filters.type = $scope.filters.type.name;
 
-				ShelterService.get()
+				ShelterService.get($scope.filters)
 					.then(function (response) {
-						$scope.shelters = response.data;
+						$scope.shelters = $scope.shelters.concat(response.data);
 					});
 			}
 			$scope.getEvents();
+
+			$scope.scroll = function () {
+				if (!$scope.shelters[$scope.shelters.length - 1]) return;
+				$scope.filters.createdAtBefore = $scope.shelters[$scope.shelters.length - 1].createdAt;
+				$scope.getEvents();
+			}
 
 			$scope.dateOptions = {
 				// dateDisabled: disabled,
