@@ -16,3 +16,7 @@
 
 ## Todo
  - [] npm script to rerun gulp concat
+ - [] webpack
+ - [] Karma tests
+ - [] Linting
+ - [] Use Gulp to compile jade
