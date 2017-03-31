@@ -72,8 +72,7 @@ angular.module('Pets')
     $scope.offset = 0;
     $scope.limit = 100;
 
-    sendRequest();
-    function sendRequest() {
+    $scope.sendRequest = function () {
       var url = '/api/v1/pets';
 
       $scope.filters.offset = $scope.offset;
@@ -90,11 +89,12 @@ angular.module('Pets')
         $scope.pets = $scope.pets.concat(response.data.pets);
       })
     };
+    $scope.sendRequest();
 
     $scope.scroll = function () {
       if (!$scope.pets[$scope.pets.length - 1]) return;
 			$scope.filters.createdAtBefore = $scope.pets[$scope.pets.length -1].createdAt;
-			sendRequest();
+			$scope.sendRequest();
 		}
 
     $scope.queryPage = function (page) {

@@ -7,7 +7,7 @@
       label Location
       input.form-control(ng-model='filters.location', type='text', googleplace-autocomplete, googleplace-autocomplete-place='filters.autocomplete')
     
-    div.form-group.col-md-2(input-field='')
+    div.form-group.col-md-1(input-field='')
       label Type
       br
       select.form-control(ng-model='filters.type', material-select='', watch='')
@@ -17,17 +17,20 @@
       label Breed
       input.form-control(ng-model='filters.breed', type='text')
     
-    div.form-group.col-md-2(input-field='')
+    div.form-group.col-md-1(input-field='')
       label Age
       br
       select.form-control(ng-model='filters.age', material-select='', watch='')
         option(ng-repeat='option in petAges', value="{{option.value}}") {{option.key}}
 
-    div.form-group.col-md-2(input-field='')
+    div.form-group.col-md-1(input-field='')
       label Gender
       br
       select.form-control(ng-model='filters.gender', material-select='', watch='')
         option(ng-repeat='option in petGenders', value="{{option.value}}") {{option.key}}
+    
+    .form-group.col-md-2
+      button.btn.btn-primary.btn-raised(ng-click='sendRequest()') Filter
     
 //- @TODO: We need to show pets that have no photo!
 .container
