@@ -24,8 +24,13 @@ var petSchema = new mongoose.Schema({
   description: String,
   lastUpdate: String,
   animal: String,
+  locationCoords: {
+    type: { type: String },
+    coordinates: [],
+  },
 },
 { collection : 'pets' });
+schema.index({ locationCoords: '2dsphere' });
 
 var Pets = mongoose.model('Pets', petSchema);
 module.exports = Pets;

@@ -6,8 +6,13 @@ var Schema = new mongoose.Schema({
   loctionDetails: {
     zipCode: String,
   },
+  locationCoords: {
+    type: { type: String },
+    coordinates: [],
+  },
   type: String,
   createdAt: {type: Date, default: new Date()},
 });
+schema.index({ locationCoords: '2dsphere' });
 
 module.exports = mongoose.model('Shelter', Schema);
