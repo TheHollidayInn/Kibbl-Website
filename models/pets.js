@@ -28,9 +28,8 @@ var Schema = new mongoose.Schema({
     type: { type: String, default: 'Point' },
     coordinates: {type: [Number], default: [0, 0]},
   },
-},
-{ collection : 'pets' });
+});
 Schema.index({ locationCoords: '2dsphere' });
 
-var Pets = mongoose.model('Pets', Schema);
+var Pets = mongoose.model('Pet', Schema);
 module.exports = Pets;

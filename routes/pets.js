@@ -78,11 +78,10 @@ router.get('/', function(req, res, next) {
           $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
         };
       }
-      console.log(query)
 
-      Pets.find(query)
-        // .limit(limit)
-        // .sort('-createdAt')
+      return Pets.find(query)
+        .limit(limit)
+        .sort('-createdAt')
         .exec();
     })
     .then(function (petsFound) {
@@ -103,7 +102,7 @@ router.get('/', function(req, res, next) {
         };
       }
 
-      Pets.find(query)
+      return Pets.find(query)
         .limit(limit)
         .sort('-createdAt').exec()
     })
