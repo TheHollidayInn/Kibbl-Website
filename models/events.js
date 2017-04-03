@@ -8,8 +8,8 @@ var Schema = new mongoose.Schema({
     zipCode: String,
   },
   locationCoords: {
-    type: { type: String },
-    coordinates: [],
+    type: { type: String, default: 'Point' },
+    coordinates: {type: [Number], default: [0, 0]},
   },
   type: String,
   date: Date,

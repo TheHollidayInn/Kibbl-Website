@@ -73,11 +73,11 @@ router.get('/', function(req, res, next) {
   if (!req.user) {
     Geocoder.geocode(location)
     .then(function (geocodeResult) {
-      // if (geocodeResult) {
-      //   query.locationCoords = {
-      //     $near: { type: 'Point', coordinates:[geocodeResult[0].latitude, geocodeResult[0].longitude] }
-      //   };
-      // }
+      if (geocodeResult) {
+        query.locationCoords = {
+          $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
+        };
+      }
       console.log(query)
 
       Pets.find(query)

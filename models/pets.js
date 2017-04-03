@@ -25,8 +25,8 @@ var Schema = new mongoose.Schema({
   lastUpdate: String,
   animal: String,
   locationCoords: {
-    type: { type: String },
-    coordinates: [],
+    type: { type: String, default: 'Point' },
+    coordinates: {type: [Number], default: [0, 0]},
   },
 },
 { collection : 'pets' });

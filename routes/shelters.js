@@ -47,7 +47,7 @@ router.get('/', function(req, res, next) {
   .then(function (geocodeResult) {
     if (geocodeResult) {
       query.locationCoords = {
-        $near: { type: 'Point', coordinates:[geocodeResult[0].latitude, geocodeResult[0].longitude] }
+        $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
       };
     }
 
