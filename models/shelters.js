@@ -13,6 +13,6 @@ var Schema = new mongoose.Schema({
   type: String,
   createdAt: {type: Date, default: new Date()},
 });
-schema.index({ locationCoords: '2dsphere' });
+Schema.index({ locationCoords: '2dsphere' });
 
 module.exports = mongoose.model('Shelter', Schema);

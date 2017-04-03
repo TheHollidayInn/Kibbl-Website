@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var petSchema = new mongoose.Schema({
+var Schema = new mongoose.Schema({
   userFavorited: Boolean,
   createdAt: {type: Date, default: new Date()},
   status: String,
@@ -30,7 +30,7 @@ var petSchema = new mongoose.Schema({
   },
 },
 { collection : 'pets' });
-schema.index({ locationCoords: '2dsphere' });
+Schema.index({ locationCoords: '2dsphere' });
 
-var Pets = mongoose.model('Pets', petSchema);
+var Pets = mongoose.model('Pets', Schema);
 module.exports = Pets;
