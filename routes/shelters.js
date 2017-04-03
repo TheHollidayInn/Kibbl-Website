@@ -6,6 +6,7 @@ var Shelter = require('../models/shelters');
 let Favorite = require('../models/favorites');
 var Notification = require('../models/notifications');
 var Middleware = require('../middleware');
+let Geocoder = require('../libraries/geocode');
 
 // @TODO: Move this to library
 var nconf = require('nconf');
@@ -37,12 +38,29 @@ router.get('/', function(req, res, next) {
     query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();
   }
 
-  Shelter.find(query)
-  .limit(20)
-  .sort('-createdAt')
-  .exec(function(err, favorites) {
-    if (err) return res.status(400).json(err);
-    res.status(200).json({data: favorites});
+  let location = '';
+  if (req.query.location) {
+    location = req.query.location;
+  }
+
+  Geocoder.geocode(location)
+  .then(function (geocodeResult) {
+    if (geocodeResult) {
+      query.locationCoords = {
+        $near: { type: 'Point', coordinates:[geocodeResult[0].latitude, geocodeResult[0].longitude] }
+      };
+    }
+
+    return Shelter.find(query)
+      .limit(20)
+      .sort('-createdAt')
+      .exec();
+  })
+  .then(function (favorites) {
+    return res.status(200).json({data:favorites});
+  })
+  .catch(function (err) {
+    return res.status(400).json(err);
   });
 });
 
