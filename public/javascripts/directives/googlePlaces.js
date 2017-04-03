@@ -11,7 +11,7 @@ angular.module('Kibbl')
       var options = scope.googleplaceAutocomplete;
       // @TODO: How to get city zipCode
       var options = {
-        types: ['address'],
+        types: ['(cities)'],
         componentRestrictions: {
           country: 'us'
         }

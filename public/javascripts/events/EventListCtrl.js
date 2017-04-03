@@ -15,6 +15,7 @@ angular.module('Events')
 		$scope.filters = {};
 
 		function getPostCode(place) {
+			console.log(place)
 			for (var i = 0; i < place.address_components.length; i++) {
 	      for (var j = 0; j < place.address_components[i].types.length; j++) {
 	        if (place.address_components[i].types[j] == "postal_code") {
@@ -31,7 +32,10 @@ angular.module('Events')
 
 			if ($scope.filters.type) $scope.filters.type = $scope.filters.type.name;
 
-			EventService.getEvents($scope.filters)
+			var filters = angular.copy($scope.filters);
+			delete filters.autocomplete;
+
+			EventService.getEvents(filters)
 			.then(function (response) {
 				$scope.events = $scope.events.concat(response.data);
 			});

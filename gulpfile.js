@@ -80,5 +80,5 @@ gulp.task('concat', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('public/javascript/**/*.js', ['concat']);
+  return gulp.watch('public/javascripts/**/*.js', ['concat']);
 });

@@ -66,8 +66,8 @@ router.get('/', function(req, res, next) {
 
   if (!req.user) {
     Pets.find(query)
-    .skip(offset)
     .limit(limit)
+    .sort('-createdAt')
     .then(function (petsFound) {
       return res.status(200).json({
         total: pets.length,
