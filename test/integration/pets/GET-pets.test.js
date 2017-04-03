@@ -19,6 +19,12 @@ describe('Pet: Get', () => {
     integrationHelpers.generateUser()
       .then(function(generatedUser) {
         userdata = generatedUser.userData;
+
+        event = new Pet();
+        event.locationCoords = { type: 'Point', coordinates: [50.0, 2.0] };
+        return event.save();
+      })
+      .then(function(save) {
         done();
       })
       .catch(function (error) {
@@ -52,6 +58,20 @@ describe('Pet: Get', () => {
           res.body.pets[1].contact.zip.should.equal(zipCode);
           done();
         });
+      });
+  });
+
+  it.only('finds events near a coordinate', (done) => {
+    let location = '29 champs elysée paris';
+
+    request(server)
+      .get(`/api/v1/pets?location=${location}`)
+      .set('x-access-token', userdata.token)
+      .end((err, res) => {
+        console.log(res.body)
+        res.should.have.status(200);
+        res.body.pets.length.should.eql(1);
+        done();
       });
   });
 });
