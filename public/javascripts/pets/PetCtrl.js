@@ -98,20 +98,20 @@ angular.module('Pets')
 
     $scope.scroll = function () {
       if (!$scope.pets[$scope.pets.length - 1]) return;
-			$scope.filters.createdAtBefore = $scope.pets[$scope.pets.length -1].createdAt;
+			$scope.filters.lastUpdatedBefore = $scope.pets[$scope.pets.length -1].lastUpdate;
 			$scope.sendRequest();
 		}
 
-    $scope.queryPage = function (page) {
-      $scope.offset = page * $scope.limit;
-      window.scrollTo(0, 0);
-      sendRequest();
-    }
+    // $scope.queryPage = function (page) {
+    //   $scope.offset = page * $scope.limit;
+    //   window.scrollTo(0, 0);
+    //   sendRequest();
+    // }
 
-    $scope.$watch('filters', function (oldValue, newValue) {
-      if(oldValue == newValue) return;
-      sendRequest();
-    }, true);
+    // $scope.$watch('filters', function (oldValue, newValue) {
+    //   if(oldValue == newValue) return;
+    //   sendRequest();
+    // }, true);
 
     $scope.selectedPet = {};
     $scope.selectPet = function (pet) {

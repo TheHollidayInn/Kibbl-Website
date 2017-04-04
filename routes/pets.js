@@ -58,9 +58,9 @@ router.get('/', function(req, res, next) {
     offset = parseInt(req.query.offset);
   }
 
-  if (req.query.createdAtBefore) {
-    if (!query.createdAt) query.createdAt = {};
-    query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();
+  if (req.query.lastUpdatedBefore) {
+    if (!query.lastUpdate) query.lastUpdate = {};
+    query.lastUpdate.$lt = moment(req.query.lastUpdatedBefore).toISOString();
   }
 
   let location = '';
@@ -81,7 +81,7 @@ router.get('/', function(req, res, next) {
 
       return Pets.find(query)
         .limit(limit)
-        .sort('-createdAt')
+        .sort('-lastUpdate')
         .exec();
     })
     .then(function (petsFound) {
@@ -104,7 +104,7 @@ router.get('/', function(req, res, next) {
 
       return Pets.find(query)
         .limit(limit)
-        .sort('-createdAt').exec()
+        .sort('-lastUpdate').exec()
     })
     .then (function (petsFound) {
       pets = petsFound;
