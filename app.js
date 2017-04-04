@@ -87,9 +87,12 @@ app.use('/api/v1/feedback', feedback);
 mongoose.connect(nconf.get('db:URL'));
 
 // catch 404 and forward to error handler
+// @TODO: how to ignore angular 404s This should only handle api 404s
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
+  // var err = new Error('Not Found');
+  let err = {};
+  err.status = 200;
+  // err.status = 404;
   next(err);
 });
 

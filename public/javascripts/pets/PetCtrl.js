@@ -91,6 +91,11 @@ angular.module('Pets')
     };
     $scope.sendRequest();
 
+    $scope.filter = function () {
+			$scope.pets = [];
+			$scope.sendRequest();
+		};
+
     $scope.scroll = function () {
       if (!$scope.pets[$scope.pets.length - 1]) return;
 			$scope.filters.createdAtBefore = $scope.pets[$scope.pets.length -1].createdAt;

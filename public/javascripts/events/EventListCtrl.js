@@ -15,7 +15,6 @@ angular.module('Events')
 		$scope.filters = {};
 
 		function getPostCode(place) {
-			console.log(place)
 			for (var i = 0; i < place.address_components.length; i++) {
 	      for (var j = 0; j < place.address_components[i].types.length; j++) {
 	        if (place.address_components[i].types[j] == "postal_code") {
@@ -42,11 +41,16 @@ angular.module('Events')
 		}
 		$scope.getEvents();
 
+		$scope.filter = function () {
+			$scope.events = [];
+			$scope.getEvents();
+		};
+
 		$scope.scroll = function () {
 			if (!$scope.events[$scope.events.length - 1]) return;
 			$scope.filters.createdAtBefore = $scope.events[$scope.events.length -1].createdAt;
 			$scope.getEvents();
-		}
+		};
 
 		$scope.dateOptions = {
 			// dateDisabled: disabled,

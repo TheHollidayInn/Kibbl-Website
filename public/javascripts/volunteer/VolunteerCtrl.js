@@ -38,6 +38,11 @@ angular.module('Volunteer')
 			}
 			$scope.getEvents();
 
+			$scope.filter = function () {
+				$scope.opportunites = [];
+				$scope.getEvents();
+			};
+
 			$scope.scroll = function () {
 				if (!$scope.opportunites[$scope.opportunites.length - 1]) return;
 				$scope.filters.createdAtBefore = $scope.opportunites[$scope.opportunites.length - 1].createdAt;
