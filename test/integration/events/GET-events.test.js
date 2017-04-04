@@ -20,6 +20,7 @@ describe('Events: Get', () => {
         event.type = eventType;
         event.date = eventStartDate;
         event.loctionDetails.zipCode = eventZipCode;
+        event.locationCoords = { type: 'Point', coordinates: [-179.0, 0.0] };
 
         return event.save();
       })
@@ -111,6 +112,20 @@ describe('Events: Get', () => {
 
     request(server)
       .get(`/api/v1/events?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`)
+      .set('x-access-token', userdata.token)
+      .end((err, res) => {
+        console.log(res.body.data)
+        res.should.have.status(200);
+        res.body.data.length.should.eql(1);
+        done();
+      });
+  });
+
+  it('finds events near a coordinate', (done) => {
+    let location = '29 champs elysée paris';
+
+    request(server)
+      .get(`/api/v1/events?location=${location}`)
       .set('x-access-token', userdata.token)
       .end((err, res) => {
         res.should.have.status(200);

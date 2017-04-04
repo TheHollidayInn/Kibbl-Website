@@ -38,6 +38,11 @@ angular.module('Shelters')
 			}
 			$scope.getEvents();
 
+			$scope.filter = function () {
+				$scope.shelters = [];
+				$scope.getEvents();
+			};
+
 			$scope.scroll = function () {
 				if (!$scope.shelters[$scope.shelters.length - 1]) return;
 				$scope.filters.createdAtBefore = $scope.shelters[$scope.shelters.length - 1].createdAt;

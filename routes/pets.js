@@ -4,6 +4,7 @@ var moment = require('moment');
 
 var Pets = require('../models/pets');
 var Favorite = require('../models/favorites');
+let Geocoder = require('../libraries/geocode');
 
 var Middleware = require('../middleware');
 var _ = require('lodash');
@@ -62,12 +63,27 @@ router.get('/', function(req, res, next) {
     query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();
   }
 
+  let location = '';
+  if (req.query.location) {
+    location = req.query.location;
+  }
+
   var pets = [];
 
   if (!req.user) {
-    Pets.find(query)
-    .limit(limit)
-    .sort('-createdAt')
+    Geocoder.geocode(location)
+    .then(function (geocodeResult) {
+      if (geocodeResult) {
+        query.locationCoords = {
+          $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
+        };
+      }
+
+      return Pets.find(query)
+        .limit(limit)
+        .sort('-createdAt')
+        .exec();
+    })
     .then(function (petsFound) {
       return res.status(200).json({
         total: pets.length,
@@ -78,9 +94,18 @@ router.get('/', function(req, res, next) {
       return res.status(400).json(err);
     });
   } else {
-    Pets.find(query)
-    .skip(offset)
-    .limit(limit)
+    Geocoder.geocode(location)
+    .then(function (geocodeResult) {
+      if (geocodeResult) {
+        query.locationCoords = {
+          $near: { type: 'Point', coordinates:[geocodeResult[0].latitude, geocodeResult[0].longitude] }
+        };
+      }
+
+      return Pets.find(query)
+        .limit(limit)
+        .sort('-createdAt').exec()
+    })
     .then (function (petsFound) {
       pets = petsFound;
 

@@ -9,6 +9,7 @@
     "test": "mocha test/integration/ --recursive"
   },
   "dependencies": {
+    "babel-preset-es2015": "^6.24.0",
     "bcrypt-nodejs": "latest",
     "bluebird": "^3.4.1",
     "body-parser": "~1.16.0",
@@ -20,6 +21,10 @@
     "express": "~4.14.1",
     "express-session": "~1.15.0",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.1.2",
     "jade": "~1.11.0",
     "jsonwebtoken": "^7.2.1",
     "lodash": "^4.13.1",
@@ -28,6 +33,7 @@
     "mongoose": "^4.4.15",
     "morgan": "~1.8.0",
     "nconf": "^0.8.4",
+    "node-geocoder": "^3.16.0",
     "passport": "~0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
@@ -35,13 +41,7 @@
     "passport-twitter": "^1.0.4",
     "request-promise": "^4.2.0",
     "serve-favicon": "~2.3.0",
-    "stripe": "^4.6.0",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-concat": "^2.6.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^2.1.2",
-    "babel-preset-es2015": "^6.24.0"
+    "stripe": "^4.6.0"
   },
   "devDependencies": {
     "bower": "^1.8.0",
