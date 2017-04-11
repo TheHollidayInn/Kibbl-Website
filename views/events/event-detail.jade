@@ -4,10 +4,15 @@ link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-aw
 .container-fluid.banner
   .container
     h1.text-center {{event.name}}
-.navbar.navbar-detail 
+.container-fluid.container-detail
   .container
     .row
       .col-md-9
+        ul.nav.nav-tabs
+          li.active
+            a(href='#tab1', data-toggle='tab') Section 1
+          li
+            a(href='#tab2', data-toggle='tab') Section 2
       .col-md-3
         button.btn.btn-raised.btn-primary.btn-contact Contact
         button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!event.favorited')
