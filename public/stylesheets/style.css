@@ -3,8 +3,20 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
   font-weight: 500;
 }
 
+body {
+  background: #fff !important;
+}
+
+.new-section h2 {
+  margin: 3rem;
+}
+
 .navbar-brand {
   /*margin-left: -160px !important; */
+}
+
+.navbar-fixed-top  {
+  -webkit-backface-visibility: hidden;
 }
 
 .banner-logo {
@@ -31,8 +43,21 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
   color: #752F00 !important;
 }
 
-.card, .well {
-  box-shadow: none !important;
+.well, .grid-item .card {
+  /*box-shadow: none !important;*/
+  box-shadow: 0 1px 1.5px rgba(35,45,50,.15) !important;
+}
+
+.grid-item .card {
+  height: 20rem;
+}
+
+.grid-item .card h3 {
+  font-size: 2rem !important;
+}
+
+.grid-item .card .card-image {
+  height: 10rem !important;
 }
 
 /* Logo */
