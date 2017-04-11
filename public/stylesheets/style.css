@@ -149,3 +149,40 @@ a.favorited.active {
   height: 200px;
   background-repeat: no-repeat;
 }
+
+.container-detail {
+  background-color: white !important;
+}
+
+.btn-favorite-active {
+  color: white !important;
+  width: 31%;
+  text-align: center;
+  background-color: gold !important;
+}
+
+.btn-favorite {
+  color: white !important;
+  width: 31%;
+  text-align: center;
+  background-color: gray !important;
+}
+
+.btn-contact {
+  width: 67%;
+  text-align: center;
+}
+
+.btn-twitter {
+  color: white !important;
+  width: 48%;
+  text-align: center;
+  background-color: #00aced !important;
+}
+
+.btn-facebook {
+  color: white !important;
+  width: 48%;
+  text-align: center;
+  background-color: #3b5998 !important;
+}
