@@ -4,11 +4,12 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
 }
 
 body {
-  background: #fff !important;
+  background: #E8E8E8 !important;
 }
 
 .new-section h2 {
   margin: 3rem;
+  margin-bottom: .5rem;
 }
 
 .navbar-brand {
