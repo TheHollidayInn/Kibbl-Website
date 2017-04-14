@@ -8,9 +8,11 @@
       .well
         h3 Details
         ul
-          li Date: {{event.date}}
-          li Time: {{event.time}}
-          li Location: {{event.location}}
+          li Start: {{event.start_time | date : "medium"}}
+          li End: {{event.end_time | date : "medium"}}
+          li Location: {{event.place.name}}
+          li 
+            a(href="https://facebook.com/events/{{event.id}}") Webpage 
       
       .well
         h3 Actions
@@ -35,7 +37,7 @@
           img(ng-src="{{photo}}", style="width:100%;")
       .well
         h3 Description
-        p {{event.description}}
+        p(style="white-space: pre-wrap;") {{event.description}}
 
       comments(item-id='event._id')
       
