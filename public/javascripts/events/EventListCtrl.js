@@ -41,7 +41,7 @@ angular.module('Events')
 
 			EventService.getEvents(filters)
 			.then(function (response) {
-				if ($scope.events.length === 50) $scope.events = [];
+				// if ($scope.events.length === 50) $scope.events = [];
 				$scope.events = $scope.events.concat(response.data);
 				var groupedEvents = _.groupBy($scope.events, function(group) {
 					var date = new Date(group.start_time);
@@ -54,11 +54,13 @@ angular.module('Events')
 
 		$scope.filter = function () {
 			$scope.events = [];
+			delete $scope.filters.createdAtBefore;
 			$scope.getEvents();
 		};
 
 		$scope.scroll = function () {
 			if (!$scope.events[$scope.events.length - 1]) return;
+			if ($scope.filters.createdAtBefore === $scope.events[$scope.events.length -1].start_time) return;
 			$scope.filters.createdAtBefore = $scope.events[$scope.events.length -1].start_time;
 			$scope.getEvents();
 		};

@@ -23,6 +23,9 @@ function getUserFromToken (req) {
 
 router.get('/', function(req, res, next) {
   let query = {};
+  query.start_time = {
+    $gt: moment().toISOString(),
+  };
 
   if (req.query.zipCode) {
     query['loctionDetails.zipCode'] = req.query.zipCode;
@@ -33,13 +36,13 @@ router.get('/', function(req, res, next) {
   }
 
   if (req.query.startDate) {
-    if (!query.date) query.date = {};
+    if (!query.start_time) query.start_time = {};
     query.start_time.$gte = moment(req.query.startDate).toISOString();
   }
 
   if (req.query.endDate) {
-    if (!query.date) query.date = {};
-    query.end_time.$lte = moment(req.query.endDate).toISOString();
+    if (!query.start_time) query.start_time = {};
+    query.start_time.$lte = moment(req.query.endDate).toISOString();
   }
 
   // if (req.query.createdAtBefore) {
@@ -47,12 +50,12 @@ router.get('/', function(req, res, next) {
   //   query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();
   // }
 
-  query.start_time = {
-    $gt: moment().toISOString(),
-  };
+  let createdAtBeforeAfterStart = !Boolean(req.query.createdAtBefore) || moment(req.query.createdAtBefore).isAfter(req.query.startDate);
+  let createdAtBeforeBeforeEnd = !Boolean(req.query.endDate) || moment(req.query.createdAtBefore).isBefore(req.query.endDate);
 
-  if (req.query.createdAtBefore) {
+  if (req.query.createdAtBefore && createdAtBeforeAfterStart && createdAtBeforeBeforeEnd) {
     if (!query.start_time) query.start_time = {};
+    if (query.start_time.$gte) delete query.start_time.$gte;
     query.start_time.$gt = moment(req.query.createdAtBefore).toISOString();
   }
 
