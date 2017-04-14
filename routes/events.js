@@ -34,17 +34,26 @@ router.get('/', function(req, res, next) {
 
   if (req.query.startDate) {
     if (!query.date) query.date = {};
-    query.date.$gte = moment(req.query.startDate).toISOString();
+    query.start_time.$gte = moment(req.query.startDate).toISOString();
   }
 
   if (req.query.endDate) {
     if (!query.date) query.date = {};
-    query.date.$lte = moment(req.query.endDate).toISOString();
+    query.end_time.$lte = moment(req.query.endDate).toISOString();
   }
 
+  // if (req.query.createdAtBefore) {
+  //   if (!query.createdAt) query.createdAt = {};
+  //   query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();
+  // }
+
+  query.start_time = {
+    $gt: moment().toISOString(),
+  };
+
   if (req.query.createdAtBefore) {
-    if (!query.createdAt) query.createdAt = {};
-    query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();
+    if (!query.start_time) query.start_time = {};
+    query.start_time.$gt = moment(req.query.createdAtBefore).toISOString();
   }
 
   let location = '';
@@ -62,7 +71,7 @@ router.get('/', function(req, res, next) {
 
     return Event.find(query)
       .limit(20)
-      .sort('-createdAt')
+      .sort('start_time')
       .exec();
   })
   .then(function (favorites) {

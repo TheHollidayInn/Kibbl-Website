@@ -13,6 +13,9 @@ var Schema = new mongoose.Schema({
   },
   type: String,
   date: Date,
+  start_time: Date,
+  end_time: Date,
+  shelterId: { type: mongoose.Schema.ObjectId, ref: 'Shelter' },
   time: String,
   createdAt: {type: Date, default: new Date()},
 });
