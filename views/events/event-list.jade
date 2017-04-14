@@ -43,7 +43,7 @@
 
 .container
   div.row(infinite-scroll="scroll()", infinite-scroll-distance=".5", ng-repeat="(key, events) in groupedEvents")
-    h2.text-center {{key}}
+    h2.col-md-12 {{key}}
     div.col-md-4.grid-item(ng-repeat="event in events", style="height:200px; overflow:hidden; border-radius: 5px;")
       a(href='/events/{{event._id}}')
         .grid-content.gradient

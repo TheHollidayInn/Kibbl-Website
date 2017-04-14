@@ -67,9 +67,10 @@ router.get('/', function(req, res, next) {
   Geocoder.geocode(location)
   .then(function (geocodeResult) {
     if (geocodeResult) {
-      query.locationCoords = {
-        $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
-      };
+      // query.locationCoords = {
+      //   $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
+      // };
+      query['place.location.state'] = geocodeResult[0].administrativeLevels.level1short;
     }
 
     return Event.find(query)
