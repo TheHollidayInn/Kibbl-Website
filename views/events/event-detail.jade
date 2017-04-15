@@ -25,9 +25,11 @@ link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-aw
       .well
         h3 Details
         ul
-          li Date: {{event.date}}
-          li Time: {{event.time}}
-          li Location: {{event.location}}
+          li Start: {{event.start_time | date : "medium"}}
+          li End: {{event.end_time | date : "medium"}}
+          li Location: {{event.place.name}}
+          li 
+            a(href="https://facebook.com/events/{{event.id}}", target="_blank") Webpage 
 
     .col-md-6
       .well(style="height:250px", ng-if='event.media')
@@ -35,7 +37,7 @@ link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-aw
           img(ng-src="{{photo}}", style="width:100%;")
       .well
         h3 Description
-        p {{event.description}}
+        p(style="white-space: pre-wrap;") {{event.description}}
 
       comments(item-id='event._id')
     .col-md-3

@@ -18,6 +18,7 @@ var dependentjsfiles = [
   'public/bower_components/angulartics-google-analytics/dist/angulartics-ga.min.js',
   'public/bower_components/bootstrap-sweetalert/dist/sweetalert.min.js',
   'public/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
+  'public/bower_components/underscore/underscore-min.js',
 ];
 
 var jsfiles = [

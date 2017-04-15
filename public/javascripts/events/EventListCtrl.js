@@ -24,6 +24,11 @@ angular.module('Events')
 	    }
 		}
 
+		var monthNames = ["January", "February", "March", "April", "May", "June",
+		  "July", "August", "September", "October", "November", "December"
+		];
+
+
 		$scope.getEvents = function () {
 			if ($scope.filters.autocomplete) {
 				$scope.filters.zipCode = getPostCode($scope.filters.autocomplete);
@@ -36,19 +41,27 @@ angular.module('Events')
 
 			EventService.getEvents(filters)
 			.then(function (response) {
+				// if ($scope.events.length === 50) $scope.events = [];
 				$scope.events = $scope.events.concat(response.data);
+				var groupedEvents = _.groupBy($scope.events, function(group) {
+					var date = new Date(group.start_time);
+					return monthNames[date.getMonth()] + ' ' + date.getDate();
+				});
+				$scope.groupedEvents = groupedEvents;
 			});
 		}
 		$scope.getEvents();
 
 		$scope.filter = function () {
 			$scope.events = [];
+			delete $scope.filters.createdAtBefore;
 			$scope.getEvents();
 		};
 
 		$scope.scroll = function () {
 			if (!$scope.events[$scope.events.length - 1]) return;
-			$scope.filters.createdAtBefore = $scope.events[$scope.events.length -1].createdAt;
+			if ($scope.filters.createdAtBefore === $scope.events[$scope.events.length -1].start_time) return;
+			$scope.filters.createdAtBefore = $scope.events[$scope.events.length -1].start_time;
 			$scope.getEvents();
 		};
 

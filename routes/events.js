@@ -23,6 +23,9 @@ function getUserFromToken (req) {
 
 router.get('/', function(req, res, next) {
   let query = {};
+  query.start_time = {
+    $gt: moment().toISOString(),
+  };
 
   if (req.query.zipCode) {
     query['loctionDetails.zipCode'] = req.query.zipCode;
@@ -33,18 +36,27 @@ router.get('/', function(req, res, next) {
   }
 
   if (req.query.startDate) {
-    if (!query.date) query.date = {};
-    query.date.$gte = moment(req.query.startDate).toISOString();
+    if (!query.start_time) query.start_time = {};
+    query.start_time.$gte = moment(req.query.startDate).toISOString();
   }
 
   if (req.query.endDate) {
-    if (!query.date) query.date = {};
-    query.date.$lte = moment(req.query.endDate).toISOString();
+    if (!query.start_time) query.start_time = {};
+    query.start_time.$lte = moment(req.query.endDate).toISOString();
   }
 
-  if (req.query.createdAtBefore) {
-    if (!query.createdAt) query.createdAt = {};
-    query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();
+  // if (req.query.createdAtBefore) {
+  //   if (!query.createdAt) query.createdAt = {};
+  //   query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();
+  // }
+
+  let createdAtBeforeAfterStart = !Boolean(req.query.createdAtBefore) || moment(req.query.createdAtBefore).isAfter(req.query.startDate);
+  let createdAtBeforeBeforeEnd = !Boolean(req.query.endDate) || moment(req.query.createdAtBefore).isBefore(req.query.endDate);
+
+  if (req.query.createdAtBefore && createdAtBeforeAfterStart && createdAtBeforeBeforeEnd) {
+    if (!query.start_time) query.start_time = {};
+    if (query.start_time.$gte) delete query.start_time.$gte;
+    query.start_time.$gt = moment(req.query.createdAtBefore).toISOString();
   }
 
   let location = '';
@@ -55,14 +67,15 @@ router.get('/', function(req, res, next) {
   Geocoder.geocode(location)
   .then(function (geocodeResult) {
     if (geocodeResult) {
-      query.locationCoords = {
-        $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
-      };
+      // query.locationCoords = {
+      //   $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
+      // };
+      query['place.location.state'] = geocodeResult[0].administrativeLevels.level1short;
     }
 
     return Event.find(query)
       .limit(20)
-      .sort('-createdAt')
+      .sort('start_time')
       .exec();
   })
   .then(function (favorites) {

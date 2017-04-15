@@ -3,8 +3,21 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
   font-weight: 500;
 }
 
+body {
+  background: #E8E8E8 !important;
+}
+
+.new-section h2 {
+  margin: 3rem;
+  margin-bottom: .5rem;
+}
+
 .navbar-brand {
   /*margin-left: -160px !important; */
+}
+
+.navbar-fixed-top  {
+  -webkit-backface-visibility: hidden;
 }
 
 .banner-logo {
@@ -31,8 +44,21 @@ body.kibbl, .h1, .h2, .h3, .h4, .kibbl h1, .kibbl h2, .kibbl h3, .kibbl h4, .kib
   color: #752F00 !important;
 }
 
-.card, .well {
-  box-shadow: none !important;
+.well, .grid-item .card {
+  /*box-shadow: none !important;*/
+  box-shadow: 0 1px 1.5px rgba(35,45,50,.15) !important;
+}
+
+.grid-item .card {
+  height: 20rem;
+}
+
+.grid-item .card h3 {
+  font-size: 2rem !important;
+}
+
+.grid-item .card .card-image {
+  height: 10rem !important;
 }
 
 /* Logo */
@@ -149,6 +175,41 @@ a.favorited.active {
   height: 200px;
   background-repeat: no-repeat;
 }
+
+.gradient {
+  width: 100%;
+  height: 100%;
+  background: url('http://unsplash.it/1200x800') center center no-repeat;
+  background-size: cover;
+  /*position: relative;*/
+  border-radius: 5px;
+  background-image: linear-gradient(to bottom right, #FF5F4A, #931D10);
+}
+
+.grid-content {
+  color: #fff;
+  padding: 1.5rem;
+}
+
+.grid-item a {
+  text-decoration: none !important;
+}
+
+.grid-item h3 {
+  font-size: 20px;
+}
+
+/*.bg-img:after {
+  border-radius: 5px;
+  content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-image: linear-gradient(to bottom right, #FF5F4A, #931D10);
+	opacity: 1;
+}*/
 
 .container-detail {
   background-color: white !important;
