@@ -34,11 +34,13 @@
     
 .container
   div.row(infinite-scroll="scroll()", infinite-scroll-distance="1")
-    div.col-md-4.grid-item(ng-repeat="pet in pets", style="height:200px; overflow:hidden;")
-      a(href='/events/{{event._id}}', style='display:block')
-        //- img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
-        img(ng-if='!pet.media[3]', src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
-        img(ng-if='pet.media[3]', ng-src='{{pet.media[3]}}', alt='Loading image...')
+    div.col-md-4.grid-item(ng-repeat="pet in pets", style="height:200px; overflow:hidden; border-radius: 5px;")
+      a(href='/pets/{{pet._id}}')
+        .grid-content.gradient(ng-if='!pet.media[3]')
+        .grid-cotent.bg-img(ng-if='pet.media[3]', style='background-image:url("{{pet.media[3]}}")')
+          h3 {{pet.name}}
+        //- img(ng-if='!pet.media[3]', src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
+        //- img(ng-if='pet.media[3]', ng-src='{{pet.media[3]}}', alt='Loading image...')
     //- div.col-md-4.grid-item(ng-repeat="pet in pets")
     //-   .card
     //-     .card-height-indicator

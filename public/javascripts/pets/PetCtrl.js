@@ -22,10 +22,10 @@ angular.module('Pets')
         value: 'Cat',
         key: "Cat"
       },
-      {
-        value: 'Bird',
-        key: "Bird"
-      },
+      // {
+      //   value: 'Bird',
+      //   key: "Bird"
+      // },
     ];
     $scope.petAges = [
       {
@@ -98,6 +98,7 @@ angular.module('Pets')
 
     $scope.scroll = function () {
       if (!$scope.pets[$scope.pets.length - 1]) return;
+      if ($scope.filters.createdAtBefore === $scope.events[$scope.events.length -1].start_time) return;
 			$scope.filters.lastUpdatedBefore = $scope.pets[$scope.pets.length -1].lastUpdate;
 			$scope.sendRequest();
 		}

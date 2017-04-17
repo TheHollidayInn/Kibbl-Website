@@ -31,7 +31,10 @@ angular.module('Shelters')
 
 				if ($scope.filters.type) $scope.filters.type = $scope.filters.type.name;
 
-				ShelterService.get($scope.filters)
+				var filters = angular.copy($scope.filters);
+				delete filters.autocomplete;
+
+				ShelterService.get(filters)
 					.then(function (response) {
 						$scope.shelters = $scope.shelters.concat(response.data);
 					});

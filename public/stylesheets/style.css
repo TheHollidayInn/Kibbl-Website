@@ -199,7 +199,18 @@ a.favorited.active {
   font-size: 20px;
 }
 
-/*.bg-img:after {
+.bg-img {
+  width: 100%;
+  height: 80%;
+  background: url('http://unsplash.it/1200x800') center center no-repeat;
+  background-size: cover;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0 1px 1.5px rgba(35,45,50,.15) !important;
+  /*background-image: linear-gradient(to bottom right, #FF5F4A, #931D10);*/
+}
+
+.bg-img:after {
   border-radius: 5px;
   content: '';
 	position: absolute;
@@ -207,9 +218,9 @@ a.favorited.active {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-image: linear-gradient(to bottom right, #FF5F4A, #931D10);
-	opacity: 1;
-}*/
+	/*background-image: linear-gradient(to bottom right, #FF5F4A, #931D10);
+	opacity: 0.6;*/
+}
 
 .container-detail {
   background-color: white !important;
