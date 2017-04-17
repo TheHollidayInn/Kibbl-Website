@@ -72,15 +72,32 @@ angular.module('Pets')
     $scope.offset = 0;
     $scope.limit = 100;
 
+    function getPostCode(place) {
+			for (var i = 0; i < place.address_components.length; i++) {
+	      for (var j = 0; j < place.address_components[i].types.length; j++) {
+	        if (place.address_components[i].types[j] == "postal_code") {
+	          return place.address_components[i].long_name;
+	        }
+	      }
+	    }
+		}
+
     $scope.sendRequest = function () {
       var url = '/api/v1/pets';
 
+      // if ($scope.filters.autocomplete) {
+			// 	$scope.filters.zipCode = getPostCode($scope.filters.autocomplete);
+			// }
+
       $scope.filters.offset = $scope.offset;
 
-      if ($scope.filters) {
-        url += '?' + $.param($scope.filters);
-      }
+      var filters = angular.copy($scope.filters);
+			delete filters.autocomplete;
 
+      if (filters) {
+        url += '?' + $.param(filters);
+      }
+      console.log(filters)
       $http({
         method: 'GET',
         url: url,

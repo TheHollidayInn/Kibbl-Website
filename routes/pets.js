@@ -74,11 +74,12 @@ router.get('/', function(req, res, next) {
     Geocoder.geocode(location)
     .then(function (geocodeResult) {
       if (geocodeResult) {
-        query.locationCoords = {
-          $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
-        };
+        // query.locationCoords = {
+        //   $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
+        // };
+        query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
       }
-
+      console.log(query)
       return Pets.find(query)
         .limit(limit)
         .sort('-lastUpdate')
@@ -96,12 +97,14 @@ router.get('/', function(req, res, next) {
   } else {
     Geocoder.geocode(location)
     .then(function (geocodeResult) {
+      console.log(geocodeResult)
       if (geocodeResult) {
-        query.locationCoords = {
-          $near: { type: 'Point', coordinates:[geocodeResult[0].latitude, geocodeResult[0].longitude] }
-        };
+        // query.locationCoords = {
+        //   $near: { type: 'Point', coordinates:[geocodeResult[0].latitude, geocodeResult[0].longitude] }
+        // };
+        query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
       }
-
+      console.log(query)
       return Pets.find(query)
         .limit(limit)
         .sort('-lastUpdate').exec()
