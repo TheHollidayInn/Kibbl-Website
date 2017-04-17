@@ -7,6 +7,21 @@ body {
   background: #E8E8E8 !important;
 }
 
+.img-feature-wrapper {
+  width: 185px;
+  position: absolute;
+  top: -12rem;
+  left: 4rem;
+}
+
+.img-feature {
+  background-position: center;
+  background-size: cover;
+  height: 150px;
+  width: 150px;
+  background-repeat: no-repeat;
+}
+
 .new-section h2 {
   margin: 3rem;
   margin-bottom: .5rem;

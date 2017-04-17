@@ -1,31 +1,27 @@
-//- script type="text/ng-template" id="myModalContent.html"
-.modal.modal-fixed-footer(id="petModel")
-  #modal-body.modal-body
-    ul
-      li(ng-repeat='item in $ctrl.items')
-        a(href='#', ng-click='$event.preventDefault(); $ctrl.selected.item = item') {{ item }}
-    |             Selected: 
-    b {{ $ctrl.selected.item }}
-  .modal-footer
-    button.btn.btn-primary(type='button', ng-click='$ctrl.ok()') OK
-    button.btn.btn-warning(type='button', ng-click='$ctrl.cancel()') Cancel
-
-  //- .modal-content
-  //-   h4 Message: {{selectedPet.name}}
-  //-   .row
-  //-     form.col.s12
-  //-       .row
-  //-         .input-field.col.s6
-  //-           input#first_name.validate(type='text', ng-model="contactDetails.first_name")
-  //-           label(for='first_name') First Name
-  //-         .input-field.col.s6
-  //-           input#last_name.validate(type='text', ng-model="contactDetails.last_name")
-  //-           label(for='last_name') Last Name
-  //-       .row
-  //-         .input-field.col.s12
-  //-           input#email.validate(type='email', ng-model="contactDetails.email")
-  //-           label(for='email') Email
-  //-       .row
-  //-         .col.s12
-  //-           label(for='message') Message
-  //-           textarea#message.validate(type='message', ng-model="contactDetails.message")
+#contact.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          span(aria-hidden='true') ×
+        h4#myModalLabel.modal-title.w-100 Contact
+      .modal-body
+        form.col.s12
+          .row
+            .form-group.col.s6
+              label(for='first_name') First Name
+              input#first_name.validate.form-control(type='text', ng-model="contactDetails.first_name")
+            .form-group.col.s6
+              label(for='last_name') Last Name
+              input#last_name.validate.form-control(type='text', ng-model="contactDetails.last_name")
+          .row
+            .form-group.col.s12
+              label(for='email') Email
+              input#email.validate.form-control(type='email', ng-model="contactDetails.email")
+          .row
+            .col.s12.form-group
+              label(for='message') Message
+              textarea#message.validate.form-control(type='message', ng-model="contactDetails.message")
+      .modal-footer
+        button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+        button.btn.btn-primary(type='button', ng-click='sendContact()', data-dismiss="modal") Save changes
