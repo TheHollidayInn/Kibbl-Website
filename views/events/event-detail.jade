@@ -8,11 +8,14 @@ link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-aw
   .container
     .row
       .col-md-9
-        ul.nav.nav-tabs
-          li.active
-            a(href='#tab1', data-toggle='tab') Section 1
-          li
-            a(href='#tab2', data-toggle='tab') Section 2
+        div
+          h3
+            | {{event.start_time | date : "medium"}} - {{event.end_time | date : "medium"}}
+        //- ul.nav.nav-tabs
+        //-   li.active
+        //-     a(href='#tab1', data-toggle='tab') Section 1
+        //-   li
+        //-     a(href='#tab2', data-toggle='tab') Section 2
       .col-md-3
         button.btn.btn-raised.btn-primary.btn-contact Contact
         button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!event.favorited')
@@ -21,17 +24,7 @@ link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-aw
           i(style="font-size: 2rem;").material-icons star
 .container(style="margin-top: 2rem;")
   .row
-    .col-md-3
-      .well
-        h3 Details
-        ul
-          li Start: {{event.start_time | date : "medium"}}
-          li End: {{event.end_time | date : "medium"}}
-          li Location: {{event.place.name}}
-          li 
-            a(href="https://facebook.com/events/{{event.id}}", target="_blank") Webpage 
-
-    .col-md-6
+    .col-md-9
       .well(style="height:250px", ng-if='event.media')
         .col-md-3(ng-repeat="photo in event.media", ng-if='$index % 5 === 3')
           img(ng-src="{{photo}}", style="width:100%;")
@@ -48,6 +41,14 @@ link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-aw
         a.btn.btn-block.btn-raised.btn-twitter(target="_new", href='{{twitterUrl}}')
           i.fa.fa-twitter-square
           |  Tweet
+      .well
+        h3 Details
+        ul
+          li Start: {{event.start_time | date : "medium"}}
+          li End: {{event.end_time | date : "medium"}}
+          li Location: {{event.place.name}}
+          li 
+            a(href="https://facebook.com/events/{{event.id}}", target="_blank") Webpage 
 // Modals
 #contact.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
   .modal-dialog(role='document')
