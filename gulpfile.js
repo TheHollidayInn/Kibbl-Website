@@ -19,6 +19,7 @@ var dependentjsfiles = [
   'public/bower_components/bootstrap-sweetalert/dist/sweetalert.min.js',
   'public/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
   'public/bower_components/underscore/underscore-min.js',
+  'public/bower_components/ngSticky/dist/sticky.min.js',
 ];
 
 var jsfiles = [

@@ -1,4 +1,4 @@
-.container-fluid(style='padding:0px;')
+.container-fluid(style='padding:0px;' sticky offset="40")
   div.col-md-12.well(style="min-height:100px;")  
     .form-group.col-md-2
       h1 Pets
@@ -15,7 +15,7 @@
     
     .form-group.col-md-2
       label Breed
-      input.form-control(ng-model='filters.breed', type='text')
+      input.form-control(ng-model='filters.breed', type='text', uib-typeahead="breed for breed in breeds | filter:$viewValue | limitTo:8" )
     
     div.form-group.col-md-1(input-field='')
       label Age

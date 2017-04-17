@@ -9,6 +9,11 @@ angular.module('Pets')
     $scope.loginDetails = {};
     $scope.type = '';
 
+    $scope.breeds = [
+      'pit',
+      'basit'
+    ];
+
     $scope.petTypes = [
       {
         value: '',
@@ -97,7 +102,7 @@ angular.module('Pets')
       if (filters) {
         url += '?' + $.param(filters);
       }
-      console.log(filters)
+
       $http({
         method: 'GET',
         url: url,
