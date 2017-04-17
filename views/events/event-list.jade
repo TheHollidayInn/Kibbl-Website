@@ -49,18 +49,6 @@
         .grid-content.gradient
           h3 {{event.name}}
           h5 {{event.start_time | date : "medium" }}
-      //- .card
-      //-   .card-height-indicator
-      //-   .card-content
-      //-     div(style='height:100%; width:100%; background-color:rgba(147, 29, 16, 0.6); position:absolute; top: 0;')
-      //-     a(href='/events/{{event._id}}')
-      //-     .card-image
-      //-       a(href='/events/{{event._id}}', style='display:block')
-      //-         img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
-      //-       h3.card-image-headline {{event.name}}
-      //-     .card-body
-      //-       h5.card-image-headline {{event.start_time}}
-      //-       p {{event.description | limitTo: 140}}
-      //-     //- footer.card-footer
-      //-     //-   a.btn.btn-flat.btn-primary(href='/events/{{event._id}}') 
-      //-     //-     | Learn More
+        .grid-content.image-display(ng-if='shelter.facebook.cover', style='background-image:url({{shelter.facebook.cover}})')
+          h3 {{event.name}}
+          h5 {{event.start_time | date : "medium" }}

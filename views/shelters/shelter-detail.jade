@@ -6,8 +6,8 @@
   .container
     .row
       .col-md-7
-        .well.img-feature-wrapper(ng-if='shelters.facebook.cover')
-          div.img-feature(style="background-image:url({{shelters.facebook.cover}})")
+        .well.img-feature-wrapper(ng-if='shelter.facebook.cover')
+          div.img-feature(style="background-image:url({{shelter.facebook.cover}})")
       .col-md-5
         button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
         button.btn.btn-raised.btn-primary(ng-click='subscribe()', ng-if='!shelter.subscribed') Subscribe

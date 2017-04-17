@@ -19,16 +19,11 @@
 
 .container
   div.row(infinite-scroll="scroll()", infinite-scroll-distance="1")
-    div.col-md-4.grid-item(ng-repeat="shelter in shelters", style='400px;')
-      .card
-        .card-height-indicator
-        .card-content
-          .card-image
-            a(href='/shelters/{{shelter._id}}', style='display:block')
-              img(src='{{shelters.facebook.cover}}', alt='Loading image...')
-            h3.card-image-headline {{shelter.name}}
-          .card-body
-            p {{shelter.description | limitTo: 140}}
-          footer.card-footer
-            a.btn.btn-flat.btn-primary(href='/shelters/{{shelter._id}}') 
-              | Learn More
+    div.col-md-4.grid-item(ng-repeat="shelter in shelters", style="height:200px; overflow:hidden; border-radius: 5px;")
+      a(href='/shelters/{{shelter._id}}')
+        .grid-content.gradient(ng-if='!shelter.facebook.cover')
+          h3 {{shelter.name}}
+          h5 {{shelter.description | limitTo: 140}}
+        .grid-content.image-display(ng-if='shelter.facebook.cover', style='background-image:url({{shelter.facebook.cover}})')
+          h3 {{shelter.name}}
+          h5 {{shelter.description | limitTo: 140}}
