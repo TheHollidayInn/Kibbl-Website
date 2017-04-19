@@ -1,4 +1,4 @@
-angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500);
+angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 1000);
 angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap', 'socialLogin', 'sticky',
   'angulartics',
   'angulartics.google.analytics', 'infinite-scroll',

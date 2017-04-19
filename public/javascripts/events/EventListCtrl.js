@@ -1,6 +1,6 @@
 angular.module('Events')
-.controller('EventListCtrl', ['$scope', 'EventService',
-	function ($scope, EventService) {
+.controller('EventListCtrl', ['$scope', 'EventService', 'FiltersService', '$window',
+	function ($scope, EventService, FiltersService, $window) {
 		$scope.events = [];
 		$scope.loading = true;
 		$scope.eventTypes = [
@@ -14,6 +14,10 @@ angular.module('Events')
 			},
 		];
 		$scope.filters = {};
+		$scope.filters = FiltersService.getEventFilters();
+		$scope.events = FiltersService.getEvents();
+
+		var initialScrolled = false;
 
 		function getPostCode(place) {
 			for (var i = 0; i < place.address_components.length; i++) {
@@ -50,6 +54,13 @@ angular.module('Events')
 				});
 				$scope.groupedEvents = groupedEvents;
 				$scope.loading = false;
+				FiltersService.setEvents($scope.events);
+
+				var scrollPosition = FiltersService.getEventScroll();
+				if (scrollPosition && !initialScrolled) {
+					initialScrolled = true;
+					$("body").animate({scrollTop: scrollPosition}, "slow");
+				}
 			});
 		}
 		$scope.getEvents();
@@ -59,14 +70,18 @@ angular.module('Events')
 			delete $scope.filters.createdAtBefore;
 			$scope.getEvents();
 			$scope.loading = true;
+			FiltersService.setEventFilters($scope.filters);
 		};
 
 		$scope.scroll = function () {
+			// @TODO: a debounce
 			if (!$scope.events[$scope.events.length - 1]) return;
 			if ($scope.filters.createdAtBefore === $scope.events[$scope.events.length -1].start_time) return;
 			$scope.filters.createdAtBefore = $scope.events[$scope.events.length -1].start_time;
 			$scope.getEvents();
 			$scope.loading = true;
+			FiltersService.setEventScroll($window.scrollY);
+			// FiltersService.setEventFilters($scope.filters);
 		};
 
 		$scope.dateOptions = {
