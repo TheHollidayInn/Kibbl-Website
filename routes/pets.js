@@ -37,10 +37,10 @@ router.get('/', function(req, res, next) {
     query.animal = req.query.type;
   }
 
-  // if (req.query.breed) {
-  //   query.breeds = {};
-  //   query.breeds.breed = {'$elemMatch': [{t: req.query.breed}]};
-  // }
+  if (req.query.breed) {
+    query.breeds = {};
+    query.breeds = req.query.breed;
+  }
 
   if (req.query.age) {
     query.age = req.query.age;
