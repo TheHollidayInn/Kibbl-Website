@@ -497,16 +497,14 @@ angular.module('Pets')
     });
 
     $scope.filter = function () {
-      // @TODO: Make sure we scroll to top
-      FiltersService.setPetScroll(0);
-      scrollToLastPosition();
+      $("body").animate({scrollTop: 0}, "slow");
 			$scope.pets = [];
 			$scope.sendRequest();
       $scope.loading = true;
       FiltersService.setPetFilters($scope.filters);
 		};
 
-    $scope.scroll = function () {
+    function scroll () {
       if ($scope.loading) return;
       if (!$scope.pets[$scope.pets.length - 1]) return;
       if ($scope.filters.lastUpdatedBefore === $scope.pets[$scope.pets.length -1].lastUpdate) return;
@@ -515,6 +513,8 @@ angular.module('Pets')
       $scope.loading = true;
       FiltersService.setPetScroll($window.scrollY);
 		}
+
+    $scope.scroll = _.throttle(scroll, 3000);
 
     // $scope.queryPage = function (page) {
     //   $scope.offset = page * $scope.limit;

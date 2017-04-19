@@ -81,8 +81,7 @@ angular.module('Events')
     }
 
 		$scope.filter = function () {
-			FiltersService.setEventScroll(0);
-      scrollToLastPosition();
+      $("body").animate({scrollTop: 0}, "slow");
 			$scope.events = [];
 			delete $scope.filters.createdAtBefore;
 			$scope.getEvents();
@@ -90,9 +89,8 @@ angular.module('Events')
 			FiltersService.setEventFilters($scope.filters);
 		};
 
-		$scope.scroll = function () {
+		function scroll () {
 			if ($scope.loading) return;
-			// @TODO: a debounce
 			if (!$scope.events[$scope.events.length - 1]) return;
 			if ($scope.filters.createdAtBefore === $scope.events[$scope.events.length -1].start_time) return;
 			$scope.filters.createdAtBefore = $scope.events[$scope.events.length -1].start_time;
@@ -101,6 +99,8 @@ angular.module('Events')
 			FiltersService.setEventScroll($window.scrollY);
 			// FiltersService.setEventFilters($scope.filters);
 		};
+
+		$scope.scroll = _.throttle(scroll, 3000);
 
 		$scope.dateOptions = {
 			// dateDisabled: disabled,

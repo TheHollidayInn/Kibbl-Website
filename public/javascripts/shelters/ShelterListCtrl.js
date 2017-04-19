@@ -65,16 +65,14 @@ angular.module('Shelters')
 			}
 
 			$scope.filter = function () {
-				// @TODO: Make sure we scroll to top
-				FiltersService.setShelterScroll(0);
-				scrollToLastPosition();
+				$("body").animate({scrollTop: 0}, "slow");
 				$scope.shelters = [];
 				$scope.getEvents();
 				$scope.loading = true;
 				FiltersService.setShelterFilters($scope.filters);
 			};
 
-			$scope.scroll = function () {
+			function scroll () {
 				if ($scope.loading) return;
 				if (!$scope.shelters[$scope.shelters.length - 1]) return;
 				$scope.filters.createdAtBefore = $scope.shelters[$scope.shelters.length - 1].createdAt;
@@ -82,6 +80,8 @@ angular.module('Shelters')
 				$scope.loading = true;
 				FiltersService.setShelterScroll($window.scrollY);
 			}
+
+			$scope.scroll = _.throttle(scroll, 3000);
 
 			$scope.dateOptions = {
 				// dateDisabled: disabled,
