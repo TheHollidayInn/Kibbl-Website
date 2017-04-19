@@ -44,7 +44,6 @@ angular.module('Shelters')
 						$scope.loading = false;
 
 						FiltersService.setShelters($scope.shelters);
-
 						scrollToLastPosition();
 					});
 			}
@@ -82,6 +81,12 @@ angular.module('Shelters')
 			}
 
 			$scope.scroll = _.throttle(scroll, 3000);
+
+			function logScroll () {
+				FiltersService.setShelterScroll($window.scrollY);
+      }
+
+			angular.element($window).bind("scroll", _.throttle(logScroll, 1000));
 
 			$scope.dateOptions = {
 				// dateDisabled: disabled,
