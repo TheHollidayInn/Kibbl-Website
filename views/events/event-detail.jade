@@ -1,26 +1,34 @@
-link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' type='text/css')
-link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css')
-
 .container-fluid.banner
   .container
     h1.text-center {{event.name}}
+
 .container-fluid.container-detail
   .container
     .row
       .col-md-9
-        ul.nav.nav-tabs
-          li.active
-            a(href='#tab1', data-toggle='tab') Section 1
-          li
-            a(href='#tab2', data-toggle='tab') Section 2
+        .well.img-feature-wrapper
+          div.img-feature(style="background-image:url({{event.facebook.cover}})")
+      //- .col-md-9
+      //-   div
+      //-     h3
+      //-       | {{event.start_time | date : "medium"}} - {{event.end_time | date : "medium"}}
       .col-md-3
-        button.btn.btn-raised.btn-primary.btn-contact Contact
+        button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
         button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!event.favorited')
           i(style="font-size: 2rem;").material-icons star_border
         button.btn.btn-raised.btn-primary.btn-favorite-active(ng-click='favorite()', ng-if='event.favorited')
           i(style="font-size: 2rem;").material-icons star
 .container(style="margin-top: 2rem;")
   .row
+    .col-md-9
+      //- .well(style="height:250px", ng-if='event.media')
+      //-   .col-md-3(ng-repeat="photo in event.media", ng-if='$index % 5 === 3')
+      //-     img(ng-src="{{photo}}", style="width:100%;")
+      .well
+        h3 Description
+        p(style="white-space: pre-wrap;") {{event.description}}
+
+      comments(item-id='event._id')
     .col-md-3
       .well
         h3 Details
@@ -30,17 +38,6 @@ link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-aw
           li Location: {{event.place.name}}
           li 
             a(href="https://facebook.com/events/{{event.id}}", target="_blank") Webpage 
-
-    .col-md-6
-      .well(style="height:250px", ng-if='event.media')
-        .col-md-3(ng-repeat="photo in event.media", ng-if='$index % 5 === 3')
-          img(ng-src="{{photo}}", style="width:100%;")
-      .well
-        h3 Description
-        p(style="white-space: pre-wrap;") {{event.description}}
-
-      comments(item-id='event._id')
-    .col-md-3
       .well
         a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='{{facebookUrl}}')
           i.fa.fa-facebook-official
@@ -48,31 +45,5 @@ link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-aw
         a.btn.btn-block.btn-raised.btn-twitter(target="_new", href='{{twitterUrl}}')
           i.fa.fa-twitter-square
           |  Tweet
-// Modals
-#contact.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-  .modal-dialog(role='document')
-    .modal-content
-      .modal-header
-        button.close(type='button', data-dismiss='modal', aria-label='Close')
-          span(aria-hidden='true') ×
-        h4#myModalLabel.modal-title.w-100 Contact
-      .modal-body
-        form.col.s12
-          .row
-            .form-group.col.s6
-              label(for='first_name') First Name
-              input#first_name.validate.form-control(type='text', ng-model="contactDetails.first_name")
-            .form-group.col.s6
-              label(for='last_name') Last Name
-              input#last_name.validate.form-control(type='text', ng-model="contactDetails.last_name")
-          .row
-            .form-group.col.s12
-              label(for='email') Email
-              input#email.validate.form-control(type='email', ng-model="contactDetails.email")
-          .row
-            .col.s12.form-group
-              label(for='message') Message
-              textarea#message.validate.form-control(type='message', ng-model="contactDetails.message")
-      .modal-footer
-        button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-        button.btn.btn-primary(type='button', ng-click='sendContact()', data-dismiss="modal") Save changes
+
+include ../modals/contact

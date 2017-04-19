@@ -1,7 +1,8 @@
-.container-fluid(style='padding:0px;')
+.container-fluid(style='padding:0px;' sticky offset="40")
   div.col-md-12.well(style="min-height:100px;")  
     .form-group.col-md-2
-      h1 Events
+      h1(ng-if='!loading') Events
+      h1.loader(ng-if='loading') Loading...
     
     .form-group.col-md-2
       label Location
@@ -42,25 +43,13 @@
       button.btn.btn-primary.btn-raised(ng-click='filter()') Filter
 
 .container
-  div.row(infinite-scroll="scroll()", infinite-scroll-distance=".5", ng-repeat="(key, events) in groupedEvents")
+  div.row(infinite-scroll="scroll()", infinite-scroll-distance="1", ng-repeat="(key, events) in groupedEvents")
     h2.col-md-12 {{key}}
     div.col-md-4.grid-item(ng-repeat="event in events", style="height:200px; overflow:hidden; border-radius: 5px;")
       a(href='/events/{{event._id}}')
-        .grid-content.gradient
+        .grid-content.gradient(ng-if='!event.facebook.cover')
           h3 {{event.name}}
           h5 {{event.start_time | date : "medium" }}
-      //- .card
-      //-   .card-height-indicator
-      //-   .card-content
-      //-     div(style='height:100%; width:100%; background-color:rgba(147, 29, 16, 0.6); position:absolute; top: 0;')
-      //-     a(href='/events/{{event._id}}')
-      //-     .card-image
-      //-       a(href='/events/{{event._id}}', style='display:block')
-      //-         img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
-      //-       h3.card-image-headline {{event.name}}
-      //-     .card-body
-      //-       h5.card-image-headline {{event.start_time}}
-      //-       p {{event.description | limitTo: 140}}
-      //-     //- footer.card-footer
-      //-     //-   a.btn.btn-flat.btn-primary(href='/events/{{event._id}}') 
-      //-     //-     | Learn More
+        .grid-content.image-display(ng-if='event.facebook.cover', style='background-image:url({{event.facebook.cover}})')
+          h3 {{event.name}}
+          h5 {{event.start_time | date : "medium" }}

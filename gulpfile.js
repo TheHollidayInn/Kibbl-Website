@@ -19,6 +19,7 @@ var dependentjsfiles = [
   'public/bower_components/bootstrap-sweetalert/dist/sweetalert.min.js',
   'public/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
   'public/bower_components/underscore/underscore-min.js',
+  'public/bower_components/ngSticky/dist/sticky.min.js',
 ];
 
 var jsfiles = [
@@ -59,10 +60,17 @@ var jsfiles = [
   'public/javascripts/feedback/Feedback.js',
   'public/javascripts/feedback/FeedbackListCtrl.js',
   'public/javascripts/feedback/FeedbackService.js',
+  'public/javascripts/controllers/FiltersService.js',
 ];
+
+// @TODO: dev build
 
 gulp.task('concat', function() {
   let files = dependentjsfiles.concat(jsfiles);
+
+  gulp.src(jsfiles)
+    .pipe(concat('all.js'))
+    .pipe(gulp.dest('public/dist'));
 
   gulp.src(jsfiles)
     .pipe(concat('all.js'))

@@ -2,11 +2,12 @@ angular.module('Kibbl')
 .controller('HomeCtrl', ['$scope', '$localStorage', 'Auth', '$http',
 	function ($scope, $localStorage, Auth, $http) {
 		amplitude.getInstance().logEvent('VISIT_HOME');
-		
+
 		$scope.events = [];
 		$scope.pets = [];
 		$scope.opportunities = [];
 		$scope.shelters = [];
+		$scope.loading = true;
 
 		$scope.token = $localStorage.token;
 		$scope.tokenClaims = Auth.getTokenClaims();
@@ -18,13 +19,14 @@ angular.module('Kibbl')
 				$scope.pets = latest.pets;
 				$scope.opportunities = latest.volunteerOpportunity;
 				$scope.shelters = latest.shelters;
+				$scope.loading = false;
 			});
 
 		function successAuth(res) {
 			$localStorage.token = res.data.token;
 			window.location = "/";
 		}
-		
+
 		$scope.login = function () {
 			var formData = {
 				email: $scope.email,

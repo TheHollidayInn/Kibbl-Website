@@ -1,7 +1,8 @@
 angular.module('Events')
-.controller('EventListCtrl', ['$scope', 'EventService',
-	function ($scope, EventService) {
+.controller('EventListCtrl', ['$scope', 'EventService', 'FiltersService', '$window',
+	function ($scope, EventService, FiltersService, $window) {
 		$scope.events = [];
+		$scope.loading = true;
 		$scope.eventTypes = [
 			{
 				id: 1,
@@ -13,6 +14,10 @@ angular.module('Events')
 			},
 		];
 		$scope.filters = {};
+		$scope.filters = FiltersService.getEventFilters();
+		$scope.events = FiltersService.getEvents();
+
+		var initialScrolled = false;
 
 		function getPostCode(place) {
 			for (var i = 0; i < place.address_components.length; i++) {
@@ -43,27 +48,59 @@ angular.module('Events')
 			.then(function (response) {
 				// if ($scope.events.length === 50) $scope.events = [];
 				$scope.events = $scope.events.concat(response.data);
-				var groupedEvents = _.groupBy($scope.events, function(group) {
-					var date = new Date(group.start_time);
-					return monthNames[date.getMonth()] + ' ' + date.getDate();
-				});
-				$scope.groupedEvents = groupedEvents;
+				groupEvents();
+				$scope.loading = false;
+				FiltersService.setEvents($scope.events);
+
+				scrollToLastPosition();
 			});
 		}
-		$scope.getEvents();
+
+		function groupEvents() {
+			var groupedEvents = _.groupBy($scope.events, function(group) {
+				var date = new Date(group.start_time);
+				return monthNames[date.getMonth()] + ' ' + date.getDate();
+			});
+			$scope.groupedEvents = groupedEvents;
+		}
+
+		if ($scope.events.length === 0) {
+      $scope.getEvents();
+    } else {
+      $scope.loading = false;
+			groupEvents();
+      scrollToLastPosition();
+    }
+
+    function scrollToLastPosition () {
+      var scrollPosition = FiltersService.getEventScroll();
+      if (scrollPosition && !initialScrolled) {
+        initialScrolled = true;
+        $("body").animate({scrollTop: scrollPosition}, "slow");
+      }
+    }
 
 		$scope.filter = function () {
+      $("body").animate({scrollTop: 0}, "slow");
 			$scope.events = [];
 			delete $scope.filters.createdAtBefore;
 			$scope.getEvents();
+			$scope.loading = true;
+			FiltersService.setEventFilters($scope.filters);
 		};
 
-		$scope.scroll = function () {
+		function scroll () {
+			if ($scope.loading) return;
 			if (!$scope.events[$scope.events.length - 1]) return;
 			if ($scope.filters.createdAtBefore === $scope.events[$scope.events.length -1].start_time) return;
 			$scope.filters.createdAtBefore = $scope.events[$scope.events.length -1].start_time;
 			$scope.getEvents();
+			$scope.loading = true;
+			FiltersService.setEventScroll($window.scrollY);
+			// FiltersService.setEventFilters($scope.filters);
 		};
+
+		$scope.scroll = _.throttle(scroll, 3000);
 
 		$scope.dateOptions = {
 			// dateDisabled: disabled,

@@ -24,7 +24,7 @@ function getUserFromToken (req) {
 }
 
 router.get('/', function(req, res, next) {
-  var limit = 100;
+  var limit = 20;
   var offset = 0;
 
   var query = {};
@@ -37,10 +37,10 @@ router.get('/', function(req, res, next) {
     query.animal = req.query.type;
   }
 
-  // if (req.query.breed) {
-  //   query.breeds = {};
-  //   query.breeds.breed = {'$elemMatch': [{t: req.query.breed}]};
-  // }
+  if (req.query.breed) {
+    query.breeds = {};
+    query.breeds = req.query.breed;
+  }
 
   if (req.query.age) {
     query.age = req.query.age;
@@ -74,9 +74,10 @@ router.get('/', function(req, res, next) {
     Geocoder.geocode(location)
     .then(function (geocodeResult) {
       if (geocodeResult) {
-        query.locationCoords = {
-          $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
-        };
+        // query.locationCoords = {
+        //   $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
+        // };
+        query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
       }
 
       return Pets.find(query)
@@ -97,9 +98,10 @@ router.get('/', function(req, res, next) {
     Geocoder.geocode(location)
     .then(function (geocodeResult) {
       if (geocodeResult) {
-        query.locationCoords = {
-          $near: { type: 'Point', coordinates:[geocodeResult[0].latitude, geocodeResult[0].longitude] }
-        };
+        // query.locationCoords = {
+        //   $near: { type: 'Point', coordinates:[geocodeResult[0].latitude, geocodeResult[0].longitude] }
+        // };
+        query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
       }
 
       return Pets.find(query)

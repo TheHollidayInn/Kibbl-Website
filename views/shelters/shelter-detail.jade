@@ -1,70 +1,44 @@
 .container-fluid.banner
   .container
     h1.text-center {{shelter.name}}
+    
+.container-fluid.container-detail
+  .container
+    .row
+      .col-md-7
+        .well.img-feature-wrapper(ng-if='shelter.facebook.cover')
+          div.img-feature(style="background-image:url({{shelter.facebook.cover}})")
+      .col-md-5
+        button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
+        button.btn.btn-raised.btn-primary(ng-click='subscribe()', ng-if='!shelter.subscribed') Subscribe
+        button.btn.btn-raised.btn-warning(ng-click='subscribe(true)', ng-if='shelter.subscribed') Unubscribe
+        button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!event.favorited')
+          i(style="font-size: 2rem;").material-icons star_border
+        button.btn.btn-raised.btn-primary.btn-favorite-active(ng-click='favorite()', ng-if='event.favorited')
+          i(style="font-size: 2rem;").material-icons star
 
 .container(style="margin-top: 2rem;")
   .row
-    .col-md-4
-      .well
-        h3 Details
-        ul
-          li CreatedAt: {{shelter.createdAt | date}}
-
-      .well
-        h3 Actions
-        ul
-          li
-            button.btn.btn-raised.btn-primary(ng-click='subscribe()', ng-if='!shelter.subscribed') Subscribe
-            button.btn.btn-raised.btn-warning(ng-click='subscribe(true)', ng-if='shelter.subscribed') Unubscribe
-          li
-            button.btn.btn-raised.btn-primary(ng-click='favorite()', ng-if='!shelter.favorited') Favorite
-            button.btn.btn-raised.btn-warning(ng-click='favorite()', ng-if='shelter.favorited') Unfavorite
-          li
-            button.btn.btn-raised.btn-primary Share
-          li
-            a.btn.btn-raised(target="_new", href='{{twitterUrl}}')
-              | Tweet
-          li
-            a.btn.btn-raised(target="_new", ng-href='{{facebookUrl}}')
-              | Facebook
-          li
-            button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
-
     .col-md-8
-      //- .well(style="height:250px")
-      //-   .col-md-3(ng-repeat="photo in shelter.media", ng-if='$index % 5 === 3')
-      //-     img(ng-src="{{photo}}", style="width:100%;")
       .well
         h3 Description
         p {{shelter.description}}
       
       comments(item-id='shelter._id')
+    .col-md-4
+      .well
+        h3 Details
+        ul
+          li CreatedAt: {{shelter.createdAt | date}}
+          li
+            a(href='http://facebook.com/{{shelter.facebook.id}}', target="_blank") Facebook Page
 
-  // Modals
-  #contact.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-    .modal-dialog(role='document')
-      .modal-content
-        .modal-header
-          button.close(type='button', data-dismiss='modal', aria-label='Close')
-            span(aria-hidden='true') ×
-          h4#myModalLabel.modal-title.w-100 Contact
-        .modal-body
-          form.col.s12
-            .row
-              .form-group.col.s6
-                label(for='first_name') First Name
-                input#first_name.validate.form-control(type='text', ng-model="contactDetails.first_name")
-              .form-group.col.s6
-                label(for='last_name') Last Name
-                input#last_name.validate.form-control(type='text', ng-model="contactDetails.last_name")
-            .row
-              .form-group.col.s12
-                label(for='email') Email
-                input#email.validate.form-control(type='email', ng-model="contactDetails.email")
-            .row
-              .col.s12.form-group
-                label(for='message') Message
-                textarea#message.validate.form-control(type='message', ng-model="contactDetails.message")
-        .modal-footer
-          button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-          button.btn.btn-primary(type='button', ng-click='sendContact()', data-dismiss="modal") Save changes
+      .well
+        a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='{{facebookUrl}}')
+          i.fa.fa-facebook-official
+          |  Share
+        a.btn.btn-block.btn-raised.btn-twitter(target="_new", href='{{twitterUrl}}')
+          i.fa.fa-twitter-square
+          |  Tweet
+
+include ../modals/contact

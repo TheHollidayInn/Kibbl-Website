@@ -26,24 +26,21 @@
       .h3.text-center Communicate
       p.text-center Send messages to talk with shelters
 
-.container.new-section
+.container-fluid.new-section(style="background:#fff;")
   div.row
       h2.text-center Latest Events
       .col-md-12.text-center
         a.btn.btn-flat.btn-primary(href='/events') View More
-      div.col-md-4.grid-item(ng-repeat="event in events")
-        .card
-          .card-height-indicator
-          .card-content
-            .card-image
-              a(href='/events/{{event._id}}', style='display:block')
-                img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
-              h3.card-image-headline {{event.name}}
-            .card-body
-              p {{event.description | limitTo: 140}}
-            footer.card-footer
-              a.btn.btn-flat.btn-primary(href='/events/{{event._id}}') 
-                | Learn More
+      .col-md-12.text-center
+        .loader(ng-if='loading') Loading...
+      div.col-md-4.grid-item(ng-repeat="event in events", style="height:200px; overflow:hidden; border-radius: 5px;")
+        a(href='/events/{{event._id}}')
+          .grid-content.gradient(ng-if='!event.facebook.cover')
+            h3 {{event.name}}
+            h5 {{event.start_time | date : "medium" }}
+          .grid-content.image-display(ng-if='event.facebook.cover', style='background-image:url({{event.facebook.cover}})')
+            h3 {{event.name}}
+            h5 {{event.start_time | date : "medium" }}
 
   //- div.row
   //-   h2.text-center Latest Volunteer Opportunities
@@ -67,35 +64,28 @@
     h2.text-center Latest Pets
     .col-md-12.text-center
       a.btn.btn-flat.btn-primary(href='/pets') View More
-    div.col-md-4.grid-item(ng-repeat="pet in pets")
-      .card
-        .card-height-indicator
-        .card-content
-          .card-image
-            a(href='/pets/{{pet._id}}', style='display:block')
-              img(ng-if='!pet.media[3]', src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
-              img(ng-if='pet.media[3]', ng-src='{{pet.media[3]}}', alt='Loading image...')
-            h3.card-image-headline {{pet.name}}
-          .card-body
-            p {{pet.description | limitTo: 140}}
-          footer.card-footer
-            a.btn.btn-flat.btn-primary(href='/pets/{{pet._id}}') 
-              | Learn More
+    .col-md-12.text-center
+      .loader(ng-if='loading') Loading...
+    div.col-md-4.grid-item(ng-repeat="pet in pets", style="height:200px; overflow:hidden; border-radius: 5px;")
+      a(href='/pets/{{pet._id}}')
+        .grid-content.gradient(ng-if='!pet.media[3]')
+          h3 {{pet.name}}
+          h5 {{pet.description | limitTo: 140}}
+        .grid-content.image-display(ng-if='pet.media[3]', style='background-image:url({{pet.media[3]}})')
+          h3 {{pet.name}}
+          h5 {{pet.description | limitTo: 140}}
 
   div.row
     h2.text-center Latest Shelters
     .col-md-12.text-center
       a.btn.btn-flat.btn-primary(href='/shelters') View More
-    div.col-md-4.grid-item(ng-repeat="shelter in shelters")
-      .card
-        .card-height-indicator
-        .card-content
-          .card-image
-            a(href='/shelters/{{shelter._id}}', style='display:block')
-              img(src='//www.petfinder.com/wp-content/uploads/2016/08/right-desktop@2x.jpg', alt='Loading image...')
-            h3.card-image-headline {{shelter.name}}
-          .card-body
-            p {{shelter.description | limitTo: 140}}
-          footer.card-footer
-            a.btn.btn-flat.btn-primary(href='/shelters/{{shelter._id}}') 
-              | Learn More
+    .col-md-12.text-center
+      .loader(ng-if='loading') Loading...
+    div.col-md-4.grid-item(ng-repeat="shelter in shelters", style="height:200px; overflow:hidden; border-radius: 5px;")
+      a(href='/shelters/{{shelter._id}}')
+        .grid-content.gradient(ng-if='!shelter.facebook.cover')
+          h3 {{shelter.name}}
+          h5 {{shelter.description | limitTo: 140}}
+        .grid-content.image-display(ng-if='shelter.facebook.cover', style='background-image:url({{shelter.facebook.cover}})')
+          h3 {{shelter.name}}
+          h5 {{shelter.description | limitTo: 140}}
