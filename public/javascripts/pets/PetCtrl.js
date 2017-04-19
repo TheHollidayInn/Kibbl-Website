@@ -1,6 +1,6 @@
 angular.module('Pets')
-.controller('PetListCtrl', ['$scope', '$http', '$window',
-  function($scope, $http, $window) {
+.controller('PetListCtrl', ['$scope', '$http', '$window', 'FiltersService',
+  function($scope, $http, $window, FiltersService) {
     $.material.init()
     $scope.loading = true;
     $scope.pets = [];
@@ -8,6 +8,8 @@ angular.module('Pets')
     $scope.isFavoriting = false;
     $scope.loginDetails = {};
     $scope.type = '';
+    $scope.filters = FiltersService.getPetFilters();
+		$scope.pets = FiltersService.getPets();
 
     $scope.breeds = {};
     $scope.breeds['Dog'] = [
@@ -432,6 +434,8 @@ angular.module('Pets')
     $scope.offset = 0;
     $scope.limit = 100;
 
+    var initialScrolled = false;
+
     function getPostCode(place) {
 			for (var i = 0; i < place.address_components.length; i++) {
 	      for (var j = 0; j < place.address_components[i].types.length; j++) {
@@ -465,6 +469,14 @@ angular.module('Pets')
       .then(function (response) {
         $scope.pets = $scope.pets.concat(response.data.pets);
         $scope.loading = false;
+
+        FiltersService.setPets($scope.pets);
+
+				var scrollPosition = FiltersService.getPetScroll();
+				if (scrollPosition && !initialScrolled) {
+					initialScrolled = true;
+					$("body").animate({scrollTop: scrollPosition}, "slow");
+				}
       })
     };
     $scope.sendRequest();
@@ -478,14 +490,16 @@ angular.module('Pets')
 			$scope.pets = [];
 			$scope.sendRequest();
       $scope.loading = true;
+      FiltersService.setPetFilters($scope.filters);
 		};
 
     $scope.scroll = function () {
       if (!$scope.pets[$scope.pets.length - 1]) return;
-      if ($scope.filters.createdAtBefore === $scope.events[$scope.events.length -1].start_time) return;
+      if ($scope.filters.lastUpdatedBefore === $scope.pets[$scope.pets.length -1].lastUpdate) return;
 			$scope.filters.lastUpdatedBefore = $scope.pets[$scope.pets.length -1].lastUpdate;
 			$scope.sendRequest();
       $scope.loading = true;
+      FiltersService.setPetScroll($window.scrollY);
 		}
 
     // $scope.queryPage = function (page) {

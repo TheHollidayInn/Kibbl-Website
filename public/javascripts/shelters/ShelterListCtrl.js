@@ -1,6 +1,6 @@
 angular.module('Shelters')
-	.controller('ShelterListCtrl', ['$scope', 'ShelterService',
-		function ($scope, ShelterService) {
+	.controller('ShelterListCtrl', ['$scope', 'ShelterService', 'FiltersService', '$window',
+		function ($scope, ShelterService, FiltersService, $window) {
 			$scope.shelters = [];
 			$scope.loading = true;
 			$scope.eventTypes = [
@@ -14,6 +14,9 @@ angular.module('Shelters')
 				},
 			];
 			$scope.filters = {};
+			$scope.filters = FiltersService.getShelterFilters();
+			$scope.shelters = FiltersService.getShelters();
+			var initialScrolled = false;
 
 			function getPostCode(place) {
 				for (var i = 0; i < place.address_components.length; i++) {
@@ -39,14 +42,26 @@ angular.module('Shelters')
 					.then(function (response) {
 						$scope.shelters = $scope.shelters.concat(response.data);
 						$scope.loading = false;
+
+						FiltersService.setShelters($scope.shelters);
+
+						var scrollPosition = FiltersService.getShelterScroll();
+						if (scrollPosition && !initialScrolled) {
+							initialScrolled = true;
+							$("body").animate({scrollTop: scrollPosition}, "slow");
+						}
 					});
 			}
-			$scope.getEvents();
+			if ($scope.shelters.length === 0) {
+				$scope.getEvents();
+				$scope.loading = false;
+			}
 
 			$scope.filter = function () {
 				$scope.shelters = [];
 				$scope.getEvents();
 				$scope.loading = true;
+				FiltersService.setShelterFilters($scope.filters);
 			};
 
 			$scope.scroll = function () {
@@ -54,6 +69,7 @@ angular.module('Shelters')
 				$scope.filters.createdAtBefore = $scope.shelters[$scope.shelters.length - 1].createdAt;
 				$scope.getEvents();
 				$scope.loading = true;
+				FiltersService.setShelterScroll($window.scrollY);
 			}
 
 			$scope.dateOptions = {

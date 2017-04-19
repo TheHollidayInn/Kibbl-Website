@@ -15,7 +15,7 @@
         option(ng-repeat='option in petTypes', value="{{option.value}}") {{option.key}}
     
     .form-group.col-md-2
-      label Breed {{filters.type}}
+      label Breed
       input.form-control(ng-model='filters.breed', type='text', uib-typeahead="breed for breed in currentBreeds | filter:$viewValue | limitTo:8" )
     
     div.form-group.col-md-1(input-field='')
