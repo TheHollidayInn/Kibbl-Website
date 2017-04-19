@@ -1,7 +1,8 @@
 .container-fluid(style='padding:0px;' sticky offset="40")
   div.col-md-12.well(style="min-height:100px;")  
     .form-group.col-md-2
-      h1 Pets
+      h1(ng-if='!loading') Pets
+      h1.loader(ng-if='loading') Loading...
     
     div.form-group.col-md-2
       label Location

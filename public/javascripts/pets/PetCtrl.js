@@ -2,7 +2,7 @@ angular.module('Pets')
 .controller('PetListCtrl', ['$scope', '$http', '$window',
   function($scope, $http, $window) {
     $.material.init()
-
+    $scope.loading = true;
     $scope.pets = [];
     $scope.filters = {};
     $scope.isFavoriting = false;
@@ -109,6 +109,7 @@ angular.module('Pets')
       })
       .then(function (response) {
         $scope.pets = $scope.pets.concat(response.data.pets);
+        $scope.loading = false;
       })
     };
     $scope.sendRequest();
@@ -116,6 +117,7 @@ angular.module('Pets')
     $scope.filter = function () {
 			$scope.pets = [];
 			$scope.sendRequest();
+      $scope.loading = true;
 		};
 
     $scope.scroll = function () {
@@ -123,6 +125,7 @@ angular.module('Pets')
       if ($scope.filters.createdAtBefore === $scope.events[$scope.events.length -1].start_time) return;
 			$scope.filters.lastUpdatedBefore = $scope.pets[$scope.pets.length -1].lastUpdate;
 			$scope.sendRequest();
+      $scope.loading = true;
 		}
 
     // $scope.queryPage = function (page) {

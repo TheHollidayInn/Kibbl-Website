@@ -2,6 +2,7 @@ angular.module('Events')
 .controller('EventListCtrl', ['$scope', 'EventService',
 	function ($scope, EventService) {
 		$scope.events = [];
+		$scope.loading = true;
 		$scope.eventTypes = [
 			{
 				id: 1,
@@ -48,6 +49,7 @@ angular.module('Events')
 					return monthNames[date.getMonth()] + ' ' + date.getDate();
 				});
 				$scope.groupedEvents = groupedEvents;
+				$scope.loading = false;
 			});
 		}
 		$scope.getEvents();
@@ -56,6 +58,7 @@ angular.module('Events')
 			$scope.events = [];
 			delete $scope.filters.createdAtBefore;
 			$scope.getEvents();
+			$scope.loading = true;
 		};
 
 		$scope.scroll = function () {
@@ -63,6 +66,7 @@ angular.module('Events')
 			if ($scope.filters.createdAtBefore === $scope.events[$scope.events.length -1].start_time) return;
 			$scope.filters.createdAtBefore = $scope.events[$scope.events.length -1].start_time;
 			$scope.getEvents();
+			$scope.loading = true;
 		};
 
 		$scope.dateOptions = {

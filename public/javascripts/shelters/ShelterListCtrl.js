@@ -2,6 +2,7 @@ angular.module('Shelters')
 	.controller('ShelterListCtrl', ['$scope', 'ShelterService',
 		function ($scope, ShelterService) {
 			$scope.shelters = [];
+			$scope.loading = true;
 			$scope.eventTypes = [
 				{
 					id: 1,
@@ -37,6 +38,7 @@ angular.module('Shelters')
 				ShelterService.get(filters)
 					.then(function (response) {
 						$scope.shelters = $scope.shelters.concat(response.data);
+						$scope.loading = false;
 					});
 			}
 			$scope.getEvents();
@@ -44,12 +46,14 @@ angular.module('Shelters')
 			$scope.filter = function () {
 				$scope.shelters = [];
 				$scope.getEvents();
+				$scope.loading = true;
 			};
 
 			$scope.scroll = function () {
 				if (!$scope.shelters[$scope.shelters.length - 1]) return;
 				$scope.filters.createdAtBefore = $scope.shelters[$scope.shelters.length - 1].createdAt;
 				$scope.getEvents();
+				$scope.loading = true;
 			}
 
 			$scope.dateOptions = {
