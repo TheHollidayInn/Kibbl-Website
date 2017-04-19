@@ -1,18 +1,17 @@
 .container-fluid.banner
   .container
     h1.text-center {{event.name}}
+
 .container-fluid.container-detail
   .container
     .row
       .col-md-9
-        div
-          h3
-            | {{event.start_time | date : "medium"}} - {{event.end_time | date : "medium"}}
-        //- ul.nav.nav-tabs
-        //-   li.active
-        //-     a(href='#tab1', data-toggle='tab') Section 1
-        //-   li
-        //-     a(href='#tab2', data-toggle='tab') Section 2
+        .well.img-feature-wrapper
+          div.img-feature(style="background-image:url({{event.facebook.cover}})")
+      //- .col-md-9
+      //-   div
+      //-     h3
+      //-       | {{event.start_time | date : "medium"}} - {{event.end_time | date : "medium"}}
       .col-md-3
         button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
         button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!event.favorited')
