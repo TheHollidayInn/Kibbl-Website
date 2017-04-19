@@ -31,6 +31,8 @@
       h2.text-center Latest Events
       .col-md-12.text-center
         a.btn.btn-flat.btn-primary(href='/events') View More
+      .col-md-12.text-center
+        .loader(ng-if='loading') Loading...
       div.col-md-4.grid-item(ng-repeat="event in events", style="height:200px; overflow:hidden; border-radius: 5px;")
         a(href='/events/{{event._id}}')
           .grid-content.gradient(ng-if='!event.facebook.cover')
@@ -62,6 +64,8 @@
     h2.text-center Latest Pets
     .col-md-12.text-center
       a.btn.btn-flat.btn-primary(href='/pets') View More
+    .col-md-12.text-center
+      .loader(ng-if='loading') Loading...
     div.col-md-4.grid-item(ng-repeat="pet in pets", style="height:200px; overflow:hidden; border-radius: 5px;")
       a(href='/pets/{{pet._id}}')
         .grid-content.gradient(ng-if='!pet.media[3]')
@@ -75,6 +79,8 @@
     h2.text-center Latest Shelters
     .col-md-12.text-center
       a.btn.btn-flat.btn-primary(href='/shelters') View More
+    .col-md-12.text-center
+      .loader(ng-if='loading') Loading...
     div.col-md-4.grid-item(ng-repeat="shelter in shelters", style="height:200px; overflow:hidden; border-radius: 5px;")
       a(href='/shelters/{{shelter._id}}')
         .grid-content.gradient(ng-if='!shelter.facebook.cover')
