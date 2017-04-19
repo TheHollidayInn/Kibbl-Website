@@ -432,7 +432,7 @@ angular.module('Pets')
     ];
 
     $scope.offset = 0;
-    $scope.limit = 100;
+    $scope.limit = 20;
 
     var initialScrolled = false;
 
@@ -472,14 +472,24 @@ angular.module('Pets')
 
         FiltersService.setPets($scope.pets);
 
-				var scrollPosition = FiltersService.getPetScroll();
-				if (scrollPosition && !initialScrolled) {
-					initialScrolled = true;
-					$("body").animate({scrollTop: scrollPosition}, "slow");
-				}
+				scrollToLastPosition();
       })
     };
-    $scope.sendRequest();
+
+    if ($scope.pets.length === 0) {
+      $scope.sendRequest();
+    } else {
+      $scope.loading = false;
+      scrollToLastPosition();
+    }
+
+    function scrollToLastPosition () {
+      var scrollPosition = FiltersService.getPetScroll();
+      if (scrollPosition && !initialScrolled) {
+        initialScrolled = true;
+        $("body").animate({scrollTop: scrollPosition}, "slow");
+      }
+    }
 
     $scope.$watch('filters.type', function (newValue, oldValue) {
       $scope.currentBreeds = $scope.breeds['All'];
@@ -487,6 +497,9 @@ angular.module('Pets')
     });
 
     $scope.filter = function () {
+      // @TODO: Make sure we scroll to top
+      FiltersService.setPetScroll(0);
+      scrollToLastPosition();
 			$scope.pets = [];
 			$scope.sendRequest();
       $scope.loading = true;
@@ -494,6 +507,7 @@ angular.module('Pets')
 		};
 
     $scope.scroll = function () {
+      if ($scope.loading) return;
       if (!$scope.pets[$scope.pets.length - 1]) return;
       if ($scope.filters.lastUpdatedBefore === $scope.pets[$scope.pets.length -1].lastUpdate) return;
 			$scope.filters.lastUpdatedBefore = $scope.pets[$scope.pets.length -1].lastUpdate;

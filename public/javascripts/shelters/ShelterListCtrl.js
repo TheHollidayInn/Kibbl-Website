@@ -45,19 +45,29 @@ angular.module('Shelters')
 
 						FiltersService.setShelters($scope.shelters);
 
-						var scrollPosition = FiltersService.getShelterScroll();
-						if (scrollPosition && !initialScrolled) {
-							initialScrolled = true;
-							$("body").animate({scrollTop: scrollPosition}, "slow");
-						}
+						scrollToLastPosition();
 					});
 			}
+
 			if ($scope.shelters.length === 0) {
 				$scope.getEvents();
+			} else {
 				$scope.loading = false;
+				scrollToLastPosition();
+			}
+
+			function scrollToLastPosition () {
+				var scrollPosition = FiltersService.getShelterScroll();
+				if (scrollPosition && !initialScrolled) {
+					initialScrolled = true;
+					$("body").animate({scrollTop: scrollPosition}, "slow");
+				}
 			}
 
 			$scope.filter = function () {
+				// @TODO: Make sure we scroll to top
+				FiltersService.setShelterScroll(0);
+				scrollToLastPosition();
 				$scope.shelters = [];
 				$scope.getEvents();
 				$scope.loading = true;
@@ -65,6 +75,7 @@ angular.module('Shelters')
 			};
 
 			$scope.scroll = function () {
+				if ($scope.loading) return;
 				if (!$scope.shelters[$scope.shelters.length - 1]) return;
 				$scope.filters.createdAtBefore = $scope.shelters[$scope.shelters.length - 1].createdAt;
 				$scope.getEvents();

@@ -48,24 +48,41 @@ angular.module('Events')
 			.then(function (response) {
 				// if ($scope.events.length === 50) $scope.events = [];
 				$scope.events = $scope.events.concat(response.data);
-				var groupedEvents = _.groupBy($scope.events, function(group) {
-					var date = new Date(group.start_time);
-					return monthNames[date.getMonth()] + ' ' + date.getDate();
-				});
-				$scope.groupedEvents = groupedEvents;
+				groupEvents();
 				$scope.loading = false;
 				FiltersService.setEvents($scope.events);
 
-				var scrollPosition = FiltersService.getEventScroll();
-				if (scrollPosition && !initialScrolled) {
-					initialScrolled = true;
-					$("body").animate({scrollTop: scrollPosition}, "slow");
-				}
+				scrollToLastPosition();
 			});
 		}
-		$scope.getEvents();
+
+		function groupEvents() {
+			var groupedEvents = _.groupBy($scope.events, function(group) {
+				var date = new Date(group.start_time);
+				return monthNames[date.getMonth()] + ' ' + date.getDate();
+			});
+			$scope.groupedEvents = groupedEvents;
+		}
+
+		if ($scope.events.length === 0) {
+      $scope.getEvents();
+    } else {
+      $scope.loading = false;
+			groupEvents();
+      scrollToLastPosition();
+    }
+
+    function scrollToLastPosition () {
+      var scrollPosition = FiltersService.getEventScroll();
+      if (scrollPosition && !initialScrolled) {
+        initialScrolled = true;
+        $("body").animate({scrollTop: scrollPosition}, "slow");
+      }
+    }
 
 		$scope.filter = function () {
+			FiltersService.setEventScroll(0);
+      scrollToLastPosition();
 			$scope.events = [];
 			delete $scope.filters.createdAtBefore;
 			$scope.getEvents();
@@ -74,6 +91,7 @@ angular.module('Events')
 		};
 
 		$scope.scroll = function () {
+			if ($scope.loading) return;
 			// @TODO: a debounce
 			if (!$scope.events[$scope.events.length - 1]) return;
 			if ($scope.filters.createdAtBefore === $scope.events[$scope.events.length -1].start_time) return;
