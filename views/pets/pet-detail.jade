@@ -18,9 +18,6 @@
 .container(style="margin-top: 2rem;")
   .row
     .col-md-8
-      //- .well(style="height:250px")
-      //-   .col-md-3(ng-repeat="photo in pet.media", ng-if='$index % 5 === 3')
-      //-     div.img-display(style="background-image:url({{photo}});")
       .well
         h3 Description
         p(style="white-space: pre-wrap;") {{pet.description}}
@@ -33,10 +30,18 @@
         ul
           li Age: {{pet.age}}
           li Type: {{pet.animal}}
-
+          li Updated: {{pet.lastUpdate | date}}
+        
+        h3 Contact
+        div {{pet.contact.email}}
+        div {{pet.contact.phone}}
+        
         h3 Breed
         ul
           li(ng-repeat="breed in pet.breeds") {{breed}}
+          
+        a.btn.btn-primary(href="https://petfinder.com/petdetail/{{pet.petId}}", target="_blank") Webpage 
+
       .well
         a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='https://www.facebook.com/sharer/sharer.php?u={{url}}&src=sdkpreparse')
           i.fa.fa-facebook-official
