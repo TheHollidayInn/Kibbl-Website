@@ -1,6 +1,7 @@
 .container-fluid.banner
   .container
-    h1.text-center {{shelter.name}}
+    .col-md-6.col-md-offset-3
+      h1.text-center {{shelter.name}}
     
 .container-fluid.container-detail
   .container
@@ -9,7 +10,7 @@
         .well.img-feature-wrapper(ng-if='shelter.facebook.cover')
           div.img-feature(style="background-image:url({{shelter.facebook.cover}})")
       .col-md-5
-        button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
+        //- button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
         button.btn.btn-raised.btn-primary(ng-click='subscribe()', ng-if='!shelter.subscribed') Subscribe
         button.btn.btn-raised.btn-warning(ng-click='subscribe(true)', ng-if='shelter.subscribed') Unubscribe
         button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!event.favorited')
@@ -27,14 +28,16 @@
       comments(item-id='shelter._id')
     .col-md-4
       .well
-        h3 Details
-        ul
-          li CreatedAt: {{shelter.createdAt | date}}
-          li
-            a(href='http://facebook.com/{{shelter.facebook.id}}', target="_blank") Facebook Page
+        h3 Contact
+        
+        div
+          div(ng-if="shelter.email") {{shelter.email}}
+          div(ng-if="shelter.phone") {{shelter.phone}}
+        
+        a.btn.btn-primary(href='http://facebook.com/{{shelter.facebook.id}}', target="_blank") Facebook Page
 
       .well
-        a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='{{facebookUrl}}')
+        a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='https://www.facebook.com/sharer/sharer.php?u={{url}}&src=sdkpreparse')
           i.fa.fa-facebook-official
           |  Share
         a.btn.btn-block.btn-raised.btn-twitter(target="_new", href='{{twitterUrl}}')

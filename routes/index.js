@@ -210,7 +210,8 @@ router.post('/api/v1/auth/social', function (req, res) {
         });
     })
     .then(function(newUser) {
-      let token =  jwt.sign(newUser, nconf.get('JWT_SECRET'), { expiresIn: '1h' });
+      // @TODO: handle expiring tokens
+      let token =  jwt.sign(newUser, nconf.get('JWT_SECRET'), { expiresIn: '40000h' });
 
       return res.status(200).json({
         token: token,

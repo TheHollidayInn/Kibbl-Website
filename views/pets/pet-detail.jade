@@ -9,7 +9,7 @@
         .well.img-feature-wrapper
           div.img-feature(style="background-image:url({{pet.media[3]}})")
       .col-md-3
-        button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
+        //- button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
         button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!event.favorited')
           i(style="font-size: 2rem;").material-icons star_border
         button.btn.btn-raised.btn-primary.btn-favorite-active(ng-click='favorite()', ng-if='event.favorited')
@@ -18,9 +18,6 @@
 .container(style="margin-top: 2rem;")
   .row
     .col-md-8
-      //- .well(style="height:250px")
-      //-   .col-md-3(ng-repeat="photo in pet.media", ng-if='$index % 5 === 3')
-      //-     div.img-display(style="background-image:url({{photo}});")
       .well
         h3 Description
         p(style="white-space: pre-wrap;") {{pet.description}}
@@ -33,12 +30,20 @@
         ul
           li Age: {{pet.age}}
           li Type: {{pet.animal}}
-
+          li Updated: {{pet.lastUpdate | date}}
+        
+        h3 Contact
+        div {{pet.contact.email}}
+        div {{pet.contact.phone}}
+        
         h3 Breed
         ul
           li(ng-repeat="breed in pet.breeds") {{breed}}
+          
+        a.btn.btn-primary(href="https://petfinder.com/petdetail/{{pet.petId}}", target="_blank") Webpage 
+
       .well
-        a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='{{facebookUrl}}')
+        a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='https://www.facebook.com/sharer/sharer.php?u={{url}}&src=sdkpreparse')
           i.fa.fa-facebook-official
           |  Share
         a.btn.btn-block.btn-raised.btn-twitter(target="_new", href='{{twitterUrl}}')

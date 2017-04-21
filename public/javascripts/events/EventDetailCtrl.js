@@ -11,11 +11,7 @@ angular.module('Events')
 			};
 			$scope.twitterUrl = 'https://twitter.com/intent/tweet?' + $.param($scope.tweetDetails)
 
-			$scope.faceBookDetails = {
-				api_key: 1773720656197985,
-				href: $location.absUrl(),
-			};
-			$scope.facebookUrl = 'https://www.facebook.com/login.php?' + $.param($scope.faceBookDetails);
+			$scope.url = $location.absUrl();
 
 			sendRequest();
 			function sendRequest() {
