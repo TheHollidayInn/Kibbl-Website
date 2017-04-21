@@ -7,6 +7,11 @@ body {
   background: #E8E8E8 !important;
 }
 
+.btn-primary {
+  background: #FF5F4A !important;
+  color: #fff !important;
+}
+
 .img-feature-wrapper {
   width: 185px;
   position: absolute;

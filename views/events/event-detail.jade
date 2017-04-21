@@ -1,6 +1,7 @@
 .container-fluid.banner
   .container
-    h1.text-center {{event.name}}
+    .col-md-6.col-md-offset-3
+      h1.text-center {{event.name}}
 
 .container-fluid.container-detail
   .container
@@ -8,10 +9,6 @@
       .col-md-9
         .well.img-feature-wrapper
           div.img-feature(style="background-image:url({{event.facebook.cover}})")
-      //- .col-md-9
-      //-   div
-      //-     h3
-      //-       | {{event.start_time | date : "medium"}} - {{event.end_time | date : "medium"}}
       .col-md-3
         button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
         button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!event.favorited')
@@ -21,9 +18,6 @@
 .container(style="margin-top: 2rem;")
   .row
     .col-md-9
-      //- .well(style="height:250px", ng-if='event.media')
-      //-   .col-md-3(ng-repeat="photo in event.media", ng-if='$index % 5 === 3')
-      //-     img(ng-src="{{photo}}", style="width:100%;")
       .well
         h3 Description
         p(style="white-space: pre-wrap;") {{event.description}}
@@ -32,12 +26,16 @@
     .col-md-3
       .well
         h3 Details
-        ul
-          li Start: {{event.start_time | date : "medium"}}
-          li End: {{event.end_time | date : "medium"}}
-          li Location: {{event.place.name}}
-          li 
-            a(href="https://facebook.com/events/{{event.id}}", target="_blank") Webpage 
+
+        div 
+          strong Start: 
+          | {{event.start_time | date : "medium"}}
+        br
+        div End: {{event.end_time | date : "medium"}}
+        br
+        div Location: {{event.place.location.street + ', ' + event.place.location.city + ', ' + event.place.location.state}}
+        br
+        a.btn.btn-primary(href="https://facebook.com/events/{{event.id}}", target="_blank") Webpage 
       .well
         a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='{{facebookUrl}}')
           i.fa.fa-facebook-official
