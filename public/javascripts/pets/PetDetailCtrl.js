@@ -15,6 +15,7 @@ angular.module('Pets')
       href: $location.absUrl(),
     };
     $scope.facebookUrl = 'https://www.facebook.com/login.php?' + $.param($scope.faceBookDetails);
+    $scope.url = $location.absUrl();
 
     sendRequest();
     function sendRequest() {
