@@ -27,6 +27,7 @@ angular.module('Pets')
       })
       .then(function (response) {
         $scope.pet = response.data.data;
+        $scope.pet.breeds = _.unique($scope.pet.breeds);
       });
     }
 

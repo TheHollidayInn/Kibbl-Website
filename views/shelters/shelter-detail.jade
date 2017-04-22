@@ -36,7 +36,7 @@
           div(ng-if="shelter.email") {{shelter.email}}
           div(ng-if="shelter.phone") {{shelter.phone}}
         
-        a.btn.btn-primary(href='http://facebook.com/{{shelter.facebook.id}}', target="_blank") Facebook Page
+        a.btn.btn-primary(ng-if='shelter.facebook.id', href='http://facebook.com/{{shelter.facebook.id}}', target="_blank") Facebook Page
 
       .well
         a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='https://www.facebook.com/sharer/sharer.php?u={{url}}&src=sdkpreparse')
