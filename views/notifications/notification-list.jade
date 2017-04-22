@@ -11,7 +11,9 @@ div.row
   div.col-md-6.col-md-offset-3
     .list-group(ng-repeat="notification in notifications")
       .list-group-item
-        .row-picture
+        .row-picture(ng-if='notification.shelterId.facebook.cover')
+          img.circle(ng-src='{{notification.shelterId.facebook.cover}}', alt='icon')
+        .row-picture(ng-if='!notification.shelterId.facebook.cover')
           img.circle(ng-src='../images/kibbl-logo-dog.png', alt='icon')
         .row-content
           h4.list-group-item-heading {{notification.shelterId.name}}

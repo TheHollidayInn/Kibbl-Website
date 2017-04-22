@@ -6,17 +6,19 @@
 .container-fluid.container-detail
   .container
     .row
-      .col-md-7
+      .col-md-9
         .well.img-feature-wrapper(ng-if='shelter.facebook.cover')
           div.img-feature(style="background-image:url({{shelter.facebook.cover}})")
-      .col-md-5
+      .col-md-3
         //- button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
         button.btn.btn-raised.btn-primary(ng-click='subscribe()', ng-if='!shelter.subscribed') Subscribe
         button.btn.btn-raised.btn-warning(ng-click='subscribe(true)', ng-if='shelter.subscribed') Unubscribe
-        button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!event.favorited')
-          i(style="font-size: 2rem;").material-icons star_border
-        button.btn.btn-raised.btn-primary.btn-favorite-active(ng-click='favorite()', ng-if='event.favorited')
-          i(style="font-size: 2rem;").material-icons star
+        button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!shelter.favorited')
+          | Save
+          //- i(style="font-size: 2rem;").material-icons star_border
+        button.btn.btn-raised.btn-primary.btn-favorite-active(ng-click='favorite()', ng-if='shelter.favorited')
+          | Save
+          //- i(style="font-size: 2rem;").material-icons star
 
 .container(style="margin-top: 2rem;")
   .row
@@ -34,7 +36,7 @@
           div(ng-if="shelter.email") {{shelter.email}}
           div(ng-if="shelter.phone") {{shelter.phone}}
         
-        a.btn.btn-primary(href='http://facebook.com/{{shelter.facebook.id}}', target="_blank") Facebook Page
+        a.btn.btn-primary(ng-if='shelter.facebook.id', href='http://facebook.com/{{shelter.facebook.id}}', target="_blank") Facebook Page
 
       .well
         a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='https://www.facebook.com/sharer/sharer.php?u={{url}}&src=sdkpreparse')
