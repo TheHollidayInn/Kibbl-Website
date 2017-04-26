@@ -148,11 +148,24 @@ body {
 }
 
 .how-icon {
-  background: url(//assets.grubhub.com/img-hashed/sprites-52a9cc6e583407b170f9dcbb9dd37945.png);
+  background: url(/images/search-icon.png);
   height: 100px;
   width: 100px;
-  background-size: 300%;
+  background-size: 80%;
+  background-repeat: no-repeat;
   display: inline-block;
+}
+
+.how-icon.how-2 {
+  background: url(/images/bell-icon.png);
+  background-size: 80%;
+  background-repeat: no-repeat;
+}
+
+.how-icon.how-3 {
+  background: url(/images/message-icon.png);
+  background-size: 80%;
+  background-repeat: no-repeat;
 }
 
 /* Banner */
