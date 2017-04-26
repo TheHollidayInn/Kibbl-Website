@@ -22,9 +22,9 @@
   div.row(infinite-scroll="scroll()", infinite-scroll-distance="1")
     div.col-md-4.grid-item(ng-repeat="shelter in shelters", style="height:200px; overflow:hidden; border-radius: 5px;")
       a(href='/shelters/{{shelter._id}}')
-        .grid-content.gradient(ng-if='!shelter.facebook.cover')
-          h3 {{shelter.name}}
-          h5 {{shelter.description | limitTo: 140}}
-        .grid-content.image-display(ng-if='shelter.facebook.cover', style='background-image:url({{shelter.facebook.cover}})')
-          h3 {{shelter.name}}
-          h5 {{shelter.description | limitTo: 140}}
+        .grid-content.gradient
+          .col-md-3
+            .image-circle(ng-if='shelter.facebook.cover', style='background-image:url({{shelter.facebook.cover}})')
+          .col-md-6
+            h3 {{shelter.name}}
+            h5 {{shelter.description | limitTo: 140}}

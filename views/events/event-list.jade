@@ -47,9 +47,7 @@
     h2.col-md-12 {{key}}
     div.col-md-4.grid-item(ng-repeat="event in events", style="height:200px; overflow:hidden; border-radius: 5px;")
       a(href='/events/{{event._id}}')
-        .grid-content.gradient(ng-if='!event.facebook.cover')
-          h3 {{event.name}}
-          h5 {{event.start_time | date : "medium" }}
-        .grid-content.image-display(ng-if='event.facebook.cover', style='background-image:url({{event.facebook.cover}})')
+        .grid-content.gradient
+          .image-circle(ng-if='event.facebook.cover', style='background-image:url({{event.facebook.cover}})')
           h3 {{event.name}}
           h5 {{event.start_time | date : "medium" }}

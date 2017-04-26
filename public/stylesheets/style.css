@@ -137,6 +137,16 @@ body {
   margin-top: 50px;
 }
 
+.image-circle {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+  background-position: center;
+  background-size: cover;
+  margin-top: 2.5rem;
+}
+
 .how-section {
   background: #fff;
   padding: 6rem;
