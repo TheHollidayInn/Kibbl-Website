@@ -36,10 +36,11 @@
         .loader(ng-if='loading') Loading...
       div.col-md-4.grid-item(ng-repeat="event in events", style="height:200px; overflow:hidden; border-radius: 5px;")
         a(href='/events/{{event._id}}')
-          .grid-content.gradient(ng-if='!event.facebook.cover')
-            h3 {{event.name}}
-            h5 {{event.start_time | date : "medium" }}
-          .grid-content.image-display(ng-if='event.facebook.cover', style='background-image:url({{event.facebook.cover}})')
+          .grid-content.gradient
+            .col-md-4
+              .image-circle(ng-if='!event.facebook.cover', style='background-image:url(../images/kibbl-logo-dog.png)')
+              .image-circle(ng-if='event.facebook.cover', style='background-image:url({{event.facebook.cover}})')
+            .col-md-8
             h3 {{event.name}}
             h5 {{event.start_time | date : "medium" }}
 
@@ -69,12 +70,13 @@
       .loader(ng-if='loading') Loading...
     div.col-md-4.grid-item(ng-repeat="pet in pets", style="height:200px; overflow:hidden; border-radius: 5px;")
       a(href='/pets/{{pet._id}}')
-        .grid-content.gradient(ng-if='!pet.media[3]')
-          h3 {{pet.name}}
-          h5 {{pet.description | limitTo: 140}}
-        .grid-content.image-display(ng-if='pet.media[3]', style='background-image:url({{pet.media[3]}})')
-          h3 {{pet.name}}
-          h5 {{pet.description | limitTo: 140}}
+        .grid-content.gradient
+          .col-md-4
+            .image-circle(ng-if='!pet.media[3]', style='background-image:url(../images/kibbl-logo-dog.png)')
+            .image-circle(ng-if='pet.media[3]', style='background-image:url({{pet.media[3]}})')
+          .col-md-8
+            h3 {{pet.name}}
+            h5 {{pet.description | limitTo: 100}}...
 
   div.row
     h2.text-center Latest Shelters
@@ -84,9 +86,10 @@
       .loader(ng-if='loading') Loading...
     div.col-md-4.grid-item(ng-repeat="shelter in shelters", style="height:200px; overflow:hidden; border-radius: 5px;")
       a(href='/shelters/{{shelter._id}}')
-        .grid-content.gradient(ng-if='!shelter.facebook.cover')
-          h3 {{shelter.name}}
-          h5 {{shelter.description | limitTo: 140}}
-        .grid-content.image-display(ng-if='shelter.facebook.cover', style='background-image:url({{shelter.facebook.cover}})')
-          h3 {{shelter.name}}
-          h5 {{shelter.description | limitTo: 140}}
+        .grid-content.gradient
+          .col-md-4
+            .image-circle(ng-if='!shelter.facebook.cover', style='background-image:url(../images/kibbl-logo-dog.png)')
+            .image-circle(ng-if='shelter.facebook.cover', style='background-image:url({{shelter.facebook.cover}})')
+          .col-md-8
+            h3 {{shelter.name}}
+            h5 {{shelter.description | limitTo: 140}}

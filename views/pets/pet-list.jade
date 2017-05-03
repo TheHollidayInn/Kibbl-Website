@@ -39,7 +39,8 @@
       a(href='/pets/{{pet._id}}')
         .grid-content.gradient
           .col-md-4
+            .image-circle(ng-if='!pet.media[3]', style='background-image:url(../images/kibbl-logo-dog.png)')
             .image-circle(ng-if='pet.media[3]', style='background-image:url({{pet.media[3]}})')
           .col-md-8
             h3 {{pet.name}}
-            h5 {{pet.description | limitTo: 140}}
+            h5 {{pet.description | limitTo: 100}} ...
