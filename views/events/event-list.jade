@@ -1,8 +1,9 @@
-.container-fluid(style='padding:0px;' sticky offset="40")
-  div.col-md-12.well(style="min-height:100px;")  
+.container-fluid(style='padding:0px;' sticky offset="40", uib-collapse="filterCollapsed", ng-class="{collapsed: filterCollapsed}")
+  div.col-md-12.well(style="min-height:1rem;")
     .form-group.col-md-2
       h1(ng-if='!loading') Events
       h1.loader(ng-if='loading') Loading...
+      button.btn.btn-primary.btn-raised.visible-xs(ng-click='filter();filterCollapsed = true') Filter
     
     .form-group.col-md-2
       label Location
@@ -40,9 +41,10 @@
             i.glyphicon.glyphicon-calendar
     
     .form-group.col-md-2
-      button.btn.btn-primary.btn-raised(ng-click='filter()') Filter
+      button.btn.btn-primary.btn-raised.hidden-xs(ng-click='filter()') Filter
 
 .container
+  button.btn.btn-primary.btn-raised.visible-xs(ng-click='filterCollapsed = !filterCollapsed', style='position: fixed; bottom: 20px; z-index:1000') Toggle Filter
   div.row(infinite-scroll="scroll()", infinite-scroll-distance="1", ng-repeat="(key, events) in groupedEvents")
     h2.col-md-12 {{key}}
     div.col-md-4.grid-item(ng-repeat="event in events", style="height:200px; overflow:hidden; border-radius: 5px;")
@@ -52,5 +54,5 @@
             .image-circle(ng-if='!event.facebook.cover', style='background-image:url(../images/kibbl-logo-dog.png)')
             .image-circle(ng-if='event.facebook.cover', style='background-image:url({{event.facebook.cover}})')
           .col-md-8
-          h3 {{event.name}}
-          h5 {{event.start_time | date : "medium" }}
+            h3 {{event.name}}
+            h5 {{event.start_time | date : "medium" }}

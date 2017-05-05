@@ -1,8 +1,9 @@
-.container-fluid(style='padding:0px;' sticky offset="40")
+.container-fluid(style='padding:0px;' sticky offset="40", uib-collapse="filterCollapsed", ng-class="{collapsed: filterCollapsed}")
   div.col-md-12.well(style="min-height:100px;")  
     .form-group.col-md-2
       h1(ng-if='!loading') Pets
       h1.loader(ng-if='loading') Loading...
+      button.btn.btn-primary.btn-raised.visible-xs(ng-click='filter();filterCollapsed = true') Filter
     
     div.form-group.col-md-2
       label Location
@@ -31,9 +32,10 @@
         option(ng-repeat='option in petGenders', value="{{option.value}}") {{option.key}}
     
     .form-group.col-md-2
-      button.btn.btn-primary.btn-raised(ng-click='filter()') Filter
+      button.btn.btn-primary.btn-raised.hidden-xs(ng-click='filter()') Filter
     
 .container
+  button.btn.btn-primary.btn-raised.visible-xs(ng-click='filterCollapsed = !filterCollapsed', style='position: fixed; bottom: 20px; z-index:1000') Toggle Filter
   div.row(infinite-scroll="scroll()", infinite-scroll-distance="1")
     div.col-md-4.grid-item(ng-repeat="pet in pets", style="height:200px; overflow:hidden; border-radius: 5px;")
       a(href='/pets/{{pet._id}}')

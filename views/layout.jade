@@ -73,3 +73,11 @@ html
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
       ga('create', 'UA-27991830-14', 'auto');
       //- ga('send', 'pageview');
+      
+    script.
+      // Hack for bootstrap mobile
+      $(document).on('click','.navbar-collapse.in',function(e) {
+          if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
+              $(this).collapse('hide');
+          }
+      });

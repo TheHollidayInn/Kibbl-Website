@@ -41,8 +41,8 @@
               .image-circle(ng-if='!event.facebook.cover', style='background-image:url(../images/kibbl-logo-dog.png)')
               .image-circle(ng-if='event.facebook.cover', style='background-image:url({{event.facebook.cover}})')
             .col-md-8
-            h3 {{event.name}}
-            h5 {{event.start_time | date : "medium" }}
+              h3 {{event.name}}
+              h5 {{event.start_time | date : "medium" }}
 
   //- div.row
   //-   h2.text-center Latest Volunteer Opportunities

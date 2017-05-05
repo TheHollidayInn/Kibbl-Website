@@ -7,6 +7,11 @@ body {
   background: #E8E8E8 !important;
 }
 
+.collapsed {
+  height: 0 !important;
+  display: none !important;
+}
+
 .btn-primary {
   background: #FF5F4A !important;
   color: #fff !important;
