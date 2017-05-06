@@ -17,6 +17,20 @@ angular.module('Notifications')
       })
     };
 
+    api.getUpdates = function () {
+      var url = '/api/v1/notifications/user-notifications';
+
+      return $http({
+        method: 'GET',
+        url: url,
+      })
+      .then(function (response) {
+        let notifications = response.data.data;
+        //$rootScope.$broadcast('notifications', notifications); // @TODO: use notification bus. See Angular
+        return notifications;
+      })
+    };
+
     api.subscribe = function (linkId, item) {
       var url = '/api/v1/notifications';
 

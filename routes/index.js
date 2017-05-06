@@ -291,6 +291,10 @@ router.get('/notification-list.html', function(req, res, next) {
   res.render('notifications/notification-list');
 });
 
+router.get('/notification-updates.html', function(req, res, next) {
+  res.render('notifications/notification-updates');
+});
+
 router.get('/contact-modal.html', function(req, res, next) {
   res.render('modals/contact');
 });

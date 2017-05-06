@@ -6,5 +6,9 @@ angular.module('Notifications', ['ngRoute'])
       .when('/notifications', {
         templateUrl: 'notification-list.html',
         controller: 'NotificationListCtrl'
+      })
+      .when('/notifications-updates', {
+        templateUrl: 'notification-updates.html',
+        controller: 'NotificationUpdatesCtrl'
       });
   }]);

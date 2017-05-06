@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var Notification = require('../models/notifications');
+var ShelterUpdate = require('../models/shelterUpdates');
 var Middleware = require('../middleware');
 
 router.post('/', Middleware.hasValidToken, function(req, res, next) {
@@ -51,6 +52,29 @@ router.get('/', Middleware.hasValidToken, function (req, res, next) {
     })
     .populate('shelterId')
     .exec()
+    .then(function(contacts) {
+      return res.status(201).json({data: contacts});
+    })
+    .catch(function(err) {
+      return res.status(400).json(err);
+    });
+});
+
+router.get('/user-notifications', Middleware.hasValidToken, function (req, res, next) {
+  Notification
+    .find({
+      userID: req.user._id,
+      active: true,
+    }).exec()
+    .then((notifications) => {
+      let shelterIds = notifications.map((notification) => {return notification.shelterId});
+      console.log({
+        shelterId: {$in: shelterIds},
+      })
+      return ShelterUpdate
+        .find({ shelterId: "58dc81953aecdd49742f99ed"})
+        .exec()
+    })
     .then(function(contacts) {
       return res.status(201).json({data: contacts});
     })

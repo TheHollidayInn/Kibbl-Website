@@ -52,6 +52,7 @@ var jsfiles = [
   'public/javascripts/messages/MessageService.js',
   'public/javascripts/notifications/Notification.js',
   'public/javascripts/notifications/NotificationListCtrl.js',
+  'public/javascripts/notifications/NotificationUpdates.js',
   'public/javascripts/notifications/NotificationService.js',
   'public/javascripts/comments/Comments.js',
   'public/javascripts/comments/CommentListCtrl.js',

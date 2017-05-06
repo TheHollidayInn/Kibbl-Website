@@ -1,0 +1,25 @@
+.container-fluid(style='padding:0px;')
+  div.col-md-12.well(style="min-height:100px;")  
+    .form-group.col-md-2
+      h1 Notifications
+
+.row(ng-if='notifications.length === 0')
+  .col-md-6.col-md-offset-3.well
+    h2.text-center No subscriptions yet!
+
+div.row  
+  div.col-md-6.col-md-offset-3
+    .list-group(ng-repeat="notification in notifications")
+      h3 {{notification._id}}
+      {{notification}}
+      .list-group-item
+        .row-picture(ng-if='notification.shelterId.facebook.cover')
+          img.circle(ng-src='{{notification.shelterId.facebook.cover}}', alt='icon')
+        .row-picture(ng-if='!notification.shelterId.facebook.cover')
+          img.circle(ng-src='../images/kibbl-logo-dog.png', alt='icon')
+        .row-content
+          h4.list-group-item-heading {{notification.shelterId.name}}
+          p.list-group-item-text {{notification.shelterId.description | limitTo:140}}
+          a.btn.btn-flat.btn-raised.btn-primary(href='/shelters/{{notification.shelterId._id}}') View
+          a.btn.btn-flat.btn-raised.btn-warning(ng-click='unsubscribe(notification.shelterId._id, $index)') Unsubscribe
+      .list-group-separator
