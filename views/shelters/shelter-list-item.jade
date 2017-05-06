@@ -6,4 +6,5 @@ div.col-md-4.grid-item(ng-repeat="shelter in shelters", style="height:200px; ove
         .image-circle(ng-if='shelter.facebook.cover', style='background-image:url({{shelter.facebook.cover}})')
       .col-md-8
         h3 {{shelter.name}}
-        h5 {{shelter.description | limitTo: 140}}
+        h5(ng-if='shelter.description') {{shelter.description | limitTo: 140}}
+        h5(ng-if='shelter.about') {{shelter.about | limitTo: 140}}

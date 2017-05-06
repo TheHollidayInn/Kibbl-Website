@@ -25,7 +25,8 @@
     .col-md-8
       .well
         h3 Description
-        p {{shelter.description}}
+        p(ng-if='shelter.description') {{shelter.description}}
+        p(ng-if='shelter.about') {{shelter.about}}
       
       comments(item-id='shelter._id')
     .col-md-4
