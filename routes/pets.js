@@ -27,7 +27,9 @@ router.get('/', function(req, res, next) {
   var limit = 20;
   var offset = 0;
 
-  var query = {};
+  var query = {
+    rescueGroupId: {$exists: true}
+  };
 
   // if (req.query.location) {
   //   query.location = {t: req.query.location};
@@ -60,7 +62,7 @@ router.get('/', function(req, res, next) {
 
   if (req.query.lastUpdatedBefore) {
     if (!query.lastUpdate) query.lastUpdate = {};
-    query.lastUpdate.$lt = moment(req.query.lastUpdatedBefore).toISOString();
+    query.lastUpdate.$lt = moment(req.query.lastUpdatedBefore).toDate();
   }
 
   let location = '';
@@ -79,7 +81,7 @@ router.get('/', function(req, res, next) {
         // };
         query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
       }
-
+      console.log("yod", query)
       return Pets.find(query)
         .limit(limit)
         .sort('-lastUpdate')
@@ -103,7 +105,7 @@ router.get('/', function(req, res, next) {
         // };
         query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
       }
-
+      console.log(query)
       return Pets.find(query)
         .limit(limit)
         .sort('-lastUpdate').exec()

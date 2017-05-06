@@ -6,8 +6,8 @@
   .container
     .row
       .col-md-9
-        .well.img-feature-wrapper
-          div.img-feature(style="background-image:url({{pet.media[3]}})")
+        .well.img-feature-wrapper(ng-if='pet.media[0].urlSecureThumbnail')
+          div.img-feature(style="background-image:url({{pet.media[0].urlSecureThumbnail}})")
       .col-md-3
         //- button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
         button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!pet.favorited')
@@ -42,7 +42,7 @@
         ul
           li(ng-repeat="breed in pet.breeds") {{breed}}
           
-        a.btn.btn-primary(href="https://petfinder.com/petdetail/{{pet.petId}}", target="_blank") Webpage 
+        //- a.btn.btn-primary(href="https://petfinder.com/petdetail/{{pet.petId}}", target="_blank") Webpage 
 
       .well
         a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='https://www.facebook.com/sharer/sharer.php?u={{url}}&src=sdkpreparse')
