@@ -42,7 +42,7 @@
         ul
           li(ng-repeat="breed in pet.breeds") {{breed}}
           
-        //- a.btn.btn-primary(href="https://petfinder.com/petdetail/{{pet.petId}}", target="_blank") Webpage 
+        a.btn.btn-primary(ng-if='pet.contact.url', href="pet.contact.url", target="_blank") Webpage 
 
       .well
         a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='https://www.facebook.com/sharer/sharer.php?u={{url}}&src=sdkpreparse')
