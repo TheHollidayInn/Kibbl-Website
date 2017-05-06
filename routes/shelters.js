@@ -23,7 +23,9 @@ function getUserFromToken (req) {
 }
 
 router.get('/', function(req, res, next) {
-  let query = {};
+  let query = {
+    rescueGroupId: {$exists: true}
+  };
 
   if (req.query.zipCode) {
     query['loctionDetails.zipCode'] = req.query.zipCode;

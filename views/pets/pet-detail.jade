@@ -34,9 +34,10 @@
           li Type: {{pet.animal}}
           li Updated: {{pet.lastUpdate | date}}
         
-        h3 Contact
-        div {{pet.contact.email}}
-        div {{pet.contact.phone}}
+        div(ng-if='pet.contact.email || pet.contact.phone')
+          h3 Contact
+          div {{pet.contact.email}}
+          div {{pet.contact.phone}}
         
         h3 Breed
         ul

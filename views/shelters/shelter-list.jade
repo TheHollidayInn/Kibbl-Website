@@ -22,12 +22,4 @@
 .container
   button.btn.btn-primary.btn-raised.visible-xs(ng-click='filterCollapsed = !filterCollapsed', style='position: fixed; bottom: 20px; z-index:1000') Toggle Filter
   div.row(infinite-scroll="scroll()", infinite-scroll-distance="1")
-    div.col-md-4.grid-item(ng-repeat="shelter in shelters", style="height:200px; overflow:hidden; border-radius: 5px;")
-      a(href='/shelters/{{shelter._id}}')
-        .grid-content.gradient
-          .col-md-4
-            .image-circle(ng-if='!shelter.facebook.cover', style='background-image:url(../images/kibbl-logo-dog.png)')
-            .image-circle(ng-if='shelter.facebook.cover', style='background-image:url({{shelter.facebook.cover}})')
-          .col-md-8
-            h3 {{shelter.name}}
-            h5 {{shelter.description | limitTo: 140}}
+    include shelter-list-item
