@@ -65,7 +65,8 @@ router.get('/user-notifications', Middleware.hasValidToken, function (req, res, 
     .find({
       userID: req.user._id,
       active: true,
-    }).exec()
+    })
+    .exec()
     .then((notifications) => {
       let shelterIds = notifications.map((notification) => {return notification.shelterId});
       console.log({
@@ -73,6 +74,13 @@ router.get('/user-notifications', Middleware.hasValidToken, function (req, res, 
       })
       return ShelterUpdate
         .find({ shelterId: "58dc81953aecdd49742f99ed"})
+        .populate([
+          {path: 'shelterId'},
+          {path: 'newPets'},
+          {path: 'updatedPets'},
+          {path: 'newEvents'},
+          {path: 'updatedEvents'},
+        ])
         .exec()
     })
     .then(function(contacts) {

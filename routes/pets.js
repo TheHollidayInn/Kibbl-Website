@@ -81,7 +81,7 @@ router.get('/', function(req, res, next) {
         // };
         query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
       }
-      console.log("yod", query)
+
       return Pets.find(query)
         .limit(limit)
         .sort('-lastUpdate')
