@@ -10,14 +10,37 @@
 div.row  
   div.col-md-6.col-md-offset-3
     .list-group(ng-repeat="favorite in favorites")
-      .list-group-item
-        .row-picture(ng-if='favorite.petID.media[3]')
-          img.circle(ng-src='{{favorite.petID.media[3]}}', alt='icon')
-        .row-picture(ng-if='!favorite.petID.media[3]')
+      .list-group-item(ng-if='favorite.petID')
+        .row-picture(ng-if='favorite.petID.media[0].urlSecureThumbnail')
+          img.circle(ng-src='{{favorite.petID.media[0].urlSecureThumbnail}}', alt='icon')
+        .row-picture(ng-if='!favorite.petID.media[0].urlSecureThumbnail')
           img.circle(ng-src='../images/kibbl-logo-dog.png', alt='icon')
         .row-content
           h4.list-group-item-heading {{favorite.petID.name}}
           p.list-group-item-text {{favorite.petID.description | limitTo:140}}
           a.btn.btn-flat.btn-raised.btn-primary(href='/pets/{{favorite.petID._id}}') View
           a.btn.btn-flat.btn-raised.btn-warning(ng-click='unfavorite(favorite.petID._id, $index)') Unfavorite
+      
+      .list-group-item(ng-if='favorite.shelterId')
+        .row-picture(ng-if='favorite.shelterId.facebook.cover')
+          img.circle(ng-src='{{favorite.shelterId.facebook.cover}}', alt='icon')
+        .row-picture(ng-if='!favorite.shelterId.facebook.cover')
+          img.circle(ng-src='../images/kibbl-logo-dog.png', alt='icon')
+        .row-content
+          h4.list-group-item-heading {{favorite.shelterId.name}}
+          p.list-group-item-text {{favorite.shelterId.description | limitTo:140}}
+          a.btn.btn-flat.btn-raised.btn-primary(href='/pets/{{favorite.shelterId._id}}') View
+          a.btn.btn-flat.btn-raised.btn-warning(ng-click='unfavorite(favorite.shelterId._id, $index)') Unfavorite
+      
+      .list-group-item(ng-if='favorite.eventId')
+        .row-picture(ng-if='favorite.eventId.facebook.cover')
+          img.circle(ng-src='{{favorite.eventId.facebook.cover}}', alt='icon')
+        .row-picture(ng-if='!favorite.eventId.facebook.cover')
+          img.circle(ng-src='../images/kibbl-logo-dog.png', alt='icon')
+        .row-content
+          h4.list-group-item-heading {{favorite.eventId.name}}
+          p.list-group-item-text {{favorite.eventId.description | limitTo:140}}
+          a.btn.btn-flat.btn-raised.btn-primary(href='/pets/{{favorite.eventId._id}}') View
+          a.btn.btn-flat.btn-raised.btn-warning(ng-click='unfavorite(favorite.eventId._id, $index)') Unfavorite
+      
       .list-group-separator
