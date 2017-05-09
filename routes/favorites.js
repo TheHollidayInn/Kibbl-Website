@@ -10,7 +10,11 @@ router.get('/', Middleware.hasValidToken, function(req, res, next) {
     userID: req.user._id,
     active: true,
   })
-  .populate('petID')
+  .populate([
+    {path: 'petID'},
+    {path: 'shelterId'},
+    {path: 'eventId'},
+  ])
   .limit(20)
   .sort('-createdAt')
   .exec(function(err, favorites) {

@@ -7,7 +7,7 @@
   .container
     .row
       .col-md-9
-        .well.img-feature-wrapper
+        .well.img-feature-wrapper(ng-if='event.facebook.cover')
           div.img-feature(style="background-image:url({{event.facebook.cover}})")
       .col-md-3
         //- button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
