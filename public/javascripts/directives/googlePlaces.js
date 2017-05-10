@@ -30,4 +30,24 @@ angular.module('Kibbl')
       });
     }
   };
-});
+})
+.directive('windowResize', ['$window', function ($window) {
+   return {
+      link: link,
+      restrict: 'A',
+   };
+   function link(scope, element, attrs){
+     scope.width = $window.innerWidth;
+
+     angular.element($window).bind('load', function(){
+       scope.width = $window.innerWidth;
+       console.log(scope.width)
+       if (scope.width <= 500) {
+         scope.filterCollapsed = true;
+       }
+       // manuall $digest required as resize event
+       // is outside of angular
+       scope.$digest();
+     });
+   }
+}]);
