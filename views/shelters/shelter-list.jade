@@ -1,4 +1,4 @@
-.container-fluid(style='padding:0px;' sticky offset="40", uib-collapse="filterCollapsed", ng-class="{collapsed: filterCollapsed}")
+.container-fluid(window-resize,style='padding:0px;' sticky offset="40", uib-collapse="filterCollapsed", ng-class="{collapsed: filterCollapsed}")
   div.col-md-12.well(style="min-height:100px;")  
     .form-group.col-md-2
       h1(ng-if='!loading') Shelters
@@ -20,6 +20,6 @@
       button.btn.btn-primary.btn-raised.hidden-xs(ng-click='filter()') Filter
 
 .container
-  button.btn.btn-primary.btn-raised.visible-xs(ng-click='filterCollapsed = !filterCollapsed', style='position: fixed; bottom: 20px; z-index:1000') Toggle Filter
+  button.btn.btn-success.btn-raised.visible-xs.filter-toggle(ng-click='filterCollapsed = !filterCollapsed') Toggle Filter
   div.row(infinite-scroll="scroll()", infinite-scroll-distance="1")
     include shelter-list-item

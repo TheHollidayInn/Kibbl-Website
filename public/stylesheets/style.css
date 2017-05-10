@@ -7,6 +7,16 @@ body {
   background: #E8E8E8 !important;
 }
 
+.filter-toggle {
+  background-color: #ff9933 !important;
+  position: fixed !important;
+  bottom: 20px;
+  z-index:1000;
+  left: 0;
+  margin-left: 10em !important;
+  height: 50px;
+}
+
 .collapsed {
   height: 0 !important;
   display: none !important;

@@ -37,10 +37,10 @@
       div.col-md-4.grid-item(ng-repeat="event in events", style="height:200px; overflow:hidden; border-radius: 5px;")
         a(href='/events/{{event._id}}')
           .grid-content.gradient
-            .col-md-4
+            .col-md-4.col-xs-4
               .image-circle(ng-if='!event.facebook.cover', style='background-image:url(../images/kibbl-logo-dog.png)')
               .image-circle(ng-if='event.facebook.cover', style='background-image:url({{event.facebook.cover}})')
-            .col-md-8
+            .col-md-8.col-xs-8
               h3 {{event.name}}
               h5 {{event.start_time | date : "medium" }}
 
