@@ -32,6 +32,9 @@
 			//- 	.form-group.is-empty
 			//- 		input.form-control.col-sm-8(type='text', placeholder='Search')
 			ul.nav.navbar-nav.navbar-right
+				li
+					a(href="/notifications-updates", ng-if='::isLoggedIn()')
+						span.glyphicon.glyphicon-bell
 				li.dropdown(ng-if='::!isLoggedIn()')
 					a(href="/register") Register
 				li.dropdown(ng-if='::!isLoggedIn()')
@@ -41,8 +44,6 @@
 						| Profile
 						b.caret
 					ul.dropdown-menu
-						li
-							a(href="/notifications-updates") Updates
 						li
 							a(href="/favorites") Favorites
 						li
