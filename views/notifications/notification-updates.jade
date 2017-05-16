@@ -9,9 +9,9 @@
 
 div.row  
   div.col-md-12
-    .list-group(ng-repeat="notification in notifications")
+    .list-group.row(ng-repeat="notification in notifications")
       h3.text-center {{notification.shelterId.name}}
-      div(ng-if='notification.newPets')
+      div.col-md-12(ng-if='notification.newPets')
         h4.text-center New Pets
         div.col-md-4.grid-item(ng-repeat="pet in notification.newPets", style="height:200px; overflow:hidden; border-radius: 5px;")
           a(href='/pets/{{pet._id}}')
@@ -24,7 +24,7 @@ div.row
                 h3 {{pet.name}}
                 h5 {{pet.description | limitTo: 100}} ...
         
-      div(ng-if='notification.updatedPets')
+      div.col-md-12(ng-if='notification.updatedPets')
         h4.text-center Updated Pets
         div.col-md-4.grid-item(ng-repeat="pet in notification.updatedPets", style="height:200px; overflow:hidden; border-radius: 5px;")
           a(href='/pets/{{pet._id}}')
@@ -37,7 +37,7 @@ div.row
                 h3 {{pet.name}}
                 h5 {{pet.description | limitTo: 100}} ...
       
-      div(ng-if='notification.newEvents')
+      div.col-md-12(ng-if='notification.newEvents')
         h4.text-center New Events
         div.col-md-4.grid-item(ng-repeat="event in notification.newEvents", style="height:200px; overflow:hidden; border-radius: 5px;")
           a(href='/events/{{event._id}}')
@@ -49,7 +49,7 @@ div.row
                 h3 {{event.name}}
                 h5 {{event.start_time | date : "medium" }}
       
-      div(ng-if='notification.updatedEvents')
+      div.col-md-12(ng-if='notification.updatedEvents')
         h4.text-center Updated Events
         div.col-md-4.grid-item(ng-repeat="event in notification.updatedEvents", style="height:200px; overflow:hidden; border-radius: 5px;")
           a(href='/events/{{event._id}}')
