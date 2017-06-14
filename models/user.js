@@ -25,6 +25,11 @@ var userSchema = mongoose.Schema({
         email        : String,
         name         : String
     },
+    pushNotification: {
+      platform: {type: String},
+      deviceToken: {type: String},
+      active: {type: Boolean, default: true},
+    },
     limits: {
       monthlyContacts: {type: Number, default: 0},
       subs: {type: Number, default: 0},

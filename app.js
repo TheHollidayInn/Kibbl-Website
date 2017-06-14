@@ -61,7 +61,7 @@ app.use(function(req, res, next) {
 });
 
 var routes = require('./routes/index');
-// var users = require('./routes/users');
+var users = require('./routes/users');
 var pets = require('./routes/pets');
 var favorites = require('./routes/favorites');
 var contacts = require('./routes/contact');
@@ -73,7 +73,7 @@ let comments = require('./routes/comments');
 let feedback = require('./routes/feedback');
 
 app.use('/', routes);
-// app.use('/api/v1/users', users);
+app.use('/api/v1/users', users);
 app.use('/api/v1/pets', pets);
 app.use('/api/v1/favorites', favorites);
 app.use('/api/v1/contacts', contacts);
