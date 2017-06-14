@@ -72,6 +72,8 @@ router.get('/user-notifications', Middleware.hasValidToken, function (req, res, 
 
       return ShelterUpdate
         .find({ shelterId: {$in: shelterIds}})
+        .sort('-checkDate')
+        .limit(10)
         .populate([
           {path: 'shelterId'},
           {path: 'newPets'},

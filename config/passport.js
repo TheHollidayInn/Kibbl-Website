@@ -111,96 +111,97 @@ module.exports = function(passport) {
     });
   }));
 
-  passport.use(new TwitterStrategy({
-    consumerKey     : nconf.get('twitterAuth:consumerKey'),
-    consumerSecret    : nconf.get('twitterAuth:consumerSecret'),
-    callbackURL     : nconf.get('twitterAuth:callbackURL'),
-    passReqToCallback : true
-  },
-  function(req, token, tokenSecret, profile, done) {
-    process.nextTick(function() {
-      if (req.user) {
-        var user          = req.user;
+  // passport.use(new TwitterStrategy({
+  //   consumerKey     : nconf.get('twitterAuth:consumerKey'),
+  //   consumerSecret    : nconf.get('twitterAuth:consumerSecret'),
+  //   callbackURL     : nconf.get('twitterAuth:callbackURL'),
+  //   passReqToCallback : true
+  // },
+  // function(req, token, tokenSecret, profile, done) {
+  //   process.nextTick(function() {
+  //     if (req.user) {
+  //       var user          = req.user;
+  //
+  //       user.twitter.id          = profile.id;
+  //       user.twitter.token       = token;
+  //       user.twitter.username    = profile.username;
+  //       user.twitter.displayName = profile.displayName;
+  //
+  //       return user.save()
+  //         .then(function() {
+  //           return done(null, user);
+  //         })
+  //         .catch(function (err) {
+  //           throw err;
+  //         });
+  //     }
+  //
+  //     return User.findOne({ 'twitter.id' : profile.id })
+  //       .then(function(user) {
+  //           var newUser          = new User();
+  //
+  //           newUser.twitter.id          = profile.id;
+  //           newUser.twitter.token       = token;
+  //           newUser.twitter.username    = profile.username;
+  //           newUser.twitter.displayName = profile.displayName;
+  //
+  //           return newUser.save();
+  //       })
+  //       .then(function(newUser) {
+  //         if (newUser) return done(null, newUser);
+  //         return done(null, user);
+  //       })
+  //       .catch(function (err) {
+  //           return done(err);
+  //       });
+  //   });
+  // }));
+  //
+  //
+  // passport.use(new GoogleStrategy({
+  //   clientID        : nconf.get('googleAuth:clientID'),
+  //   clientSecret    : nconf.get('googleAuth:clientSecret'),
+  //   callbackURL     : nconf.get('googleAuth:callbackURL'),
+  //   passReqToCallback : true,
+  // },
+  // function(req, token, refreshToken, profile, done) {
+  //     process.nextTick(function() {
+  //       if (req.user) {
+  //         var user          = req.user;
+  //
+  //         user.google.id    = profile.id;
+  //         user.google.token = token;
+  //         user.google.name  = profile.displayName;
+  //         user.google.email = profile.emails[0].value; // pull the first email
+  //
+  //         return user.save()
+  //           .then(function() {
+  //             return done(null, user);
+  //           })
+  //           .catch(function (err) {
+  //             throw err;
+  //           });
+  //       }
+  //
+  //       return User.findOne({ 'google.id' : profile.id })
+  //         .then(function(user) {
+  //             var newUser          = new User();
+  //
+  //             newUser.google.id    = profile.id;
+  //             newUser.google.token = token;
+  //             newUser.google.name  = profile.displayName;
+  //             newUser.google.email = profile.emails[0].value; // pull the first email
+  //
+  //             return newUser.save();
+  //         })
+  //         .then(function(newUser) {
+  //           if (newUser) return done(null, newUser);
+  //           return done(null, user);
+  //         })
+  //         .catch(function (err) {
+  //             return done(err);
+  //         });
+  //     });
+  //   }));
 
-        user.twitter.id          = profile.id;
-        user.twitter.token       = token;
-        user.twitter.username    = profile.username;
-        user.twitter.displayName = profile.displayName;
-
-        return user.save()
-          .then(function() {
-            return done(null, user);
-          })
-          .catch(function (err) {
-            throw err;
-          });
-      }
-
-      return User.findOne({ 'twitter.id' : profile.id })
-        .then(function(user) {
-            var newUser          = new User();
-
-            newUser.twitter.id          = profile.id;
-            newUser.twitter.token       = token;
-            newUser.twitter.username    = profile.username;
-            newUser.twitter.displayName = profile.displayName;
-
-            return newUser.save();
-        })
-        .then(function(newUser) {
-          if (newUser) return done(null, newUser);
-          return done(null, user);
-        })
-        .catch(function (err) {
-            return done(err);
-        });
-    });
-  }));
-
-
-    passport.use(new GoogleStrategy({
-      clientID        : nconf.get('googleAuth:clientID'),
-      clientSecret    : nconf.get('googleAuth:clientSecret'),
-      callbackURL     : nconf.get('googleAuth:callbackURL'),
-      passReqToCallback : true,
-    },
-    function(req, token, refreshToken, profile, done) {
-      process.nextTick(function() {
-        if (req.user) {
-          var user          = req.user;
-
-          user.google.id    = profile.id;
-          user.google.token = token;
-          user.google.name  = profile.displayName;
-          user.google.email = profile.emails[0].value; // pull the first email
-
-          return user.save()
-            .then(function() {
-              return done(null, user);
-            })
-            .catch(function (err) {
-              throw err;
-            });
-        }
-
-        return User.findOne({ 'google.id' : profile.id })
-          .then(function(user) {
-              var newUser          = new User();
-
-              newUser.google.id    = profile.id;
-              newUser.google.token = token;
-              newUser.google.name  = profile.displayName;
-              newUser.google.email = profile.emails[0].value; // pull the first email
-
-              return newUser.save();
-          })
-          .then(function(newUser) {
-            if (newUser) return done(null, newUser);
-            return done(null, user);
-          })
-          .catch(function (err) {
-              return done(err);
-          });
-      });
-    }));
 };

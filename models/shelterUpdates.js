@@ -21,6 +21,7 @@ var Schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Event'
   }],
+  checkDate: {type: Date},
 });
 
 var Pets = mongoose.model('ShelterUpdate', Schema);
