@@ -22,7 +22,7 @@
     .col-md-8
       .well
         h3 Description
-        p(style="white-space: pre-wrap;") {{pet.description}}
+        p(style="white-space: pre-wrap;") {{decodeHTMLEntities(pet.description)}}
       
       comments(item-id='pet._id')
     

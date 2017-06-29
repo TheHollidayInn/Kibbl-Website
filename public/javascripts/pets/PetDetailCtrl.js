@@ -17,6 +17,30 @@ angular.module('Pets')
     $scope.facebookUrl = 'https://www.facebook.com/login.php?' + $.param($scope.faceBookDetails);
     $scope.url = $location.absUrl();
 
+    $scope.decodeHTMLEntities = function (text) {
+      if (!text) return '';
+
+      var entities = [
+          ['amp', '&'],
+          ['apos', '\''],
+          ['#x27', '\''],
+          ['#x2F', '/'],
+          ['#39', '\''],
+          ['#47', '/'],
+          ['lt', '<'],
+          ['gt', '>'],
+          ['nbsp', ' '],
+          ['quot', '"'],
+          ['ldquo', '"'],
+          ['rsquo', '"'],
+      ];
+
+      for (var i = 0, max = entities.length; i < max; ++i)
+          text = text.replace(new RegExp('&'+entities[i][0]+';', 'g'), entities[i][1]);
+
+      return text;
+    }
+
     sendRequest();
     function sendRequest() {
       var url = '/api/v1/pets/' + $routeParams.petId;

@@ -1,6 +1,6 @@
 angular.module('Pets')
-.controller('PetListCtrl', ['$scope', '$http', '$window', 'FiltersService',
-  function($scope, $http, $window, FiltersService) {
+.controller('PetListCtrl', ['$scope', '$http', '$window', 'FiltersService', '$sce',
+  function($scope, $http, $window, FiltersService, $sce) {
     $.material.init()
     $scope.loading = true;
     $scope.pets = [];
@@ -572,6 +572,32 @@ angular.module('Pets')
       $scope.petAboutToFavorite.petId = petId;
       $scope.petAboutToFavorite.index = $index;
     };
+
+    $scope.toHtml = function (text) {
+      return decodeHTMLEntities(text);
+    };
+
+    function decodeHTMLEntities(text) {
+      var entities = [
+          ['amp', '&'],
+          ['apos', '\''],
+          ['#x27', '\''],
+          ['#x2F', '/'],
+          ['#39', '\''],
+          ['#47', '/'],
+          ['lt', '<'],
+          ['gt', '>'],
+          ['nbsp', ' '],
+          ['quot', '"'],
+          ['ldquo', '"'],
+          ['rsquo', '"'],
+      ];
+
+      for (var i = 0, max = entities.length; i < max; ++i)
+          text = text.replace(new RegExp('&'+entities[i][0]+';', 'g'), entities[i][1]);
+
+      return text;
+    }
 
     $scope.login = function () {
       $http({
