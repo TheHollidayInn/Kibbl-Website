@@ -25,6 +25,7 @@ var stripe = require('stripe')(nconf.get('stripe:secretKey'));
 require('./config/passport')(passport);
 
 var app = express();
+app.use(compression);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +33,6 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(compression);
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -48,6 +48,8 @@ app.use(session({
             console.log(err || 'connect-mongodb setup ok');
         })
 }));
+
+var oneWeek = 604800000;
 app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport

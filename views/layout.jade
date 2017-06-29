@@ -7,8 +7,6 @@ html
     
     link(rel="shortcut icon" href="favicon.ico" type="image/x-icon")
       
-    link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' type='text/css')
-    link(href="https://fonts.googleapis.com/css?family=Poppins:400,500" rel="stylesheet")
     link(rel='stylesheet', href='/dist/uglify.css')
     
   body.kibbl(ng-app="Kibbl")
@@ -73,4 +71,21 @@ html
           if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
               $(this).collapse('hide');
           }
+      });
+      window.addEventListener('load', function () {
+        // to defer the loading of stylesheets
+       // just add it right before the </body> tag
+       // and before any javaScript file inclusion (for performance)  
+       function loadStyleSheet(src){
+           if (document.createStyleSheet) document.createStyleSheet(src);
+           else {
+               var stylesheet = document.createElement('link');
+               stylesheet.href = src;
+               stylesheet.rel = 'stylesheet';
+               stylesheet.type = 'text/css';
+               document.getElementsByTagName('head')[0].appendChild(stylesheet);
+           }
+       }
+       loadStyleSheet('https://fonts.googleapis.com/icon?family=Material+Icons');
+       loadStyleSheet('https://fonts.googleapis.com/css?family=Poppins:400,500');
       });
