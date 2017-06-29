@@ -28,7 +28,10 @@
     .col-md-3
       .well
         h3 Details
-
+        
+        div(ng-if='event.shelterId.name')
+          a(href='/shelters/{{event.shelterId._id}}', target='_blank') {{event.shelterId.name}}
+        
         div 
           strong Start: 
           | {{event.start_time | date : "medium"}}

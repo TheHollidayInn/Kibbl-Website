@@ -30,6 +30,8 @@
       .well
         h3 Details
         ul
+          li(ng-if='pet.shelterId.name')
+            a(href='/shelters/{{pet.shelterId._id}}', target='_blank') {{pet.shelterId.name}}
           li Age: {{pet.age}}
           li Type: {{pet.animal}}
           li Updated: {{pet.lastUpdate | date}}

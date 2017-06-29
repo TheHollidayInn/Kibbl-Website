@@ -152,7 +152,7 @@ router.get('/:petId', function(req, res, next) {
     .then(function (userFound) {
       user = userFound;
 
-      return Pets.findOne({ _id: req.params.petId}).exec();
+      return Pets.findOne({ _id: req.params.petId}).populate('shelterId').exec();
     })
     .then(function(petFound) {
       pet = petFound;

@@ -95,7 +95,7 @@ router.get('/:eventId', function(req, res, next) {
     .then(function (userFound) {
       user = userFound;
 
-      return Event.findOne({ _id: req.params.eventId}).exec()
+      return Event.findOne({ _id: req.params.eventId}).populate('shelterId').exec()
     })
     .then(function(petFound) {
       pet = petFound;

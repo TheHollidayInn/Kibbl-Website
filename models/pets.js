@@ -31,6 +31,10 @@ var Schema = new mongoose.Schema({
     type: { type: String, default: 'Point' },
     coordinates: {type: [Number], default: [0, 0]},
   },
+  shelterId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Shelter'
+  },
 });
 Schema.index({ locationCoords: '2dsphere' });
 
