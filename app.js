@@ -25,7 +25,7 @@ var stripe = require('stripe')(nconf.get('stripe:secretKey'));
 require('./config/passport')(passport);
 
 var app = express();
-app.use(compression);
+// app.use(compression);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
