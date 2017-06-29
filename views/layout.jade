@@ -6,18 +6,11 @@ html
     base(href="/")
     
     link(rel="shortcut icon" href="favicon.ico" type="image/x-icon")
-    
-    link(href="https://fonts.googleapis.com/css?family=Poppins:400,500" rel="stylesheet")
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.min.css')
-    link(type="text/css" rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css")
-    link(type="text/css" rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.min.css")
-    link(type="text/css" rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css")
-    link(type="text/css" rel="stylesheet" href="bower_components/bootstrap-sweetalert/dist/sweetalert.css")
+      
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' type='text/css')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css')
-
-
+    link(href="https://fonts.googleapis.com/css?family=Poppins:400,500" rel="stylesheet")
+    link(rel='stylesheet', href='/dist/uglify.css')
+    
   body.kibbl(ng-app="Kibbl")
     
     include ./nav
@@ -38,7 +31,7 @@ html
     script(type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyChoYR8brHFKSOVPcaIjA6C7qfWY40n4S0&libraries=places")
     
     script(src='dist/deps.js')
-    script(src='dist/all.js')
+    script(src='dist/uglify.js')
     
     div(id="fb-root")
     script(type="text/javascript").

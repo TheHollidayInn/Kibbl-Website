@@ -3,6 +3,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var babel = require('gulp-babel');
+var uglifycss = require('gulp-uglifycss');
 
 var dependentjsfiles = [
   'public/bower_components/jquery/dist/jquery.min.js',
@@ -66,7 +67,17 @@ var jsfiles = [
 
 // @TODO: dev build
 
-gulp.task('concat', function() {
+var cssFiles = [
+  'public/bower_components/bootstrap/dist/css/bootstrap.min.css',
+  'public/bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css',
+  'public/bower_components/bootstrap-material-design/dist/css/ripples.min.css',
+  'public/bower_components/angular-bootstrap/ui-bootstrap-csp.css',
+  'public/bower_components/bootstrap-sweetalert/dist/sweetalert.css',
+  'public/stylesheets/style.css',
+  'public/stylesheets/font-awesome.css',
+];
+
+gulp.task('concat', ['css'], function() {
   let files = dependentjsfiles.concat(jsfiles);
 
   gulp.src(jsfiles)
@@ -86,6 +97,14 @@ gulp.task('concat', function() {
 
   return gulp.src(dependentjsfiles)
     .pipe(concat('deps.js'))
+    .pipe(gulp.dest('public/dist'));
+});
+
+gulp.task('css', function() {
+  gulp.src(cssFiles)
+    .pipe(concat('all.css'))
+    .pipe(rename('uglify.css'))
+    // .pipe(uglifycss())
     .pipe(gulp.dest('public/dist'));
 });
 
