@@ -52,6 +52,11 @@ angular.module('Pets')
       .then(function (response) {
         $scope.pet = response.data.data;
         $scope.pet.breeds = _.unique($scope.pet.breeds);
+
+        if (!$scope.pet.media || $scope.pet.media.length === 0) $scope.$parent.pageImg = 'https://kibbl.io/images/kibbl-logo-dog.png'
+        $scope.$parent.pageImg = $scope.pet.media[0].urlSecureFullsize || 'https://kibbl.io/images/kibbl-logo-dog.png';
+        $scope.$parent.pageTitle = $scope.pet.name;
+        $scope.$parent.pageDesc = $scope.pet.description;
       });
     }
 

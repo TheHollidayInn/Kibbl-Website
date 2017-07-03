@@ -23,6 +23,11 @@ angular.module('Events')
 				})
 				.then(function (response) {
 					$scope.event = response.data.data;
+
+					if (!$scope.event.facebook) $scope.$parent.pageImg = 'https://kibbl.io/images/kibbl-logo-dog.png'
+					$scope.$parent.pageImg = $scope.event.facebook.cover || 'https://kibbl.io/images/kibbl-logo-dog.png';
+	        $scope.$parent.pageTitle = $scope.event.name;
+	        $scope.$parent.pageDesc = $scope.event.description;
 				})
 			}
 

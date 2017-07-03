@@ -1,15 +1,28 @@
 doctype html
-html
+html(ng-app="Kibbl")
   head
     title= title
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     base(href="/")
     
+  
+    meta(ng-if='pageTitle', property='og:title', content='{{pageTitle}}')
+    meta(ng-if='pageDesc', property='og:description', content='{{pageDesc}}')
+    meta(ng-if='pageImg', property='og:image', content='{{pageImg}}')
+    meta(ng-if='pageUrl', property='og:url', content='{{pageUrl}}')
+    
+    meta(name='twitter:title', content='{{pageTitle}} ')
+    meta(name='twitter:description', content='{{pageDesc}}')
+    meta(name='twitter:image', content='{{pageImg}}')
+    meta(name='twitter:card', content='{{pageDesc}}')
+
+
+    
     link(rel="shortcut icon" href="favicon.ico" type="image/x-icon")
       
     link(rel='stylesheet', href='/dist/uglify.css')
     
-  body.kibbl(ng-app="Kibbl")
+  body.kibbl
     
     include ./nav
         

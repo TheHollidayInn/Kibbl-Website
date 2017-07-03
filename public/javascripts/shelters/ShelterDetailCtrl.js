@@ -28,6 +28,10 @@ angular.module('Shelters')
 				})
 				.then(function (response) {
 					$scope.shelter = response.data.data;
+					if (!$scope.shelter.facebook) $scope.$parent.pageImg = 'https://kibbl.io/images/kibbl-logo-dog.png'
+					$scope.$parent.pageImg = $scope.shelter.facebook.cover || 'https://kibbl.io/images/kibbl-logo-dog.png';
+	        $scope.$parent.pageTitle = $scope.shelter.name;
+	        $scope.$parent.pageDesc = $scope.shelter.description;
 				})
 			}
 
