@@ -35,6 +35,7 @@ angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap', 'socialLogin', 
     socialProvider.setFbKey({appId: "1773720656197985", apiVersion: "v2.8"});
 
     // use the HTML5 History API
+    $locationProvider.hashPrefix('!');
     $locationProvider.html5Mode(true);
 
     $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
