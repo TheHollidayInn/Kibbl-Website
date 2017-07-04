@@ -26,5 +26,6 @@
     "API_KEY": "",
     "DOMAIN": ""
   },
-  "JWT_SECRET": ""
+  "JWT_SECRET": "",
+  "PRERENDER_TOKEN": ""
 }

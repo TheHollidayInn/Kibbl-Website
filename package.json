@@ -41,6 +41,7 @@
     "passport-google-oauth": "^1.0.0",
     "passport-local": "~1.0.0",
     "passport-twitter": "^1.0.4",
+    "prerender-node": "^2.7.1",
     "request-promise": "^4.2.0",
     "serve-favicon": "~2.3.0",
     "stripe": "^4.6.0"

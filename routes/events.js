@@ -10,6 +10,9 @@ let Geocoder = require('../libraries/geocode');
 // @TODO: Move this to library
 var nconf = require('nconf');
 var jwt    = require('jsonwebtoken');
+
+let prerender = require('prerender-node').set('prerenderToken', nconf.get('PRERENDER_TOKEN'))
+
 function getUserFromToken (req) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
   return new Promise(function (resolve, reject) {
@@ -86,7 +89,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/:eventId', function(req, res, next) {
+router.get('/:eventId', prerender, function(req, res, next) {
   let pet;
   let user;
   // @TODO: Check for user status on evnet (attending, subscribed?)
