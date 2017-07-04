@@ -67,6 +67,10 @@ router.get('/', function(req, res, next) {
     location = req.query.location;
   }
 
+  if (req.query.shelterId) {
+    query.shelterId = req.query.shelterId;
+  }
+
   Geocoder.geocode(location)
   .then(function (geocodeResult) {
     if (geocodeResult) {
@@ -76,7 +80,7 @@ router.get('/', function(req, res, next) {
       query['place.location.state'] = geocodeResult[0].administrativeLevels.level1short;
     }
 
-    return Event.find(query)
+    return Event.find(query).populate('shelterId')
       .limit(20)
       .sort('start_time')
       .exec();

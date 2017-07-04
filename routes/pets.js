@@ -75,6 +75,10 @@ router.get('/', function(req, res, next) {
     location = req.query.location;
   }
 
+  if (req.query.shelterId) {
+    query.shelterId = req.query.shelterId;
+  }
+
   var pets = [];
 
   if (!req.user) {
@@ -87,7 +91,7 @@ router.get('/', function(req, res, next) {
         query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
       }
 
-      return Pets.find(query)
+      return Pets.find(query).populate('shelterId')
         .limit(limit)
         .sort('-lastUpdate')
         .exec();
