@@ -4,6 +4,7 @@ var moment = require('moment');
 
 var Pets = require('../models/pets');
 var Favorite = require('../models/favorites');
+var Notification = require('../models/notifications');
 let Geocoder = require('../libraries/geocode');
 
 var Middleware = require('../middleware');
@@ -156,6 +157,7 @@ router.get('/', function(req, res, next) {
 router.get('/:petId', prerender, function(req, res, next) {
   let pet;
   let user;
+  let data;
 
   getUserFromToken(req)
     .then(function (userFound) {
@@ -176,13 +178,29 @@ router.get('/:petId', prerender, function(req, res, next) {
       }).exec();
     })
     .then(function(favoriteFound) {
-      let data = JSON.parse(JSON.stringify(pet)); // Clone variables but not functions
+      data = JSON.parse(JSON.stringify(pet)); // Clone variables but not functions
 
       data.favorited = false;
 
       if (favoriteFound && favoriteFound.active === true) {
         data.favorited = true;
       }
+
+      if (user && data.shelterId && data.shelterId._id) {
+        return Notification.findOne({
+          userID: user._id,
+          shelterId: data.shelterId._id,
+        }).exec()
+      }
+
+      return null;
+    })
+    .then((notification) => {
+      let subscribed = false;
+
+      if (notification && notification.active) subscribed = true;
+
+      if (subscribed) data.subscribed = true;
 
       return res.status(200).json({data: data});
     })
