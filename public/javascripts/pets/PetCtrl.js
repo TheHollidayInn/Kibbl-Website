@@ -618,4 +618,9 @@ angular.module('Pets')
         $('#loginModel').closeModal();
       })
     };
+
+    $scope.toggleFilter = function () {
+      $scope.filterCollapsed = false;
+      $("body").animate({scrollTop: 0}, "slow");
+    }
   }]);

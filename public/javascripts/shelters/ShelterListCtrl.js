@@ -71,6 +71,11 @@ angular.module('Shelters')
 				FiltersService.setShelterFilters($scope.filters);
 			};
 
+			$scope.toggleFilter = function () {
+				$scope.filterCollapsed = false;
+				$("body").animate({scrollTop: 0}, "slow");
+			}
+
 			function scroll () {
 				if ($scope.loading) return;
 				if (!$scope.shelters[$scope.shelters.length - 1]) return;

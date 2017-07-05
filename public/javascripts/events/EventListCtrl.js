@@ -128,4 +128,9 @@ angular.module('Events')
 		$scope.popup2 = {
 			opened: false
 		};
+
+		$scope.toggleFilter = function () {
+			$scope.filterCollapsed = false;
+			$("body").animate({scrollTop: 0}, "slow");
+		}
 	}]);
