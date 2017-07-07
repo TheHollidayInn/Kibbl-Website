@@ -84,7 +84,39 @@ router.get('/user-notifications', Middleware.hasValidToken, function (req, res, 
         .exec()
     })
     .then(function(contacts) {
-      return res.status(201).json({data: contacts});
+      let updatedContacts = [];
+      contacts.forEach((contact) => {
+        let newContact = contact.toObject();
+
+        if (newContact.newPets) {
+          newContact.newPets.forEach((obj) => {
+            obj.shelterId = {};
+          })
+        }
+
+        if (newContact.updatedPets) {
+          newContact.updatedPets.forEach((obj) => {
+            obj.shelterId = {};
+          })
+        }
+
+        if (newContact.newEvents) {
+          newContact.newEvents.forEach((obj) => {
+            obj.shelterId = {};
+          })
+        }
+
+        if (newContact.updatedEvents) {
+          newContact.updatedEvents.forEach((obj) => {
+            obj.shelterId = {};
+          })
+        }
+
+        updatedContacts.push(newContact);
+      });
+
+
+      return res.status(201).json({data: updatedContacts});
     })
     .catch(function(err) {
       return res.status(400).json(err);
