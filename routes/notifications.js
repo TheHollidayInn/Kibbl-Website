@@ -16,13 +16,13 @@ router.post('/', Middleware.hasValidToken, function(req, res, next) {
         favorites[0].active = false;
         req.user.limits.subs -= 1;
       } else {
-        if (req.user.limits.subs === 10) return res.status(401).json({message: 'You have reached your limit of 10 subscriptions.'});
+        //if (req.user.limits.subs === 10) return res.status(401).json({message: 'You have reached your limit of 10 subscriptions.'});
         favorites[0].active = true;
         req.user.limits.subs += 1;
       }
       return favorites[0].save();
     } else {
-      if (req.user.limits.subs === 10) return res.status(401).json({message: 'You have reached your limit of 10 subscriptions.'});
+      //if (req.user.limits.subs === 10) return res.status(401).json({message: 'You have reached your limit of 10 subscriptions.'});
 
       var fav = new Notification();
       fav.userID = req.user._id;
