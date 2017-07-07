@@ -18,8 +18,25 @@ router.get('/', Middleware.hasValidToken, function(req, res, next) {
   .limit(20)
   .sort('-createdAt')
   .exec(function(err, favorites) {
+
+    let newFavorites = [];
+
+    favorites.forEach((favorite) => {
+      let newFavorite = favorite.toObject();
+      if (newFavorite.petID) {
+        newFavorite.petID.shelterId = {};
+      }
+
+      if (newFavorite.eventId) {
+        newFavorite.eventId.shelterId = {};
+      }
+
+      newFavorites.push(newFavorite);
+    });
+
+
     if (err) return res.status(400).json(err);
-    res.status(200).json({data:favorites});
+    res.status(200).json({data: newFavorites});
   });
 });
 
