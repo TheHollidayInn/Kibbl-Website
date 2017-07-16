@@ -26,6 +26,7 @@ require('./config/passport')(passport);
 
 var app = express();
 app.use(compression());
+app.use(require('prerender-node').set('prerenderToken', nconf.get('PRERENDER_TOKEN')));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
