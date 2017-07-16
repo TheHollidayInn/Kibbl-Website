@@ -38,6 +38,13 @@ angular.module('Pets')
       for (var i = 0, max = entities.length; i < max; ++i)
           text = text.replace(new RegExp('&'+entities[i][0]+';', 'g'), entities[i][1]);
 
+
+      var tweetShit = "Tweet!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='//platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');  (function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();";
+      var tweetShitIndex = text.indexOf(tweetShit);
+      if (tweetShitIndex !== -1) {
+        text = text.replace(tweetShit, '');
+      }
+
       return text;
     }
 
