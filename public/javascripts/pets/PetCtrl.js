@@ -418,17 +418,17 @@ angular.module('Pets')
         key: "All"
       },
       {
-        value: 'M',
+        value: 'Male',
         key: "Male"
       },
       {
-        value: 'F',
+        value: 'Female',
         key: "Female"
       },
-      {
-        value: 'U',
-        key: "Unkown"
-      },
+      // {
+      //   value: 'U',
+      //   key: "Unkown"
+      // },
     ];
 
     $scope.offset = 0;
