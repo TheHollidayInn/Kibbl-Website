@@ -204,7 +204,7 @@ router.post('/api/v1/auth/social', function (req, res) {
           newUser.facebook.id    = profile.id; // set the users facebook id
           newUser.facebook.token = accessToken; // we will save the token that facebook provides to the user
           newUser.facebook.name  = profile.displayName; // look at the passport user profile to see how names are returned
-          // newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+          newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
 
           return newUser.save();
         });
