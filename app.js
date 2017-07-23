@@ -76,6 +76,8 @@ var volunteer = require('./routes/volunteer');
 var notifications = require('./routes/notifications');
 let comments = require('./routes/comments');
 let feedback = require('./routes/feedback');
+let forgotPassword = require('./routes/forgot-password');
+let reset = require('./routes/reset');
 
 app.use('/', routes);
 app.use('/api/v1/users', users);
@@ -88,6 +90,8 @@ app.use('/api/v1/volunteer', volunteer);
 app.use('/api/v1/notifications', notifications);
 app.use('/api/v1/comments', comments);
 app.use('/api/v1/feedback', feedback);
+app.use('/api/v1/forgot-password', forgotPassword);
+app.use('/api/v1/reset', reset);
 
 mongoose.connect(nconf.get('db:URL'));
 

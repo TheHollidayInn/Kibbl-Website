@@ -63,6 +63,8 @@ var jsfiles = [
   'public/javascripts/feedback/FeedbackListCtrl.js',
   'public/javascripts/feedback/FeedbackService.js',
   'public/javascripts/controllers/FiltersService.js',
+  'public/javascripts/forgotPasswordCtrl.js',
+  'public/javascripts/ResetCtrl.js',
 ];
 
 // @TODO: dev build

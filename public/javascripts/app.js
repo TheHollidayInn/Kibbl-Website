@@ -26,6 +26,14 @@ angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap', 'socialLogin', 
           templateUrl: 'register.html',
           controller: 'HomeCtrl'
       })
+      .when('/forgot-password', {
+        templateUrl: 'forgot-password.html',
+        controller: 'ForgotPasswordCtrl'
+      })
+      .when('/reset/:token', {
+        templateUrl: 'reset.html',
+        controller: 'ResetCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

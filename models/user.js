@@ -36,6 +36,8 @@ var userSchema = mongoose.Schema({
       lastReset: {type: Date, default: new Date()},
     },
     createdAt: {type: Date, default: new Date()},
+    resetPasswordToken: {type: String},
+    resetPasswordExpires: {type: Date},
 });
 
 // methods ======================

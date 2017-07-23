@@ -315,6 +315,14 @@ router.get('/home.html', function(req, res, next) {
   res.render('home');
 });
 
+router.get('/forgot-password.html', function(req, res, next) {
+  res.render('forgot-password');
+});
+
+router.get('/reset.html', function(req, res, next) {
+  res.render('reset');
+});
+
 // router.get('/*', function(req, res, next) {
 //   res.render('index', { title: 'Kibbl' });
 // });
