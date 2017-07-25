@@ -10,5 +10,9 @@ angular.module('Pets', ['ngRoute'])
       .when('/pets/:petId', {
         templateUrl: 'pet-detail.html',
         controller: 'PetDetailCtrl'
+      })
+      .when('/pets/shelter/:shelterId', {
+        templateUrl: 'pet-list.html',
+        controller: 'PetListCtrl'
       });
   }]);

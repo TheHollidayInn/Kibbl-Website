@@ -2,7 +2,7 @@
   .container
     .col-md-6.col-md-offset-3
       h1.text-center {{shelter.name}}
-    
+
 .container-fluid.container-detail
   .container
     .row
@@ -24,19 +24,21 @@
   .row
     .col-md-8
       .well
+        a.btn.btn-primary(href='/pets/shelter/{{shelter._id}}') View Pets
+        a.btn.btn-primary(href='/events/shelter/{{shelter._id}}') View Events
         h3 Description
         p(ng-if='shelter.description') {{shelter.description}}
         p(ng-if='shelter.about') {{shelter.about}}
-      
+
       comments(item-id='shelter._id')
     .col-md-4
       .well
         h3 Contact
-        
+
         div
           div(ng-if="shelter.email") {{shelter.email}}
           div(ng-if="shelter.phone") {{shelter.phone}}
-        
+
         a.btn.btn-primary(ng-if='shelter.facebook.id', href='http://facebook.com/{{shelter.facebook.id}}', target="_blank") Facebook Page
 
       .well

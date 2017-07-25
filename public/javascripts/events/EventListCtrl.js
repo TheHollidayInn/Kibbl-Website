@@ -1,6 +1,6 @@
 angular.module('Events')
-.controller('EventListCtrl', ['$scope', 'EventService', 'FiltersService', '$window',
-	function ($scope, EventService, FiltersService, $window) {
+.controller('EventListCtrl', ['$scope', 'EventService', 'FiltersService', '$window', '$routeParams',
+	function ($scope, EventService, FiltersService, $window, $routeParams) {
 		$scope.events = [];
 		$scope.loading = true;
 		$scope.eventTypes = [
@@ -16,6 +16,16 @@ angular.module('Events')
 		$scope.filters = {};
 		$scope.filters = FiltersService.getEventFilters();
 		$scope.events = FiltersService.getEvents();
+
+		if ($routeParams.shelterId) {
+      $scope.filters.shelterId = $routeParams.shelterId;
+    } else if ($scope.filters.shelterId) {
+      $scope.events = [];
+      delete $scope.filters.shelterId;
+      // Reset cache
+      FiltersService.setEvents([]);
+      FiltersService.setEventScroll(0);
+    }
 
 		var initialScrolled = false;
 

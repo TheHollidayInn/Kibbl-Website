@@ -10,5 +10,9 @@ angular.module('Events', ['ngRoute'])
       .when('/events/:id', {
         templateUrl: 'event-detail.html',
         controller: 'EventDetailCtrl'
+      })
+      .when('/events/shelter/:shelterId', {
+        templateUrl: 'event-list.html',
+        controller: 'EventListCtrl'
       });
   }]);

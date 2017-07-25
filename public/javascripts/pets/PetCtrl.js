@@ -1,6 +1,6 @@
 angular.module('Pets')
-.controller('PetListCtrl', ['$scope', '$http', '$window', 'FiltersService', '$sce',
-  function($scope, $http, $window, FiltersService, $sce) {
+.controller('PetListCtrl', ['$scope', '$http', '$window', 'FiltersService', '$sce', '$routeParams',
+  function($scope, $http, $window, FiltersService, $sce, $routeParams) {
     $.material.init()
     $scope.loading = true;
     $scope.pets = [];
@@ -10,6 +10,16 @@ angular.module('Pets')
     $scope.type = '';
     $scope.filters = FiltersService.getPetFilters();
 		$scope.pets = FiltersService.getPets();
+
+    if ($routeParams.shelterId) {
+      $scope.filters.shelterId = $routeParams.shelterId;
+    } else if ($scope.filters.shelterId) {
+      $scope.pets = [];
+      delete $scope.filters.shelterId;
+      // Reset cache
+      FiltersService.setPets([]);
+      FiltersService.setPetScroll(0);
+    }
 
     $scope.breeds = {};
     $scope.breeds['Dog'] = [
@@ -473,6 +483,9 @@ angular.module('Pets')
         FiltersService.setPets($scope.pets);
 
 				scrollToLastPosition();
+      })
+      .catch(function (response) {
+        $scope.loading = false;
       })
     };
 
