@@ -49,6 +49,10 @@ router.get('/', function(req, res, next) {
     query.start_time.$lte = moment(req.query.endDate).toISOString();
   }
 
+  if (req.query.search) {
+    query.name = new RegExp(req.query.search, 'i');
+  }
+
   // if (req.query.createdAtBefore) {
   //   if (!query.createdAt) query.createdAt = {};
   //   query.createdAt.$lt = moment(req.query.createdAtBefore).toISOString();

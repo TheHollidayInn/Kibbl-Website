@@ -4,6 +4,10 @@
       h1(ng-if='!loading') Shelters
       h1.loader(ng-if='loading') Loading...
       button.btn.btn-primary.btn-raised.visible-xs(ng-click='filter();filterCollapsed = true') Filter
+  
+    .form-group.col-md-2
+      label Search
+      input.form-control(ng-model='filters.search', type='text')
     
     .form-group.col-md-2
       label Location

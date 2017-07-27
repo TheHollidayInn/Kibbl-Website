@@ -80,6 +80,10 @@ router.get('/', function(req, res, next) {
     query.shelterId = req.query.shelterId;
   }
 
+  if (req.query.search) {
+    query.name = new RegExp(req.query.search, 'i');
+  }
+
   var pets = [];
 
   if (!req.user) {

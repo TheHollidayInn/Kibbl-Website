@@ -45,6 +45,10 @@ router.get('/', function(req, res, next) {
     location = req.query.location;
   }
 
+  if (req.query.search) {
+    query.name = new RegExp(req.query.search, 'i');
+  }
+
   Geocoder.geocode(location)
   .then(function (geocodeResult) {
     if (geocodeResult) {
