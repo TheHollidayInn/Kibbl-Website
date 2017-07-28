@@ -33,6 +33,7 @@ angular.module('Pets')
           ['quot', '"'],
           ['ldquo', '"'],
           ['rsquo', '"'],
+          ['#039', '\''],
       ];
 
       for (var i = 0, max = entities.length; i < max; ++i)
