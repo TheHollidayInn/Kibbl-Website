@@ -52,10 +52,20 @@ router.get('/', function(req, res, next) {
   Geocoder.geocode(location)
   .then(function (geocodeResult) {
     if (geocodeResult) {
-      // query.locationCoords = {
-      //   $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
-      // };
-      query['state'] = geocodeResult[0].administrativeLevels.level1short;
+      let distance = req.query.distance;
+      if (distance) {
+        query.locationCoords =
+          { $near :
+              {
+                $geometry : {
+                   type : "Point" ,
+                   coordinates : [geocodeResult[0].longitude, geocodeResult[0].latitude], },
+                $maxDistance : distance * 3959,
+              }
+           };
+      } else {
+        query['state'] = geocodeResult[0].administrativeLevels.level1short;
+      }
     }
 
     return Shelter.find(query)

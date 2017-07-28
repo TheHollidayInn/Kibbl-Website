@@ -37,10 +37,6 @@ router.get('/', function(req, res, next) {
     rescueGroupId: {$exists: true}
   };
 
-  // if (req.query.location) {
-  //   query.location = {t: req.query.location};
-  // }
-
   if (req.query.type) {
     query.animal = req.query.type;
   }
@@ -90,10 +86,20 @@ router.get('/', function(req, res, next) {
     Geocoder.geocode(location)
     .then(function (geocodeResult) {
       if (geocodeResult) {
-        // query.locationCoords = {
-        //   $near: { type: 'Point', coordinates:[geocodeResult[0].longitude, geocodeResult[0].latitude] }
-        // };
-        query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
+        let distance = req.query.distance;
+        if (distance) {
+          query.locationCoords =
+            { $near :
+                {
+                  $geometry : {
+                     type : "Point" ,
+                     coordinates : [geocodeResult[0].longitude, geocodeResult[0].latitude], },
+                  $maxDistance : distance * 3959,
+                }
+             };
+        } else {
+          query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
+        }
       }
 
       return Pets.find(query).populate('shelterId')
@@ -114,12 +120,22 @@ router.get('/', function(req, res, next) {
     Geocoder.geocode(location)
     .then(function (geocodeResult) {
       if (geocodeResult) {
-        // query.locationCoords = {
-        //   $near: { type: 'Point', coordinates:[geocodeResult[0].latitude, geocodeResult[0].longitude] }
-        // };
-        query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
+        let distance = req.query.distance;
+        if (distance) {
+          query.locationCoords =
+            { $near :
+                {
+                  $geometry : {
+                     type : "Point" ,
+                     coordinates : [geocodeResult[0].longitude, geocodeResult[0].latitude], },
+                  $maxDistance : distance * 3959,
+                }
+             };
+        } else {
+          query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
+        }
       }
-      console.log(query)
+
       return Pets.find(query)
         .limit(limit)
         .sort('-lastUpdate').exec()
