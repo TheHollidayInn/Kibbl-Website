@@ -103,7 +103,24 @@ router.get('/', function(req, res, next) {
       .exec();
   })
   .then(function (favorites) {
-    return res.status(200).json({data:favorites});
+    let events = [];
+    favorites.forEach((event) => {
+      let newEvent = JSON.parse(JSON.stringify(event));
+      newEvent.locationCoords = {
+        coordinates: [0, 0],
+        "type": "Point"
+      };
+      if (newEvent.shelterId && newEvent.shelterId._id) {
+        newEvent.shelterId.locationCoords = {
+          coordinates: [0, 0],
+          "type": "Point"
+        };
+      }
+
+      events.push(newEvent);
+    })
+
+    return res.status(200).json({data: events});
   })
   .catch(function (err) {
     return res.status(400).json(err);
@@ -158,6 +175,17 @@ router.get('/:eventId', prerender, function(req, res, next) {
       if (notification && notification.active) subscribed = true;
 
       if (subscribed) data.subscribed = true;
+
+      data.locationCoords = {
+        coordinates: [0, 0],
+        "type": "Point"
+      };
+      if (data.shelterId && data.shelterId._id) {
+        data.shelterId.locationCoords = {
+          coordinates: [0, 0],
+          "type": "Point"
+        };
+      }
 
       return res.status(200).json({data: data});
     })
