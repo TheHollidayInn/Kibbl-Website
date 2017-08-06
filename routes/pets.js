@@ -10,8 +10,6 @@ let Geocoder = require('../libraries/geocode');
 var Middleware = require('../middleware');
 var _ = require('lodash');
 
-;
-
 // @TODO: Move this to library
 var nconf = require('nconf');
 var jwt    = require('jsonwebtoken');

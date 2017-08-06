@@ -97,12 +97,32 @@ router.get('/user-notifications', Middleware.hasValidToken, function (req, res, 
         if (newContact.updatedPets) {
           newContact.updatedPets.forEach((obj) => {
             obj.shelterId = {};
+            obj.locationCoords = {
+              coordinates: [0, 0],
+              "type": "Point"
+            };
+            if (obj.shelterId && obj.shelterId._id) {
+              obj.shelterId.locationCoords = {
+                coordinates: [0, 0],
+                "type": "Point"
+              };
+            }
           })
         }
 
         if (newContact.newEvents) {
           newContact.newEvents.forEach((obj) => {
             obj.shelterId = {};
+            obj.locationCoords = {
+              coordinates: [0, 0],
+              "type": "Point"
+            };
+            if (obj.shelterId && obj.shelterId._id) {
+              obj.shelterId.locationCoords = {
+                coordinates: [0, 0],
+                "type": "Point"
+              };
+            }
           })
         }
 
