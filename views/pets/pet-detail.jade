@@ -6,8 +6,8 @@
   .container
     .row
       .col-md-9
-        .well.img-feature-wrapper(ng-if='pet.media[0].urlSecureThumbnail')
-          div.img-feature(style="background-image:url({{pet.media[0].urlSecureThumbnail}})")
+        .well.img-feature-wrapper(ng-if='pet.media[0].urlSecureFullsize')
+          div.img-feature(style="background-image:url({{pet.media[0].urlSecureFullsize}})")
       .col-md-3
         //- button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
         button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!pet.favorited')

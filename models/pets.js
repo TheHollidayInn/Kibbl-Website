@@ -17,6 +17,7 @@ var Schema = new mongoose.Schema({
   size: String,
   media: [{
     urlSecureThumbnail: String,
+    urlSecureFullsize: String,
   }],
   petId: String,
   rescueGroupdId: String,
