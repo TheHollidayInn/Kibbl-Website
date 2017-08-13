@@ -61,6 +61,10 @@ router.get('/api/v1/latest', function(req, res, next) {
     });
 });
 
+router.get('/marketing.html', function(req, res) {
+  res.render('marketing-landing-page.jade');
+});
+
 router.get('/login.html', function(req, res) {
   res.render('login.jade', { message: req.flash('loginMessage') });
 });

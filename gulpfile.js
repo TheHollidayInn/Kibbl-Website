@@ -65,6 +65,7 @@ var jsfiles = [
   'public/javascripts/controllers/FiltersService.js',
   'public/javascripts/forgotPasswordCtrl.js',
   'public/javascripts/ResetCtrl.js',
+  'public/javascripts/MarketingCtrl.js',
 ];
 
 // @TODO: dev build

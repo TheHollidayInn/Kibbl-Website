@@ -34,6 +34,10 @@ angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap', 'socialLogin', 
         templateUrl: 'reset.html',
         controller: 'ResetCtrl'
       })
+      .when('/:advertiser', {
+        templateUrl: 'marketing.html',
+        controller: 'MarketingCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
