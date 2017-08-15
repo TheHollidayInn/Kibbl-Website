@@ -181,13 +181,16 @@ router.get('/:petId', prerender, function(req, res, next) {
     .then(function (userFound) {
       user = userFound;
 
-      return Pets.findOne({ _id: req.params.petId}).populate('shelterId').exec();
+      let fields = 'contact age size media breeds name sex description lastUpdate animal rescueGroupId';
+      return Pets
+      .findOne({ _id: req.params.petId}, fields)
+        .populate('shelterId')
+        .exec();
     })
     .then(function(petFound) {
       pet = petFound;
 
       let userId;
-
       if (user) userId = user._id;
 
       return Favorite.findOne({
@@ -215,12 +218,36 @@ router.get('/:petId', prerender, function(req, res, next) {
     })
     .then((notification) => {
       let subscribed = false;
-
       if (notification && notification.active) subscribed = true;
-
       if (subscribed) data.subscribed = true;
 
-      return res.status(200).json({data: data});
+      // @TODO: We add these fields manually to perserve the Android Retrofit model.
+      // Eventually we should update Android to handle incomplete model responses
+      if (!data.status) data.status = '';
+      if (!data.age) data.age = '';
+      if (!data.size) data.size = '';
+      if (!data.petId) data.petId = '';
+      if (!data.shelterPetId) data.shelterPetId = '';
+      if (!data.rescueGroupId) data.rescueGroupId = '';
+      if (!data.sex) data.sex = '';
+      if (!data.lastUpdate) data.lastUpdate = '';
+      if (!data.animal) data.animal = '';
+      if (!data.favorited) data.favorited = false;
+      if (!data.name) data.name = '';
+      if (!data.breeds) data.breeds = [];
+      if (!data.contact) {
+        data.contact = {
+          phone: '',
+          state: '',
+          address2: '',
+          email: '',
+          zip: '',
+          fax: '',
+          address1: ''
+        };
+      }
+
+      return res.status(200).json({data});
     })
     .catch(function(err) {
       return res.status(400).json({message: err});
