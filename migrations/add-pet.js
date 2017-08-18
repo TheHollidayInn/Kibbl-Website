@@ -26,13 +26,13 @@ let petObj = {
     },
     "age" : "Young",
     "size" : "S",
-    "media" : [
-        "http://photos.petfinder.com/photos/pets/36919577/1/?bust=1481142723&width=60&-pnt.jpg",
-        "http://photos.petfinder.com/photos/pets/36919577/1/?bust=1481142723&width=95&-fpm.jpg",
-        "http://photos.petfinder.com/photos/pets/36919577/1/?bust=1481142723&width=500&-x.jpg",
-        "http://photos.petfinder.com/photos/pets/36919577/1/?bust=1481142723&width=300&-pn.jpg",
-        "http://photos.petfinder.com/photos/pets/36919577/1/?bust=1481142723&width=50&-t.jpg"
-    ],
+    // "media" : [
+    //     "http://photos.petfinder.com/photos/pets/36919577/1/?bust=1481142723&width=60&-pnt.jpg",
+    //     "http://photos.petfinder.com/photos/pets/36919577/1/?bust=1481142723&width=95&-fpm.jpg",
+    //     "http://photos.petfinder.com/photos/pets/36919577/1/?bust=1481142723&width=500&-x.jpg",
+    //     "http://photos.petfinder.com/photos/pets/36919577/1/?bust=1481142723&width=300&-pn.jpg",
+    //     "http://photos.petfinder.com/photos/pets/36919577/1/?bust=1481142723&width=50&-t.jpg"
+    // ],
     "petId" : "36919577",
     "shelterPetId" : "66897",
     "breeds" : [

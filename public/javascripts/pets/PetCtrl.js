@@ -591,6 +591,8 @@ angular.module('Pets')
     };
 
     function decodeHTMLEntities(text) {
+      if (!text) return;
+      
       var entities = [
           ['amp', '&'],
           ['apos', '\''],

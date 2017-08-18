@@ -1,23 +1,23 @@
-var express = require('express');
-var router = express.Router();
-var moment = require('moment');
+let express = require('express');
+let router = express.Router();
+let moment = require('moment');
 
-var Pets = require('../models/pets');
-var Favorite = require('../models/favorites');
-var Notification = require('../models/notifications');
+let Pets = require('../models/pets');
+let Favorite = require('../models/favorites');
+let Notification = require('../models/notifications');
 let Geocoder = require('../libraries/geocode');
 
-var Middleware = require('../middleware');
-var _ = require('lodash');
+let Middleware = require('../middleware');
+let _ = require('lodash');
 
 // @TODO: Move this to library
-var nconf = require('nconf');
-var jwt    = require('jsonwebtoken');
+let nconf = require('nconf');
+let jwt    = require('jsonwebtoken');
 
 let prerender = require('prerender-node').set('prerenderToken', nconf.get('PRERENDER_TOKEN'))
 
 function getUserFromToken (req) {
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  let token = req.body.token || req.query.token || req.headers['x-access-token'];
   return new Promise(function (resolve, reject) {
     jwt.verify(token, nconf.get('JWT_SECRET'), function(err, decoded) {
       let user;
@@ -28,11 +28,11 @@ function getUserFromToken (req) {
 }
 
 router.get('/', function(req, res, next) {
-  var limit = 20;
-  var offset = 0;
+  let limit = 20;
+  let offset = 0;
 
-  var query = {
-    rescueGroupId: {$exists: true}
+  let query = {
+    // rescueGroupId: {$exists: true}
   };
 
   if (req.query.type) {
@@ -78,98 +78,96 @@ router.get('/', function(req, res, next) {
     query.name = new RegExp(req.query.search, 'i');
   }
 
-  var pets = [];
+  let pets = [];
+  let fields = 'contact age size media breeds name sex description lastUpdate animal rescueGroupId';
+  let user = req.user;
 
-  if (!req.user) {
-    Geocoder.geocode(location)
-    .then(function (geocodeResult) {
-      if (geocodeResult) {
-        let distance = req.query.distance;
-        if (distance) {
-          query.locationCoords =
-            { $near :
-                {
-                  $geometry : {
-                     type : "Point" ,
-                     coordinates : [geocodeResult[0].longitude, geocodeResult[0].latitude], },
-                  $maxDistance : distance * 3959,
-                }
-             };
-        } else {
-          query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
-        }
+  getUserFromToken(req)
+  .then(function (userFound) {
+    user = userFound;
+    return Geocoder.geocode(location)
+  })
+  .then(function (geocodeResult) {
+    if (geocodeResult) {
+      let distance = req.query.distance;
+      if (distance) {
+        query.locationCoords =
+          { $near :
+              {
+                $geometry : {
+                   type : "Point" ,
+                   coordinates : [geocodeResult[0].longitude, geocodeResult[0].latitude], },
+                $maxDistance : distance * 3959,
+              }
+           };
+      } else {
+        query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
+      }
+    }
+
+    return Pets.find(query, fields)
+      .limit(limit)
+      .sort('-lastUpdate').exec()
+  })
+  .then (function (petsFound) {
+    pets = petsFound;
+    let petIds = _.map(pets, '_id');
+    let favoriteQuery = {
+      petID: {$in: petIds}
+    };
+
+    if (user) favoriteQuery.userID = user._id;
+
+    return Favorite.find(favoriteQuery).exec();
+  })
+  .then (function (favorites) {
+    let favoritesHashedByPetId = _.keyBy(favorites, 'petID');
+    pets = _(pets).forEach((data) => {
+      if (favoritesHashedByPetId[data._id] && favoritesHashedByPetId[data._id].active) {
+        data.userFavorited = true;
       }
 
-      return Pets.find(query).populate('shelterId')
-        .limit(limit)
-        .sort('-lastUpdate')
-        .exec();
-    })
-    .then(function (petsFound) {
-      return res.status(200).json({
-        total: pets.length,
-        pets: petsFound,
-      });
-    })
-    .catch(function (err) {
-      return res.status(400).json(err);
-    });
-  } else {
-    Geocoder.geocode(location)
-    .then(function (geocodeResult) {
-      if (geocodeResult) {
-        let distance = req.query.distance;
-        if (distance) {
-          query.locationCoords =
-            { $near :
-                {
-                  $geometry : {
-                     type : "Point" ,
-                     coordinates : [geocodeResult[0].longitude, geocodeResult[0].latitude], },
-                  $maxDistance : distance * 3959,
-                }
-             };
-        } else {
-          query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
-        }
+      // @TODO: We add these fields manually to perserve the Android Retrofit model.
+      // Eventually we should update Android to handle incomplete model responses
+      if (!data.status) data.status = '';
+      if (!data.age) data.age = '';
+      if (!data.size) data.size = '';
+      if (!data.petId) data.petId = '';
+      if (!data.shelterPetId) data.shelterPetId = '';
+      if (!data.rescueGroupId) data.rescueGroupId = '';
+      if (!data.sex) data.sex = '';
+      if (!data.lastUpdate) data.lastUpdate = '';
+      if (!data.animal) data.animal = '';
+      if (!data.favorited) data.favorited = false;
+      if (!data.name) data.name = '';
+      if (!data.breeds) data.breeds = [];
+      if (!data.contact) {
+        data.contact = {
+          phone: '',
+          state: '',
+          address2: '',
+          email: '',
+          zip: '',
+          fax: '',
+          address1: ''
+        };
       }
-
-      return Pets.find(query)
-        .limit(limit)
-        .sort('-lastUpdate').exec()
-    })
-    .then (function (petsFound) {
-      pets = petsFound;
-
-      var petIds = _.map(pets, '_id');
-      return Favorite.find({
-        userID: req.user._id,
-        petID: {$in: petIds}
-      }).exec();
-    })
-    .then (function (favorites) {
-      var favoritesHashedByPetId = _.keyBy(favorites, 'petID');
-
-      pets = _(pets).forEach(function(pet) {
-        if (favoritesHashedByPetId[pet._id] && favoritesHashedByPetId[pet._id].active) {
-          pet.userFavorited = true;
-        }
-      });
-
-      return Pets.count().exec();
-    })
-    .then(function(count) {
-      var responseData = {
-        total: count,
-        pets: pets,
-      };
-      return res.status(200).json(responseData);
-    })
-    .catch(function (err) {
-      console.log(err)
-      return res.status(400).json(err);
     });
-  }
+
+    return Pets.count().exec();
+  })
+  .then(function(count) {
+    let responseData = {
+      total: count,
+      pets: pets,
+    };
+    return res.status(200).json(responseData);
+  })
+  .catch(function (err) {
+    console.log(err)
+    return res.status(400).json(err);
+  });
+
 });
 
 router.get('/:petId', prerender, function(req, res, next) {
@@ -199,7 +197,7 @@ router.get('/:petId', prerender, function(req, res, next) {
       }).exec();
     })
     .then(function(favoriteFound) {
-      data = JSON.parse(JSON.stringify(pet)); // Clone variables but not functions
+      data = JSON.parse(JSON.stringify(pet)); // Clone letiables but not functions
 
       data.favorited = false;
 
@@ -268,7 +266,7 @@ router.post('/:petId/favorite', Middleware.hasValidToken, function(req, res, nex
       }
       return favorites[0].save();
     } else {
-      var fav = new Favorite();
+      let fav = new Favorite();
       fav.userID = req.user._id;
       fav.petID = req.params.petId;
 
