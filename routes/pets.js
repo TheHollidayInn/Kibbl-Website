@@ -179,7 +179,7 @@ router.get('/:petId', prerender, function(req, res, next) {
     .then(function (userFound) {
       user = userFound;
 
-      let fields = 'contact age size media breeds name sex description lastUpdate animal rescueGroupId';
+      let fields = 'contact age size media breeds name sex description lastUpdate animal rescueGroupId shelterId';
       return Pets
       .findOne({ _id: req.params.petId}, fields)
         .populate('shelterId')
