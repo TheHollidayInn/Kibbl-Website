@@ -35,6 +35,7 @@ var userSchema = mongoose.Schema({
       subs: {type: Number, default: 0},
       lastReset: {type: Date, default: new Date()},
     },
+    registeredOn: {type: String},
     createdAt: {type: Date, default: new Date()},
     resetPasswordToken: {type: String},
     resetPasswordExpires: {type: Date},

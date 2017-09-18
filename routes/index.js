@@ -95,6 +95,7 @@ router.post('/api/v1/register', function (req, res) {
       var newUser = new User();
       newUser.local.email = email;
       newUser.local.password = newUser.generateHash(password);
+      if (req.headers && req.headers['user-agent']) newUser.registeredOn = req.headers['user-agent'];
 
       return newUser.save()
     })
@@ -203,6 +204,7 @@ router.post('/api/v1/auth/social', function (req, res) {
             newUser = user;
           } else {
             newUser = new User();
+            if (req.headers && req.headers['user-agent']) newUser.registeredOn = req.headers['user-agent'];
           }
 
           newUser.facebook.id    = profile.id; // set the users facebook id
