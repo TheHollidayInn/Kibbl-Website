@@ -18,6 +18,10 @@ angular.module('Kibbl', ['ngRoute', 'ngStorage', 'ui.bootstrap', 'socialLogin', 
         templateUrl: 'home.html',
         controller: 'HomeCtrl'
       })
+      .when('/home', {
+        templateUrl: 'home.html',
+        controller: 'HomeCtrl'
+      })
       .when('/login', {
         templateUrl: 'login.html',
         controller: 'HomeCtrl'
