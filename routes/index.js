@@ -8,6 +8,8 @@ var Middleware = require('../middleware');
 
 var stripe = require('stripe')(nconf.get('stripe:secretKey'));
 var jwt    = require('jsonwebtoken');
+const Mailchimp = require('mailchimp-api-v3')
+const mailchimpApi = new Mailchimp(nconf.get('MAIL_CHIMP_API'));
 
 var Donations = require('../models/donations');
 var User = require('../models/user');
@@ -95,6 +97,13 @@ router.post('/api/v1/register', function (req, res) {
       var newUser = new User();
       newUser.local.email = email;
       newUser.local.password = newUser.generateHash(password);
+
+      // Subscribe to automation
+      mailchimpApi.post('/lists/639ce8bf75/members', {
+        email_address : email,
+        status : 'subscribed',
+      });
+
       if (req.headers && req.headers['user-agent']) newUser.registeredOn = req.headers['user-agent'];
 
       return newUser.save()
@@ -204,6 +213,11 @@ router.post('/api/v1/auth/social', function (req, res) {
             newUser = user;
           } else {
             newUser = new User();
+            // Subscribe to automation
+            mailchimpApi.post('/lists/639ce8bf75/members', {
+              email_address : profile.emails[0].value,
+              status : 'subscribed',
+            });
             if (req.headers && req.headers['user-agent']) newUser.registeredOn = req.headers['user-agent'];
           }
 

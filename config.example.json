@@ -27,5 +27,6 @@
     "DOMAIN": ""
   },
   "JWT_SECRET": "",
-  "PRERENDER_TOKEN": ""
+  "PRERENDER_TOKEN": "",
+  "MAIL_CHIMP_API": ""
 }
