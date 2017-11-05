@@ -1,0 +1,63 @@
+<template lang="pug">
+div
+  .container-fluid.banner
+    .container
+      .col-md-6.col-md-offset-3
+        h1.text-center {{shelter.name}}
+
+  //.container-fluid.container-detail
+    .container
+      .row
+        .col-md-9
+          .well.img-feature-wrapper(ng-if='shelter.facebook.cover')
+            div.img-feature(style="background-image:url({{shelter.facebook.cover}})")
+        .col-md-3
+          //- button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
+          button.btn.btn-raised.btn-primary(ng-click='subscribe()', ng-if='!shelter.subscribed') Subscribe
+          button.btn.btn-raised.btn-warning(ng-click='subscribe(true)', ng-if='shelter.subscribed') Unubscribe
+          button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!shelter.favorited')
+            | Save
+            //- i(style="font-size: 2rem;").material-icons star_border
+          button.btn.btn-raised.btn-primary.btn-favorite-active(ng-click='favorite()', ng-if='shelter.favorited')
+            | Save
+            //- i(style="font-size: 2rem;").material-icons star
+
+  //.container(style="margin-top: 2rem;")
+    .row
+      .col-md-8
+        .well
+          a.btn.btn-primary(href='/pets/shelter/{{shelter._id}}') View Pets
+          a.btn.btn-primary(href='/events/shelter/{{shelter._id}}') View Events
+          h3 Description
+          p(ng-if='shelter.description') {{shelter.description}}
+          p(ng-if='shelter.about') {{shelter.about}}
+
+        comments(item-id='shelter._id')
+      .col-md-4
+        .well
+          h3 Contact
+
+          div
+            div(ng-if="shelter.email") {{shelter.email}}
+            div(ng-if="shelter.phone") {{shelter.phone}}
+
+          a.btn.btn-primary(ng-if='shelter.facebook.id', href='http://facebook.com/{{shelter.facebook.id}}', target="_blank") Facebook Page
+
+        .well
+          a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='https://www.facebook.com/sharer/sharer.php?u={{url}}&src=sdkpreparse')
+            i.fa.fa-facebook-official
+            |  Share
+          a.btn.btn-block.btn-raised.btn-twitter(target="_new", href='{{twitterUrl}}')
+            i.fa.fa-twitter-square
+            |  Tweet
+</template>
+
+<script>
+  export default {
+    name: 'ShelterDetail'
+  }
+</script>
+
+<style>
+
+</style>

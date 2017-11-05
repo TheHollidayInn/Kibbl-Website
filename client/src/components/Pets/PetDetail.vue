@@ -1,0 +1,69 @@
+<template lang="pug">
+div
+  .container-fluid.banner
+    .container
+      h1.text-center {{pet.name}}
+
+  //.container-fluid.container-detail
+    .container
+      .row
+        .col-md-9
+          .well.img-feature-wrapper(ng-if='pet.media[0].urlSecureFullsize')
+            div.img-feature(style="background-image:url({{pet.media[0].urlSecureFullsize}})")
+        .col-md-3
+          //- button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
+          button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!pet.favorited')
+            | Save
+            //- i(style="font-size: 2rem;").material-icons star_border
+          button.btn.btn-raised.btn-primary.btn-favorite-active(ng-click='favorite()', ng-if='pet.favorited')
+            | Save
+            //- i(style="font-size: 2rem;").material-icons star
+
+  //.container(style="margin-top: 2rem;")
+    .row
+      .col-md-8
+        .well
+          h3 Description
+          p(style="white-space: pre-wrap;") {{decodeHTMLEntities(pet.description)}}
+
+        comments(item-id='pet._id')
+
+      .col-md-3
+        .well
+          h3 Details
+          ul
+            li(ng-if='pet.shelterId.name')
+              a(href='/shelters/{{pet.shelterId._id}}', target='_blank') {{pet.shelterId.name}}
+            li Age: {{pet.age}}
+            li Type: {{pet.animal}}
+            li Updated: {{pet.lastUpdate | date}}
+
+          div(ng-if='pet.contact.email || pet.contact.phone')
+            h3 Contact
+            div {{pet.contact.email}}
+            div {{pet.contact.phone}}
+
+          h3 Breed
+          ul
+            li(ng-repeat="breed in pet.breeds") {{breed}}
+
+          a.btn.btn-primary(ng-if='pet.contact.url', href="pet.contact.url", target="_blank") Webpage
+
+        .well
+          a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='https://www.facebook.com/sharer/sharer.php?u={{url}}&src=sdkpreparse')
+            i.fa.fa-facebook-official
+            |  Share
+          a.btn.btn-block.btn-raised.btn-twitter(target="_new", href='{{twitterUrl}}')
+            i.fa.fa-twitter-square
+            |  Tweet
+</template>
+
+<script>
+  export default {
+    name: 'PetDetail'
+  }
+</script>
+
+<style>
+
+</style>

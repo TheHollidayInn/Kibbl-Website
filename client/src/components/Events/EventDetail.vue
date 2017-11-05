@@ -1,0 +1,63 @@
+<template lang="pug">
+div
+  .container-fluid.banner
+    .container
+      .col-md-6.col-md-offset-3
+        h1.text-center {{event.name}}
+
+  //.container-fluid.container-detail
+    .container
+      .row
+        .col-md-9
+          .well.img-feature-wrapper(ng-if='event.facebook.cover')
+            div.img-feature(style="background-image:url({{event.facebook.cover}})")
+        .col-md-3
+          //- button.btn.btn-raised.btn-primary(type='button', data-toggle='modal', data-target='#contact') Contact
+          button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', ng-if='!event.favorited')
+            | Save
+            //- i(style="font-size: 2rem;").material-icons star_border
+          button.btn.btn-raised.btn-primary.btn-favorite-active(ng-click='favorite()', ng-if='event.favorited')
+            | Save
+            //- i(style="font-size: 2rem;").material-icons star
+  //.container(style="margin-top: 2rem;")
+    .row
+      .col-md-9
+        .well
+          h3 Description
+          p(style="white-space: pre-wrap;") {{event.description}}
+
+        comments(item-id='event._id')
+      //.col-md-3
+        .well
+          h3 Details
+
+          div(ng-if='event.shelterId.name')
+            a(href='/shelters/{{event.shelterId._id}}', target='_blank') {{event.shelterId.name}}
+
+          div
+            strong Start:
+            | {{event.start_time}}
+          br
+          div End: {{event.end_time}}
+          br
+          div Location: {{event.place.location.street + ', ' + event.place.location.city + ', ' + event.place.location.state}}
+          br
+          a.btn.btn-primary(href="https://facebook.com/events/{{event.id}}", target="_blank") Webpage
+        .well
+          a.btn.btn-block.btn-raised.btn-facebook(target="_new", ng-href='https://www.facebook.com/sharer/sharer.php?u={{url}}&src=sdkpreparse')
+            i.fa.fa-facebook-official
+            |  Share
+          a.btn.btn-block.btn-raised.btn-twitter(target="_new", href='twitterUrl')
+            i.fa.fa-twitter-square
+            |  Tweet
+</template>
+
+<script>
+  export default {
+    name: 'EventDetail'
+  }
+</script>
+
+<style>
+
+</style>
