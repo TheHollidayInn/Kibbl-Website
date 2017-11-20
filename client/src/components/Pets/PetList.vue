@@ -38,6 +38,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
   import PetListItem from './PetListItem'
 
   export default {
@@ -84,6 +85,12 @@
         search: '',
         location: ''
       }
+    },
+    mounted () {
+      axios.get('/api/v1/pets')
+        .then((response) => {
+          this.pets = response.data.pets
+        })
     }
   }
 </script>

@@ -3,7 +3,7 @@ a(href='/events/event._id')
   .grid-content.gradient
     .col-12.text-center
       .image-circle-default(v-if='!event.facebook || !event.facebook.cover')
-      .image-circle(v-if='event.facebook && event.facebook.cover', style='background-image:url(event.facebook.cover)')
+      .image-circle(v-if='event.facebook && event.facebook.cover', :style='`background-image:url(${event.facebook.cover})`')
     .col-12
       h3 {{event.name}}
       h5 {{event.start_time}}

@@ -122,7 +122,6 @@
     margin: 0 auto;
     background-position: center;
     background-size: cover;
-    margin-top: 2.5rem;
   }
 
   /* Banner */
@@ -193,7 +192,12 @@
   }
 
   .grid-item h3 {
-    font-size: 20px;
+    font-size: 16px;
+    margin-top: .5em;
+  }
+
+  .grid-item h5 {
+    font-size: 10px;
   }
 
   .bg-img {

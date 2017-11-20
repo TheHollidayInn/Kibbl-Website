@@ -53,6 +53,8 @@ div
 </template>
 
 <script>
+import axios from 'axios'
+
 import EventListItem from './Events/EventListItem'
 import PetListItem from './Pets/PetListItem'
 import ShelterListItem from './Shelters/ShelterListItem'
@@ -119,6 +121,17 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    axios.get('api/v1/latest', {})
+    .then((response) => {
+      const latest = response.data.data
+      this.events = latest.events
+      this.pets = latest.pets
+      // this.opportunities = latest.volunteerOpportunity;
+      this.shelters = latest.shelters
+      this.loading = false
+    })
   }
 }
 </script>

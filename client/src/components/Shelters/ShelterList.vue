@@ -20,6 +20,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
   import ShelterListItem from './ShelterListItem'
 
   export default {
@@ -45,6 +46,12 @@
           }
         ]
       }
+    },
+    mounted () {
+      axios.get('/api/v1/shelters')
+        .then((response) => {
+          this.shelters = response.data.data
+        })
     }
   }
 </script>

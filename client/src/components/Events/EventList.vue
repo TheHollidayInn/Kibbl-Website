@@ -43,7 +43,14 @@
 </template>
 
 <script>
+  import axios from 'axios'
+  import groupBy from 'lodash/groupBy'
   import EventListItem from './EventListItem'
+
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ]
 
   export default {
     name: 'EventList',
@@ -52,24 +59,22 @@
     },
     data () {
       return {
-        loading: false
+        loading: false,
+        events: []
       }
+    },
+    mounted () {
+      axios.get('/api/v1/events')
+        .then((response) => {
+          this.events = response.data.data
+        })
     },
     computed: {
       groupedEvents () {
-        return {
-          'Thurday': [
-            {
-              time: '8:30 am – 1 pm',
-              date: '2001-09-16T05:00:00.000Z',
-              location: 'Parfet Park, Downtown Golden',
-              description: 'We are excited to announce that we have a new, dedicated website for Toby’s Pet Parade & Fair! On the website, you’ll find all the information you need about how to register for the Parade, costume ideas, details about the Fair and more!\nThe second annual event will be held on Saturday, September 16 in downtown Golden, CO. Dress up your dog in their best costume and join us for a celebration to benefit Foothills Animal Shelter. From a pet costume parade and contests, to flyball and agility demos, to family-friendly games and activities, you’re sure to find something for everyone, all while helping us raise critical funds to support the homeless pets at Foothills Animal Shelter!\nCLICK HERE TO LEARN MORE ABOUT TOBY’S PET PARADE & FAIR.\n- See more at: http://foothillsanimalshelter.org/newsevents/events/tobys-pet-parade-fair/#sthash.ocE0RFRD.dpuf',
-              name: 'Toby’s Pet Parade & Fair',
-              _id: '59f32b19d0573a21ce72e8e7',
-              createdAt: '2017-10-27T12:48:25.339Z'
-            }
-          ]
-        }
+        return groupBy(this.events, (group) => {
+          const date = new Date(group.start_time)
+          return monthNames[date.getMonth()] + ' ' + date.getDate()
+        })
       }
     }
   }

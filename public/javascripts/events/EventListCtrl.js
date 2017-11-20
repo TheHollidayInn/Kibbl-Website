@@ -43,7 +43,6 @@ angular.module('Events')
 		  "July", "August", "September", "October", "November", "December"
 		];
 
-
 		$scope.getEvents = function () {
 			if ($scope.filters.autocomplete) {
 				$scope.filters.zipCode = getPostCode($scope.filters.autocomplete);

@@ -3,7 +3,7 @@ a(href='`/pets/${pet._id}`')
   .grid-content.gradient
     .col-12.text-center
       .image-circle-default(v-if='!image')
-      .image-circle(v-else, style='`background-image:url(${image})`')
+      .image-circle(v-else, :style='`background-image:url(${image})`')
     .col-12
       h3 {{pet.name}}
       //- h5 {{pet.description}}
