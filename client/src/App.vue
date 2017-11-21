@@ -143,7 +143,7 @@
     /*background-image: url('//www.petfinder.com/wp-content/uploads/2016/08/slide-1.jpg');*/
     background: #C14216;
     background-size: 100%;
-    padding: 5rem;
+    padding: 3rem;
     background-position: center;
   }
 
@@ -245,14 +245,19 @@
     color: white !important;
     width: 31%;
     text-align: center;
-    background-color: gold !important;
+    background-color: #ff9933 !important;
+    border-color: #ff9933 !important;
+    cursor: pointer;
   }
 
   .btn-favorite {
     color: white !important;
     width: 31%;
     text-align: center;
-    background-color: gray !important;
+    background-color: #ff9933 !important;
+    border-color: #ff9933 !important;
+    cursor: pointer;
+    opacity: .8;
   }
 
   .btn-contact {

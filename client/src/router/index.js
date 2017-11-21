@@ -8,13 +8,13 @@ import ResetPage from '@/components/Auth/ResetPage'
 import ForgotPassword from '@/components/Auth/ForgotPassword'
 
 import EventList from '@/components/Events/EventList'
-// import EventDetail from '@/components/Events/EventDetail'
+import EventDetail from '@/components/Events/EventDetail'
 
 import PetList from '@/components/Pets/PetList'
-// import PetDetail from '@/components/Pets/PetDetail'
+import PetDetail from '@/components/Pets/PetDetail'
 
 import ShelterList from '@/components/Shelters/ShelterList'
-// import ShelterDetail from '@/components/Shelters/ShelterDetail'
+import ShelterDetail from '@/components/Shelters/ShelterDetail'
 
 import FavoritesList from '@/components/FavoritesList'
 import MarketingPage from '@/components/MarketingPage'
@@ -67,37 +67,31 @@ export default new Router({
       path: '/events',
       name: 'EventList',
       component: EventList
-      // children: [
-      //   {
-      //     path: '/:eventId',
-      //     name: 'EventDetail',
-      //     component: EventDetail
-      //   }
-      // ]
+    },
+    {
+      path: '/events/:eventId',
+      name: 'EventDetail',
+      component: EventDetail
     },
     {
       path: '/pets',
       name: 'PetList',
       component: PetList
-      // children: [
-      //   {
-      //     path: '/:petId',
-      //     name: 'PetDetail',
-      //     component: PetDetail
-      //   }
-      // ]
+    },
+    {
+      path: '/pets/:petId',
+      name: 'PetDetail',
+      component: PetDetail
     },
     {
       path: '/shelters',
       name: 'ShelterList',
       component: ShelterList
-      // children: [
-      //   {
-      //     path: '/:shelterId',
-      //     name: 'ShelterDetail',
-      //     component: ShelterDetail
-      //   }
-      // ]
+    },
+    {
+      path: '/shelters/:shelterId',
+      name: 'ShelterDetail',
+      component: ShelterDetail
     }
   ]
 })

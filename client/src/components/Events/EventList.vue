@@ -4,7 +4,7 @@
     .col-12.header
       h1(v-if='!loading') Events
       h1.loader(v-if='loading') Loading...
-    .col-3.filters
+    .col-12.d-sm-none.col-md-3.filters
       .form-group
         label Search
         input.form-control(ng-model='filters.search', type='text')
@@ -35,7 +35,7 @@
               i.glyphicon.glyphicon-calendar
       .form-group
         button.btn.btn-primary.btn-raised.hidden-xs(@click='filter()') Filter
-    .col-9
+    .col-12.col-md-9
       .row(infinite-scroll="scroll()", v-for="(events, key) in groupedEvents")
         h2.col-12.text-center {{key}}
         .col-12.col-md-4.grid-item(v-for="event in events")
