@@ -21,7 +21,7 @@ div
         .well
           h3 Description
           //p(style="white-space: pre-wrap;") {{decodeHTMLEntities(pet.description)}}
-        //- comments(item-id='pet._id')
+        comments(:item-id='pet._id', v-if='pet._id')
       .col-md-3
         .well
           h3 Details
@@ -50,9 +50,13 @@ div
 
 <script>
   import axios from 'axios'
+  import Comments from '@/components/Comments'
 
   export default {
     name: 'PetDetail',
+    components: {
+      Comments
+    },
     data () {
       return {
         pet: {},

@@ -22,7 +22,7 @@ div
         .well
           h3 Description
           p(style="white-space: pre-wrap;") {{event.description}}
-        //- comments(item-id='event._id')
+        comments(:item-id='event._id', v-if='event._id')
       .col-12.col-md-3
         .well
           h3 Details
@@ -47,9 +47,13 @@ div
 
 <script>
   import axios from 'axios'
+  import Comments from '@/components/Comments'
 
   export default {
     name: 'EventDetail',
+    components: {
+      Comments
+    },
     data () {
       return {
         event: {},

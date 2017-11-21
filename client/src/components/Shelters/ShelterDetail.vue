@@ -26,7 +26,7 @@ div
           h3 Description
           p(ng-if='shelter.description') {{shelter.description}}
           p(ng-if='shelter.about') {{shelter.about}}
-        //- comments(item-id='shelter._id')
+        comments(:item-id='shelter._id', v-if='shelter._id')
       .col-12.col-md-4
         .well
           h3 Contact
@@ -44,9 +44,13 @@ div
 
 <script>
   import axios from 'axios'
+  import Comments from '@/components/Comments'
 
   export default {
     name: 'ShelterDetail',
+    components: {
+      Comments
+    },
     data () {
       return {
         shelter: {},
