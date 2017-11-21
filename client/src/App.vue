@@ -6,11 +6,25 @@
 
 <script>
   import NavBar from './components/NavBar'
+  import axios from 'axios'
 
   export default {
     name: 'app',
     components: {
       NavBar
+    },
+    mounted () {
+      axios.interceptors.request.use(function (config) {
+        // Do something before request is sent
+        const userToken = localStorage.getItem('user-token')
+        config.headers.Authorization = 'Bearer ' + userToken
+        config.headers['x-access-token'] = userToken
+
+        return config
+      }, function (error) {
+        // Do something with request error
+        return Promise.reject(error)
+      })
     }
   }
 </script>

@@ -41,7 +41,7 @@ section.container
         })
         .then(response => {
           // @TODO: Set in store
-          console.log(response.data.token)
+          localStorage.setItem('user-token', response.data.token)
         })
         .catch(err => {
           alert(err.response.data.message)
