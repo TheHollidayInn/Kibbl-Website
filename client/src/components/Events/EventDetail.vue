@@ -12,10 +12,8 @@ div
             div.img-feature(:style="`background-image:url(${event.facebook.cover})`")
         .col-md-3.action-buttons
           a.btn.btn-primary(:href="`https://facebook.com/events/${event.id}`", target="_blank") Webpage
-          button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', v-if='!event.favorited')
-            | Favorite
-          button.btn.btn-raised.btn-primary.btn-favorite-active(ng-click='favorite()', v-if='event.favorited')
-            | Remove
+          button.btn.btn-favorite(@click='favorite()', v-if='!event.favorited') Favorite
+          button.btn.btn-favorite-active(@click='favorite()', v-if='event.favorited') Remove
   .container(style="margin-top: 2rem;")
     .row
       .col-12.col-md-9
@@ -24,30 +22,32 @@ div
           p(style="white-space: pre-wrap;") {{event.description}}
         comments(:item-id='event._id', v-if='event._id')
       .col-12.col-md-3
-        .well
+        .well.details
           h3 Details
           div(v-if='event.shelterId && event.shelterId.name')
             a(:href='`/shelters/${event.shelterId._id}`', target='_blank') {{event.shelterId.name}}
           div
             strong Start:
-            | {{event.start_time}}
-          br
-          div End: {{event.end_time}}
-          br
+            | {{startTime}}
+          div
+            strong End:
+            | {{endTime}}
           div(v-if='event.place')
             | Location: {{event.place.location.street + ', ' + event.place.location.city + ', ' + event.place.location.state}}
         .well.social-buttons
-          a.btn.btn-block.btn-raised.btn-facebook(target="_new", :href='`https://www.facebook.com/sharer/sharer.php?u=${facebookUrl}&src=sdkpreparse`')
+          a.btn.btn-block.btn-raised.btn-facebook(target="_new", :href='facebookUrl')
             i.fa.fa-facebook-official
             |  Share
-          a.btn.btn-block.btn-raised.btn-twitter(target="_new", href='twitterUrl')
+          a.btn.btn-block.btn-raised.btn-twitter(target="_new", :href='twitterUrl')
             i.fa.fa-twitter-square
             |  Tweet
 </template>
 
 <script>
   import axios from 'axios'
+  import moment from 'moment'
   import Comments from '@/components/Comments'
+  import { parameterize } from '@/libs/queryHelper'
 
   export default {
     name: 'EventDetail',
@@ -56,8 +56,27 @@ div
     },
     data () {
       return {
-        event: {},
-        facebookUrl: ''
+        event: {}
+      }
+    },
+    computed: {
+      facebookUrl () {
+        const url = window.location.href
+        return `https://www.facebook.com/sharer/sharer.php?u=${url}&src=sdkpreparse`
+      },
+      twitterUrl () {
+        const url = window.location.href
+        const tweetDetails = {
+          url,
+          text: 'Check out this amazing event on Kibbl: '
+        }
+        return 'https://twitter.com/intent/tweet?' + parameterize(tweetDetails)
+      },
+      startTime () {
+        return moment(this.event.start_time).format('LLLL')
+      },
+      endTime () {
+        return moment(this.event.end_time).format('LLLL')
       }
     },
     mounted () {
@@ -67,6 +86,16 @@ div
         .then((response) => {
           this.event = response.data.data
         })
+    },
+    methods: {
+      favorite () {
+        this.event.favorited = !this.event.favorited
+
+        axios.post('/api/v1/favorites', {
+          type: 'event',
+          itemId: this.event._id
+        })
+      }
     }
   }
 </script>
@@ -93,5 +122,9 @@ div
 
   .action-buttons .btn-favorite {
     background-color: #ff9933;
+  }
+
+  .details strong {
+    margin-right: .5em
   }
 </style>
