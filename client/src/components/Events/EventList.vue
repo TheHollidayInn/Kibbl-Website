@@ -1,5 +1,5 @@
 <template lang="pug">
-.container-fluid(ng-class="{collapsed: filterCollapsed}")
+.container-fluid
   .row
     .col-12.header
       h1(v-if='!loading') Events
@@ -64,10 +64,16 @@
       }
     },
     mounted () {
-      axios.get('/api/v1/events')
-        .then((response) => {
-          this.events = response.data.data
-        })
+      this.loadEvents()
+    },
+    beforeRouteUpdate (to, from, next) {
+      this.loadEvents()
+      next()
+    },
+    watch: {
+      '$route' (to, from) {
+        this.loadEvents()
+      }
     },
     computed: {
       groupedEvents () {
@@ -75,6 +81,17 @@
           const date = new Date(group.start_time)
           return monthNames[date.getMonth()] + ' ' + date.getDate()
         })
+      }
+    },
+    methods: {
+      loadEvents () {
+        let params = {}
+        if (this.$route.params.shelterId) params.shelterId = this.$route.params.shelterId
+
+        axios.get('/api/v1/events', {params})
+          .then((response) => {
+            this.events = response.data.data
+          })
       }
     }
   }

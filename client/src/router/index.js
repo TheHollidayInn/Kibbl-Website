@@ -75,6 +75,11 @@ export default new Router({
       component: EventDetail
     },
     {
+      path: '/events/shelter/:shelterId',
+      name: 'ShelterEventList',
+      component: EventList
+    },
+    {
       path: '/pets',
       name: 'PetList',
       component: PetList
@@ -83,6 +88,11 @@ export default new Router({
       path: '/pets/:petId',
       name: 'PetDetail',
       component: PetDetail
+    },
+    {
+      path: '/pets/shelter/:shelterId',
+      name: 'ShelterPetList',
+      component: PetList
     },
     {
       path: '/shelters',

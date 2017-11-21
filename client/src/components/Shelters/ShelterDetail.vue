@@ -21,8 +21,8 @@ div
     .row
       .col-12.col-md-8
         .well
-          a.btn.btn-primary(:href='`/pets/shelter/${shelter._id}`') View Pets
-          a.btn.btn-primary(:href='`/events/shelter/${shelter._id}`') View Events
+          router-link.btn.btn-primary(:to="{ name: 'ShelterPetList', params: { shelterId: shelter._id } }") View Pets
+          router-link.btn.btn-primary(:to="{ name: 'ShelterEventList', params: { shelterId: shelter._id } }") View Events
           h3 Description
           p(ng-if='shelter.description') {{shelter.description}}
           p(ng-if='shelter.about') {{shelter.about}}

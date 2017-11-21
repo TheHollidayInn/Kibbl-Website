@@ -1,5 +1,5 @@
 <template lang="pug">
-.container-fluid(ng-class="{collapsed: filterCollapsed}")
+.container-fluid
   .row
     .col-12.header
       h1(v-if='!loading') Pets
@@ -87,10 +87,27 @@
       }
     },
     mounted () {
-      axios.get('/api/v1/pets')
-        .then((response) => {
-          this.pets = response.data.pets
-        })
+      this.loadPets()
+    },
+    beforeRouteUpdate (to, from, next) {
+      this.loadPets()
+      next()
+    },
+    watch: {
+      '$route' (to, from) {
+        this.loadPets()
+      }
+    },
+    methods: {
+      loadPets () {
+        let params = {}
+        if (this.$route.params.shelterId) params.shelterId = this.$route.params.shelterId
+
+        axios.get('/api/v1/pets', {params})
+          .then((response) => {
+            this.pets = response.data.pets
+          })
+      }
     }
   }
 </script>

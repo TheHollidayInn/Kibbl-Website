@@ -6,13 +6,20 @@ router-link(:to="{ path: `/events/${event._id}` }")
       .image-circle(v-if='event.facebook && event.facebook.cover', :style='`background-image:url(${event.facebook.cover})`')
     .col-12
       h3 {{event.name}}
-      h5 {{event.start_time}}
+      h5 {{startTime}}
 </template>
 
 <script>
+  import moment from 'moment'
+
   export default {
     name: 'EventListItem',
-    props: ['event']
+    props: ['event'],
+    computed: {
+      startTime () {
+        return moment(this.event.start_time).format('LLLL')
+      }
+    }
   }
 </script>
 
