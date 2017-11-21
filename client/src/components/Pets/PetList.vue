@@ -4,7 +4,7 @@
     .col-12.header
       h1(v-if='!loading') Pets
       h1.loader(v-if='loading') Loading...
-    .col-3.filters
+    .col-3.d-none.d-sm-none.d-md-block.filters
       .form-group
         label Search
         input.form-control(ng-model='filters.search', type='text')
@@ -31,7 +31,7 @@
           option(v-for='option in petGenders', value="option.value") {{option.key}}
       .form-group
         button.btn.btn-primary.btn-raised.hidden-xs(ng-click='filter()') Filter
-    .col-9
+    .col-12.col-md-9
       .row(infinite-scroll="scroll()", infinite-scroll-distance="1")
         .col-12.col-md-4.grid-item(v-for="pet in pets")
           pet-list-item(:pet='pet')

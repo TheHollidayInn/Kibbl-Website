@@ -1,5 +1,5 @@
 <template lang="pug">
-a(href='`/pets/${pet._id}`')
+router-link(:to="{ path: `/pets/${pet._id}` }")
   .grid-content.gradient
     .col-12.text-center
       .image-circle-default(v-if='!image')

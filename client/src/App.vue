@@ -143,7 +143,7 @@
     /*background-image: url('//www.petfinder.com/wp-content/uploads/2016/08/slide-1.jpg');*/
     background: #C14216;
     background-size: 100%;
-    padding: 3rem;
+    padding: 4rem;
     background-position: center;
   }
 

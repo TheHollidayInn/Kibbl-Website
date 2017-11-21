@@ -1,5 +1,5 @@
 <template lang="pug">
-a(:href='`/#/events/${event._id}`')
+router-link(:to="{ path: `/events/${event._id}` }")
   .grid-content.gradient
     .col-12.text-center
       .image-circle-default(v-if='!event.facebook || !event.facebook.cover')

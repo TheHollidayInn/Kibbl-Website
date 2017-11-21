@@ -12,23 +12,23 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
   #navbarSupportedContent.collapse.navbar-collapse
     ul.navbar-nav.mr-auto
       li.nav-item
-        router-link.nav-link(:to="{ path: 'home' }")
+        router-link.nav-link(:to="{ path: '/home' }")
           | Home
           span.sr-only (current)
       li.nav-item
-        router-link.nav-link(:to="{ path: 'events' }") Events
+        router-link.nav-link(:to="{ path: '/events' }") Events
       li.nav-item
-        router-link.nav-link(:to="{ path: 'pets' }") Pets
+        router-link.nav-link(:to="{ path: '/pets' }") Pets
       li.nav-item
-        router-link.nav-link(:to="{ path: 'shelters' }") Shelters
+        router-link.nav-link(:to="{ path: '/shelters' }") Shelters
     ul.navbar-nav.my-2.my-lg-0
       li.nav-item
         a.nav-link(href="/#/notifications", v-if='isLoggedIn')
           span.glyphicon.glyphicon-bell
       li.nav-item(v-if='!isLoggedIn')
-        router-link.nav-link(:to="{ path: 'register' }") Register
+        router-link.nav-link(:to="{ path: '/register' }") Register
       li.nav-item(v-if='!isLoggedIn')
-        router-link.nav-link(:to="{ path: 'login' }") Login
+        router-link.nav-link(:to="{ path: '/login' }") Login
       li.nav-item.dropdown(v-if='isLoggedIn')
         a.nav-link.dropdown-toggle
           | Profile

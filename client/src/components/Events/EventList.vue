@@ -4,7 +4,7 @@
     .col-12.header
       h1(v-if='!loading') Events
       h1.loader(v-if='loading') Loading...
-    .col-12.d-sm-none.col-md-3.filters
+    .col-12.d-sm-none.d-md-block.col-md-3.filters
       .form-group
         label Search
         input.form-control(ng-model='filters.search', type='text')
