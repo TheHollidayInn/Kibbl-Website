@@ -90,5 +90,4 @@ div
   .action-buttons .btn-favorite {
     background-color: #ff9933;
   }
-
 </style>

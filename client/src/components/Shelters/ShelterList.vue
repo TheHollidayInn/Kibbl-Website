@@ -4,7 +4,7 @@
     .col-12.header
       h1(v-if='!loading') Shelters
       h1.loader(v-if='loading') Loading...
-    .col-3.filters
+    .col-3.d-none.d-sm-none.d-md-block.filters
       .form-group
         label Search
         input.form-control(v-model='filters.search', type='text')
@@ -13,7 +13,7 @@
         input.form-control(v-model='filters.location', type='text', googleplace-autocomplete, googleplace-autocomplete-place='filters.autocomplete')
       .form-group
         button.btn.btn-primary.btn-raised(@click='filter()') Filter
-    .col-9
+    .col-12.col-md-9
       .row(infinite-scroll="scroll()", infinite-scroll-distance="1")
         .col-12.col-md-4.grid-item(v-for="shelter in shelters")
           shelter-list-item(:shelter='shelter')
