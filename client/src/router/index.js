@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '@/components/HomePage'
+import FeedbackPage from '@/components/FeedbackPage'
 
 import LoginPage from '@/components/Auth/LoginPage'
 import RegisterPage from '@/components/Auth/RegisterPage'
@@ -38,6 +39,11 @@ export default new Router({
       path: '/home',
       name: 'HomePage',
       component: HomePage
+    },
+    {
+      path: '/feedback',
+      name: 'FeedbackPage',
+      component: FeedbackPage
     },
     {
       path: '/login',

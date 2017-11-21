@@ -23,6 +23,8 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         router-link.nav-link(:to="{ path: '/shelters' }") Shelters
     ul.navbar-nav.my-2.my-lg-0
       li.nav-item
+        router-link.nav-link(:to="{ path: '/feedback' }") Feedback
+      li.nav-item
         a.nav-link(href="/#/notifications", v-if='isLoggedIn')
           span.glyphicon.glyphicon-bell
       li.nav-item(v-if='!isLoggedIn')
