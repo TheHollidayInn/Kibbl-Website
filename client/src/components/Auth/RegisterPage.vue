@@ -20,6 +20,8 @@ section.container
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     name: 'RegisterPage',
     data () {
@@ -30,7 +32,17 @@ section.container
     },
     methods: {
       register () {
-        console.log(this.email, this.password)
+        axios.post('/api/v1/register', {
+          email: this.email,
+          password: this.password
+        })
+        .then(response => {
+          // @TODO: Set in store
+          console.log(response.data.token)
+        })
+        .catch(err => {
+          alert(err.response.data.message)
+        })
       }
     }
   }

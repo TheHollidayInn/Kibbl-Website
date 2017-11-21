@@ -23,6 +23,8 @@ section.container
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     name: 'LoginPage',
     data () {
@@ -33,7 +35,17 @@ section.container
     },
     methods: {
       login () {
-        console.log(this.email, this.password)
+        axios.post('/api/v1/login', {
+          email: this.email,
+          password: this.password
+        })
+        .then(response => {
+          // @TODO: Set in store
+          console.log(response.data.token)
+        })
+        .catch(err => {
+          alert(err.response.data.message)
+        })
       }
     }
   }
