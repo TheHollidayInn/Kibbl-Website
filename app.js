@@ -51,7 +51,7 @@ app.use(session({
 }));
 
 var oneWeek = 604800000;
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
 app.use(session({ secret: nconf.get('db:PASSPORT_SESSION_SECRET') })); // session secret

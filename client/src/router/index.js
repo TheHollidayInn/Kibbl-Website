@@ -34,6 +34,26 @@ export default new Router({
       component: MarketingPage
     },
     {
+      path: '/petyourdog',
+      name: 'petyourdog',
+      component: MarketingPage
+    },
+    {
+      path: '/canipetyourdog',
+      name: 'petyourdog',
+      component: MarketingPage
+    },
+    {
+      path: '/facebook',
+      name: 'facebook',
+      component: MarketingPage
+    },
+    {
+      path: '/googleadwords',
+      name: 'googleadwords',
+      component: MarketingPage
+    },
+    {
       path: '/',
       name: 'HomePage',
       component: HomePage
