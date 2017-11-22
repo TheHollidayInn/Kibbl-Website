@@ -37,8 +37,9 @@ section.container
           password: this.password
         })
         .then(response => {
-          // @TODO: Set in store
           localStorage.setItem('user-token', response.data.token)
+          this.$store.commit('setToken', response.data.token)
+          this.$router.push('Home')
         })
         .catch(err => {
           alert(err.response.data.message)

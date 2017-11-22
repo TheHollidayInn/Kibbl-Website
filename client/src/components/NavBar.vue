@@ -38,7 +38,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         b-dropdown-item
           a.dropdown-item(href="#", @click='logout()') Logout
       li.nav-item
-        router-link.nav-link(:to="{ path: '/feedback' }") Feedback
+        router-link.nav-link(:to="{ path: '/feedback' }", style='margin-top: .2em') Feedback
 </template>
 
 <script>
@@ -51,7 +51,9 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
     },
     methods: {
       logout () {
-
+        localStorage.setItem('user-token', '')
+        this.$store.commit('setToken', '')
+        this.$router.push('Home')
       }
     }
   }
