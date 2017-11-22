@@ -25,20 +25,17 @@ div
       .col-md-3
         .well
           h3 Details
-          ul
-            li(v-if='pet.shelterId && pet.shelterId.name')
-              a(:href='`/shelters/${pet.shelterId._id}`', target='_blank') {{pet.shelterId.name}}
-            li Age: {{pet.age}}
-            li Type: {{pet.animal}}
-            //li Updated: {{pet.lastUpdate | date}}
+          div(v-if='pet.shelterId && pet.shelterId.name')
+            a(:href='`/shelters/${pet.shelterId._id}`', target='_blank') {{pet.shelterId.name}}
+          div Age: {{pet.age}}
+          div Type: {{pet.animal}}
+          //div Updated: {{pet.lastUpdate | date}}
           div(v-if='pet.contact && (pet.contact.email || pet.contact.phone)')
             h3 Contact
             div {{pet.contact.email}}
             div {{pet.contact.phone}}
           h3 Breed
-          ul
-            li(v-for="breed in pet.breeds") {{breed}}
-          a.btn.btn-primary(ng-if='pet.contact.url', href="pet.contact.url", target="_blank") Webpage
+          div(v-for="breed in pet.breeds") {{breed}}
         .well.social-buttons
           a.btn.btn-block.btn-raised.btn-facebook(target="_new", :href='`https://www.facebook.com/sharer/sharer.php?u={{facebookUrl}}&src=sdkpreparse`')
             i.fa.fa-facebook-official
