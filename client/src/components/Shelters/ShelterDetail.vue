@@ -13,10 +13,10 @@ div
         .col-md-6.action-buttons
           a.btn.btn-primary(v-if='shelter.facebook && shelter.facebook.id',
             :href='`http://facebook.com/${shelter.facebook.id}`', target="_blank") Facebook Page
-          button.btn.btn-raised.btn-primary(ng-click='subscribe()', v-if='!shelter.subscribed') Subscribe
-          button.btn.btn-raised.btn-warning(ng-click='subscribe(true)', v-if='shelter.subscribed') Unubscribe
-          button.btn.btn-raised.btn-primary.btn-favorite(ng-click='favorite()', v-if='!shelter.favorited') Favorite
-          button.btn.btn-raised.btn-primary.btn-favorite-active(ng-click='favorite()', v-if='shelter.favorited') Remove
+          button.btn.btn-raised.btn-primary(@click='subscribe()', v-if='!shelter.subscribed') Subscribe
+          button.btn.btn-raised.btn-warning(@click='subscribe(true)', v-if='shelter.subscribed') Unubscribe
+          button.btn.btn-raised.btn-primary.btn-favorite(@click='favorite()', v-if='!shelter.favorited') Favorite
+          button.btn.btn-raised.btn-primary.btn-favorite-active(@click='favorite()', v-if='shelter.favorited') Remove
   .container(style="margin-top: 2rem;")
     .row
       .col-12.col-md-8
@@ -45,6 +45,7 @@ div
 <script>
   import axios from 'axios'
   import Comments from '@/components/Comments'
+  import { parameterize } from '@/libs/queryHelper'
 
   export default {
     name: 'ShelterDetail',
@@ -53,9 +54,7 @@ div
     },
     data () {
       return {
-        shelter: {},
-        facebookUrl: '',
-        twitterUrl: ''
+        shelter: {}
       }
     },
     mounted () {
@@ -64,6 +63,42 @@ div
         .then((response) => {
           this.shelter = response.data.data
         })
+    },
+    computed: {
+      twitterUrl () {
+        const url = window.location.href
+        const tweetDetails = {
+          url,
+          text: 'Check out this amazing shelter on Kibbl: '
+        }
+        return 'https://twitter.com/intent/tweet?' + parameterize(tweetDetails)
+      },
+      facebookUrl () {
+        const url = window.location.href
+        return `https://www.facebook.com/sharer/sharer.php?u=${url}&src=sdkpreparse`
+      }
+    },
+    methods: {
+      favorite () {
+        this.shelter.favorited = !this.shelter.favorited
+
+        axios.post('/api/v1/favorites', {
+          type: 'shelter',
+          itemId: this.shelter._id
+        })
+      },
+      subscribe (unsubscribe) {
+        if (unsubscribe && !confirm('Are you sure you want to unsubscribe?')) return
+        this.shelter.subscribed = !this.shelter.subscribed
+
+        axios.post('/api/v1/notifications', {
+          shelterId: this.shelter._id
+        })
+        .catch(response => {
+          const message = response.data.message
+          alert(message)
+        })
+      }
     }
   }
 </script>
