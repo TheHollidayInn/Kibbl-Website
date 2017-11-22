@@ -17,6 +17,7 @@ import ShelterList from '@/components/Shelters/ShelterList'
 import ShelterDetail from '@/components/Shelters/ShelterDetail'
 
 import NotificationList from '@/components/Notifications/NotificationList'
+import FollowingList from '@/components/Notifications/FollowingList'
 
 import FavoritesList from '@/components/FavoritesList'
 import MarketingPage from '@/components/MarketingPage'
@@ -115,7 +116,7 @@ export default new Router({
     {
       path: '/following',
       name: 'FollowingList',
-      component: NotificationList
+      component: FollowingList
     },
     {
       path: '/notifications',
