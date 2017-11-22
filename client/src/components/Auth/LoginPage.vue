@@ -16,7 +16,8 @@ section.container
             button.btn.btn-primary.btn-raised.btn-lg(type='submit') Login
             hr
             p
-              button.btn.btn-facebook.btn-raised.btn-lg(fb-login type="button", style='background-color:#3b5998') Facebook
+              button.btn.btn-facebook.btn-raised.btn-lg(@click="authenticate('facebook')",
+                type="button", style='background-color:#3b5998') Facebook
             p
               | Need an account?
               a(href='/#/register') Register
@@ -46,6 +47,19 @@ section.container
         })
         .catch(err => {
           alert(err.response.data.message)
+        })
+      },
+      authenticate () {
+        window.FB.getLoginStatus((response) => {
+          if (response.status === 'connected') {
+            const data = Object.assign({}, {network: 'facebook'}, response.authResponse)
+            axios.post('/api/v1/auth/social', data)
+              .then((response) => {
+                localStorage.setItem('user-token', response.data.token)
+                this.$store.commit('setToken', response.data.token)
+                this.$router.push('Home')
+              })
+          }
         })
       }
     }
