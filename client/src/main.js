@@ -7,12 +7,17 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import getStore from './store'
+import VueAnalytics from 'vue-analytics'
 
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
 Vue.use(BootstrapVue)
 Vue.use(Vuex)
+Vue.use(VueAnalytics, {
+  id: 'UA-27991830-14',
+  router
+})
 Vue.config.productionTip = false
 
 axios.interceptors.request.use(function (config) {

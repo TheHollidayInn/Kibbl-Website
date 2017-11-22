@@ -33,6 +33,7 @@ section.container
 <script>
   export default {
     name: 'MarketingPage'
+    // this.$ga.event('category', 'action', 'label', 123)
   }
 </script>
 
