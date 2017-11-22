@@ -7,32 +7,22 @@
     .col-3.d-none.d-sm-none.d-md-block.filters
       .form-group
         label Search
-        input.form-control(ng-model='filters.search', type='text')
+        input.form-control(v-model='filters.search', type='text')
       .form-group
         label Location
-        input.form-control(ng-model='filters.location', type='text', googleplace-autocomplete, googleplace-autocomplete-place='filters.autocomplete')
+        vue-google-autocomplete(
+          id="map"
+          classname="form-control"
+          placeholder="Location"
+          v-on:placechanged="getAddressData",
+          type="locality"
+        )
       .form-group
         label Between
-        p.input-group
-          input.form-control(type='text',
-            uib-datepicker-popup='format',
-            ng-model='filters.startDate',
-            is-open='popup1.opened',
-            datepicker-options='dateOptions', required='true', close-text='Close', alt-input-formats='altInputFormats')
-          span.input-group-btn
-            button.btn.btn-default(type='button', @click='open1()')
-              i.glyphicon.glyphicon-calendar
+        datepicker.form-control(:value='filters.startDate', v-on:selected="updateStartDate")
       .form-group
         label And
-        p.input-group
-          input.form-control(type='text',
-            uib-datepicker-popup='format',
-            ng-model='filters.endDate',
-            is-open='popup2.opened',
-            datepicker-options='dateOptions', required='true', close-text='Close', alt-input-formats='altInputFormats')
-          span.input-group-btn
-            button.btn.btn-default(type='button', @click='open2()')
-              i.glyphicon.glyphicon-calendar
+        datepicker.form-control(:value='filters.endDate', v-on:selected="updateEndDate")
       .form-group
         button.btn.btn-primary.btn-raised.hidden-xs(@click='filter()') Filter
     .col-12.col-md-9
@@ -46,6 +36,9 @@
   import axios from 'axios'
   import groupBy from 'lodash/groupBy'
   import EventListItem from './EventListItem'
+  import Datepicker from 'vuejs-datepicker'
+  import VueGoogleAutocomplete from 'vue-google-autocomplete'
+  import filtersMixin from '@/mixins/filtersMixin'
 
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -54,13 +47,19 @@
 
   export default {
     name: 'EventList',
+    mixins: [filtersMixin],
     components: {
-      EventListItem
+      EventListItem,
+      Datepicker,
+      VueGoogleAutocomplete
     },
     data () {
       return {
         loading: false,
-        events: []
+        events: [],
+        filters: {
+          search: ''
+        }
       }
     },
     mounted () {
@@ -89,6 +88,12 @@
         if (this.$route.params.shelterId) params.shelterId = this.$route.params.shelterId
 
         axios.get('/api/v1/events', {params})
+          .then((response) => {
+            this.events = response.data.data
+          })
+      },
+      filter () {
+        axios.get('/api/v1/events', {params: this.filters})
           .then((response) => {
             this.events = response.data.data
           })

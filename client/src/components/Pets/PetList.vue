@@ -7,30 +7,37 @@
     .col-3.d-none.d-sm-none.d-md-block.filters
       .form-group
         label Search
-        input.form-control(ng-model='filters.search', type='text')
+        input.form-control(v-model='filters.search', type='text')
       .form-group
         label Location
-        input.form-control(ng-model='filters.location', type='text', googleplace-autocomplete, googleplace-autocomplete-place='filters.autocomplete')
+        vue-google-autocomplete(
+          id="map"
+          classname="form-control"
+          placeholder="Location"
+          v-on:placechanged="getAddressData",
+          type="locality"
+        )
       .form-group(input-field='')
         label Type
         br
-        select.form-control(ng-model='filters.type')
-          option(v-for='option in petTypes', value="option.value") {{option.key}}
+        select.form-control(v-model='filters.type')
+          option(v-for='option in petTypes', :value="option.value") {{option.key}}
       .form-group
         label Breed
-        input.form-control(ng-model='filters.breed', type='text', uib-typeahead="breed for breed in currentBreeds | filter:$viewValue | limitTo:8" )
-      .form-group(input-field='')
+        select.form-control(v-model='filters.breed')
+          option(v-for='option in petBreeds', :value="option") {{option}}
+      .form-group
         label Age
         br
-        select.form-control(ng-model='filters.age')
-          option(v-for='option in petAges', value="option.value") {{option.key}}
+        select.form-control(v-model='filters.age')
+          option(v-for='option in petAges', :value="option.value") {{option.key}}
       .form-group(input-field='')
         label Gender
         br
-        select.form-control(ng-model='filters.gender')
-          option(v-for='option in petGenders', value="option.value") {{option.key}}
+        select.form-control(v-model='filters.gender')
+          option(v-for='option in petGenders', :value="option.value") {{option.key}}
       .form-group
-        button.btn.btn-primary.btn-raised.hidden-xs(ng-click='filter()') Filter
+        button.btn.btn-primary.btn-raised.hidden-xs(@click='filter()') Filter
     .col-12.col-md-9
       .row(infinite-scroll="scroll()", infinite-scroll-distance="1")
         .col-12.col-md-4.grid-item(v-for="pet in pets")
@@ -40,50 +47,83 @@
 <script>
   import axios from 'axios'
   import PetListItem from './PetListItem'
+  import VueGoogleAutocomplete from 'vue-google-autocomplete'
+  import filtersMixin from '@/mixins/filtersMixin'
+  import {DOG_BREEDS, CAT_BREEDS} from './filters.js'
 
   export default {
     name: 'PetList',
+    mixins: [filtersMixin],
     components: {
-      PetListItem
+      PetListItem,
+      VueGoogleAutocomplete
     },
     data () {
       return {
-        pets: [
+        pets: [],
+        loading: false,
+        petAges: [
           {
-            __v: 0,
-            animal: 'Cat',
-            lastUpdate: '2016-12-07T20:32:04.000Z',
-            description: '3-4 MOTHS OLD, AVAILABLE NOW. FERAL BARN CAT.\nAdoption fee is $60. It pays to have the dog spayed or neutered; Rabies, Bordetella and DHPP Vaccines; treatment for fleas and ticks as needed, 1st month heartworm preventative, Deworming for hook and round worms, pre-surgical pain medications, occult heartworm test, and a Microchip.\nRemember to share the posts and &  like the Denton Animal Shelter Facebook page! \nAdoption hours are Monday - Saturday 10 AM - 5 PM.  Please forward any questions about dogs to animal.services@cityofdenton.com.',
-            sex: 'M',
-            name: 'EPIC-BARN CAT',
-            shelterPetId: '66897',
-            petId: '36919577',
-            size: 'S',
-            age: 'Young',
-            status: 'A',
-            _id: '59f32b1fe754d021eb77c9e1',
-            locationCoords: { coordinates: [ 0, 0 ], type: 'Point' },
-            breeds: [ 'Tabby - Orange' ],
-            media: [],
-            contact:
-            {
-              phone: null,
-              state: 'TX',
-              address2: null,
-              email: 'gnelsen@live.com',
-              zip: '76205',
-              fax: null,
-              address1: '3717 N Elm Street'
-            },
-            createdAt: '2017-10-27T12:48:31.187Z'
+            value: '',
+            key: 'All'
+          },
+          {
+            value: 'Baby',
+            key: 'Baby'
+          },
+          {
+            value: 'Young',
+            key: 'Young'
+          },
+          {
+            value: 'Adult',
+            key: 'Adult'
+          },
+          {
+            value: 'Senior',
+            key: 'Senior'
           }
         ],
-        loading: false,
-        petTypes: [],
-        petAges: [],
-        petGenders: [],
-        search: '',
-        location: ''
+        petGenders: [
+          {
+            value: '',
+            key: 'All'
+          },
+          {
+            value: 'Male',
+            key: 'Male'
+          },
+          {
+            value: 'Female',
+            key: 'Female'
+          }
+          // {
+          //   value: 'U',
+          //   key: "Unkown"
+          // },
+        ],
+        petTypes: [
+          {
+            value: '',
+            key: 'All'
+          },
+          {
+            value: 'Dog',
+            key: 'Dog'
+          },
+          {
+            value: 'Cat',
+            key: 'Cat'
+          }
+          // {
+          //   value: 'Bird',
+          //   key: "Bird"
+          // },
+        ],
+        filters: {
+          search: '',
+          location: ''
+        }
       }
     },
     mounted () {
@@ -98,12 +138,24 @@
         this.loadPets()
       }
     },
+    computed: {
+      petBreeds () {
+        const ALL_BREEDS = DOG_BREEDS.concat(CAT_BREEDS)
+        return ALL_BREEDS
+      }
+    },
     methods: {
       loadPets () {
         let params = {}
         if (this.$route.params.shelterId) params.shelterId = this.$route.params.shelterId
 
         axios.get('/api/v1/pets', {params})
+          .then((response) => {
+            this.pets = response.data.pets
+          })
+      },
+      filter () {
+        axios.get('/api/v1/pets', {params: this.filters})
           .then((response) => {
             this.pets = response.data.pets
           })

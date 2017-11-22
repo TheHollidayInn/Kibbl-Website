@@ -19,7 +19,9 @@
     "pug": "^2.0.0-rc.4",
     "vue": "^2.5.2",
     "vue-analytics": "^5.3.2",
+    "vue-google-autocomplete": "^1.0.13",
     "vue-router": "^3.0.1",
+    "vuejs-datepicker": "^0.9.20",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

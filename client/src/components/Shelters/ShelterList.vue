@@ -10,7 +10,13 @@
         input.form-control(v-model='filters.search', type='text')
       .form-group
         label Location
-        input.form-control(v-model='filters.location', type='text', googleplace-autocomplete, googleplace-autocomplete-place='filters.autocomplete')
+        vue-google-autocomplete(
+          id="map"
+          classname="form-control"
+          placeholder="Location"
+          v-on:placechanged="getAddressData",
+          type="locality"
+        )
       .form-group
         button.btn.btn-primary.btn-raised(@click='filter()') Filter
     .col-12.col-md-9
@@ -22,11 +28,17 @@
 <script>
   import axios from 'axios'
   import ShelterListItem from './ShelterListItem'
+  import Datepicker from 'vuejs-datepicker'
+  import VueGoogleAutocomplete from 'vue-google-autocomplete'
+  import filtersMixin from '@/mixins/filtersMixin'
 
   export default {
     name: 'ShelterList',
+    mixins: [filtersMixin],
     components: {
-      ShelterListItem
+      ShelterListItem,
+      Datepicker,
+      VueGoogleAutocomplete
     },
     data () {
       return {
@@ -52,6 +64,14 @@
         .then((response) => {
           this.shelters = response.data.data
         })
+    },
+    methods: {
+      filter () {
+        axios.get('/api/v1/shelters', {params: this.filters})
+          .then((response) => {
+            this.shelters = response.data.data
+          })
+      }
     }
   }
 </script>
