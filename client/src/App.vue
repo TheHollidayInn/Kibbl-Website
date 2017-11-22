@@ -11,11 +11,20 @@
     name: 'app',
     components: {
       NavBar
+    },
+    mounted () {
+      const token = localStorage.getItem('user-token')
+      this.$store.commit('setToken', token)
     }
   }
 </script>
 
 <style>
+  .header {
+    background-color: #ff9933 !important;
+    color: #931D10;
+  }
+
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -127,7 +136,8 @@
   /* Banner */
   .banner {
     /*background-image: url('//www.petfinder.com/wp-content/uploads/2016/08/slide-1.jpg');*/
-    background: #C14216;
+    /*background: #C14216;*/
+    background: #ff9933;
     background-size: 100%;
     padding: 4rem;
     background-position: center;

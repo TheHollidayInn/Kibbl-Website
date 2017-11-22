@@ -20,7 +20,7 @@ div
   .container(style="margin-top: 2rem;")
     .row
       .col-12.col-md-8
-        .well
+        .well.description
           router-link.btn.btn-primary(:to="{ name: 'ShelterPetList', params: { shelterId: shelter._id } }") View Pets
           router-link.btn.btn-primary(:to="{ name: 'ShelterEventList', params: { shelterId: shelter._id } }") View Events
           h3 Description
@@ -80,7 +80,7 @@ div
     },
     methods: {
       favorite () {
-        this.shelter.favorited = !this.shelter.favorited
+        this.$set(this.shelter, 'favorited', !this.shelter.favorited)
 
         axios.post('/api/v1/favorites', {
           type: 'shelter',
@@ -89,7 +89,7 @@ div
       },
       subscribe (unsubscribe) {
         if (unsubscribe && !confirm('Are you sure you want to unsubscribe?')) return
-        this.shelter.subscribed = !this.shelter.subscribed
+        this.$set(this.shelter, 'subscribed', !this.shelter.subscribed)
 
         axios.post('/api/v1/notifications', {
           shelterId: this.shelter._id
@@ -120,6 +120,10 @@ div
   }
 
   .action-buttons a {
+    margin-right: .5em;
+  }
+
+  .action-buttons button, .description .btn {
     margin-right: .5em;
   }
 
