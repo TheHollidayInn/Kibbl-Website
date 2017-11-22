@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '@/components/HomePage'
-import FeedbackPage from '@/components/FeedbackPage'
 
 import LoginPage from '@/components/Auth/LoginPage'
 import RegisterPage from '@/components/Auth/RegisterPage'
@@ -17,8 +16,11 @@ import PetDetail from '@/components/Pets/PetDetail'
 import ShelterList from '@/components/Shelters/ShelterList'
 import ShelterDetail from '@/components/Shelters/ShelterDetail'
 
+import NotificationList from '@/components/Notifications/NotificationList'
+
 import FavoritesList from '@/components/FavoritesList'
 import MarketingPage from '@/components/MarketingPage'
+import FeedbackPage from '@/components/FeedbackPage'
 
 Vue.use(Router)
 
@@ -109,6 +111,16 @@ export default new Router({
       path: '/shelters/:shelterId',
       name: 'ShelterDetail',
       component: ShelterDetail
+    },
+    {
+      path: '/following',
+      name: 'FollowingList',
+      component: NotificationList
+    },
+    {
+      path: '/notifications',
+      name: 'NotificationList',
+      component: NotificationList
     }
   ]
 })

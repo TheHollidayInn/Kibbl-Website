@@ -1,74 +1,44 @@
 <template lang="pug">
-.container-fluid(style='padding:0px;')
-  div.col-md-12.well(style="min-height:100px;")
-    .form-group.col-md-2
+div
+  .container-fluid.banner
+    .col-12.col-md-6.offset-md-3
       h1 Notifications
-
-.row(ng-if='notifications.length === 0')
-  .col-md-6.col-md-offset-3.well
-    h2.text-center No subscriptions yet!
-
-div.row
-  div.col-md-12
-    .list-group.row(ng-repeat="notification in notifications")
-      h3.text-center {{notification.shelterId.name}} {{notification.checkDate | date:'MM-dd-yyyy'}}
-      div.col-md-12(ng-if='notification.newPets.length > 0')
-        h4.text-center New Pets
-        div.col-md-4.grid-item(ng-repeat="pet in notification.newPets", style="height:200px; overflow:hidden; border-radius: 5px;")
-          a(href='/pets/{{pet._id}}')
-            .grid-content.gradient
-              .col-md-4
-                .image-circle(ng-if='!pet.media[0].urlSecureThumbnail', style='background-image:url(../images/kibbl-logo-dog.png)')
-                //- .image-circle(ng-if='pet.media[3]', style='background-image:url({{pet.media[3]}})')
-                .image-circle(ng-if='pet.media[0].urlSecureThumbnail', style='background-image:url({{pet.media[0].urlSecureThumbnail}})')
-              .col-md-8
-                h3 {{pet.name}}
-                h5 {{pet.description | limitTo: 100}} ...
-
-      div.col-md-12(ng-if='notification.updatedPets.length > 0')
-        h4.text-center Updated Pets
-        div.col-md-4.grid-item(ng-repeat="pet in notification.updatedPets", style="height:200px; overflow:hidden; border-radius: 5px;")
-          a(href='/pets/{{pet._id}}')
-            .grid-content.gradient
-              .col-md-4
-                .image-circle(ng-if='!pet.media[0].urlSecureThumbnail', style='background-image:url(../images/kibbl-logo-dog.png)')
-                //- .image-circle(ng-if='pet.media[3]', style='background-image:url({{pet.media[3]}})')
-                .image-circle(ng-if='pet.media[0].urlSecureThumbnail', style='background-image:url({{pet.media[0].urlSecureThumbnail}})')
-              .col-md-8
-                h3 {{pet.name}}
-                h5 {{pet.description | limitTo: 100}} ...
-
-      div.col-md-12(ng-if='notification.newEvents.length > 0')
-        h4.text-center New Events
-        div.col-md-4.grid-item(ng-repeat="event in notification.newEvents", style="height:200px; overflow:hidden; border-radius: 5px;")
-          a(href='/events/{{event._id}}')
-            .grid-content.gradient
-              .col-md-4
-                .image-circle(ng-if='!event.facebook.cover', style='background-image:url(../images/kibbl-logo-dog.png)')
-                .image-circle(ng-if='event.facebook.cover', style='background-image:url({{event.facebook.cover}})')
-              .col-md-8
-                h3 {{event.name}}
-                h5 {{event.start_time | date : "medium" }}
-
-      div.col-md-12(ng-if='notification.updatedEvents.length > 0')
-        h4.text-center Updated Events
-        div.col-md-4.grid-item(ng-repeat="event in notification.updatedEvents", style="height:200px; overflow:hidden; border-radius: 5px;")
-          a(href='/events/{{event._id}}')
-            .grid-content.gradient
-              .col-md-4
-                .image-circle(ng-if='!event.facebook.cover', style='background-image:url(../images/kibbl-logo-dog.png)')
-                .image-circle(ng-if='event.facebook.cover', style='background-image:url({{event.facebook.cover}})')
-              .col-md-8
-                h3 {{event.name}}
-                h5 {{event.start_time | date : "medium" }}
+  .container
+    .row(v-if='notifications.length === 0')
+      .col-12.col-md-6.offset-md-3.well
+        h2.text-center No subscriptions yet!
+    .row
+      .col-12.col-md-6.offset-md-3.well(v-for="notification in notifications")
+        notification(:notification='notification')
 </template>
 
 <script>
+  import axios from 'axios'
+  import Notification from './Notification'
+
   export default {
-    name: 'NotificationList'
+    name: 'NotificationList',
+    components: {
+      Notification
+    },
+    data () {
+      return {
+        notifications: []
+      }
+    },
+    mounted () {
+      axios.get('/api/v1/notifications/user-notifications')
+        .then(response => {
+          this.notifications = response.data.data
+        })
+    }
   }
 </script>
 
 <style>
-
+  .well {
+    background-color: #fff;
+    padding: 1em;
+    margin-top: 1em;
+  }
 </style>
