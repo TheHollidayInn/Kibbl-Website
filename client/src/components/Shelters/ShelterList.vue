@@ -1,5 +1,5 @@
 <template lang="pug">
-.container-fluid(ng-class="{collapsed: filterCollapsed}")
+.container-fluid
   .row
     .col-12.header
       h1(v-if='!loading') Shelters
@@ -23,6 +23,8 @@
       .row(infinite-scroll="scroll()", infinite-scroll-distance="1")
         .col-12.col-md-4.grid-item(v-for="shelter in shelters")
           shelter-list-item(:shelter='shelter')
+    .col-12.col-md-9.offset-md-3.text-center
+      button.btn.btn-primary.load-more(@click='loadMore()') Load More
 </template>
 
 <script>
@@ -47,16 +49,7 @@
           search: '',
           location: ''
         },
-        shelters: [
-          {
-            __v: 0,
-            description: 'Foothills Animal Shelter is an open-admissions facility, which means we never turn away an animal. We care for more than 9,500 orphaned cats, kittens, dogs, puppies and critters every year with a compassionate team of staff and volunteers. (Unfortunately, we can not accept wild animals; they should be taken to organizations who specialize in their care.) We are a true community resource and offer a variety of services including pet adoption, Jefferson County pet licensing, affordable spaying and neutering, vaccinations, microchipping and lost and found pets. We are committed to our important mission and the life-saving work that we do every day of the year. - See more at: http://foothillsanimalshelter.org/about/about-foothills-animal-shelter/#sthash.A5jTVepq.dpuf',
-            name: 'Foothills Animal Shelter',
-            _id: '59f32cd04b8bfc226327da06',
-            createdAt: '2017-10-27T12:55:44.493Z',
-            locationCoords: { coordinates: [ 0, 0 ], type: 'Point' }
-          }
-        ]
+        shelters: []
       }
     },
     mounted () {
@@ -70,6 +63,18 @@
         axios.get('/api/v1/shelters', {params: this.filters})
           .then((response) => {
             this.shelters = response.data.data
+          })
+      },
+      loadMore () {
+        let params = {}
+        if (this.$route.params.shelterId) params.shelterId = this.$route.params.shelterId
+
+        const lastEvent = this.shelters[this.shelters.length - 1]
+        params.createdAtBefore = lastEvent.createdAt
+
+        axios.get('/api/v1/shelters', {params})
+          .then((response) => {
+            this.shelters = this.shelters.concat(response.data.data)
           })
       }
     }
@@ -92,5 +97,9 @@
     height:200px;
     overflow:hidden;
     border-radius: 5px;
+  }
+
+  .load-more {
+    margin: 1em auto;
   }
 </style>

@@ -42,6 +42,8 @@
       .row(infinite-scroll="scroll()", infinite-scroll-distance="1")
         .col-12.col-md-4.grid-item(v-for="pet in pets")
           pet-list-item(:pet='pet')
+    .col-12.col-md-9.offset-md-3.text-center
+      button.btn.btn-primary.load-more(@click='loadMore()') Load More
 </template>
 
 <script>
@@ -154,6 +156,18 @@
             this.pets = response.data.pets
           })
       },
+      loadMore () {
+        let params = {}
+        if (this.$route.params.shelterId) params.shelterId = this.$route.params.shelterId
+
+        const lastEvent = this.pets[this.pets.length - 1]
+        params.lastUpdatedBefore = lastEvent.lastUpdate
+
+        axios.get('/api/v1/pets', {params})
+          .then((response) => {
+            this.pets = this.pets.concat(response.data.pets)
+          })
+      },
       filter () {
         axios.get('/api/v1/pets', {params: this.filters})
           .then((response) => {
@@ -180,5 +194,9 @@
     height:200px;
     overflow:hidden;
     border-radius: 5px;
+  }
+
+  .load-more {
+    margin: 1em auto;
   }
 </style>

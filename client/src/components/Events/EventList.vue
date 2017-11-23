@@ -30,6 +30,8 @@
         h2.col-12.text-center {{key}}
         .col-12.col-md-4.grid-item(v-for="event in events")
           event-list-item(:event='event')
+    .col-12.col-md-9.offset-md-3.text-center
+      button.btn.btn-primary.load-more(@click='loadMore()') Load More
 </template>
 
 <script>
@@ -92,6 +94,18 @@
             this.events = response.data.data
           })
       },
+      loadMore () {
+        let params = {}
+        if (this.$route.params.shelterId) params.shelterId = this.$route.params.shelterId
+
+        const lastEvent = this.events[this.events.length - 1]
+        params.createdAtBefore = lastEvent.start_time
+
+        axios.get('/api/v1/events', {params})
+          .then((response) => {
+            this.events = this.events.concat(response.data.data)
+          })
+      },
       filter () {
         axios.get('/api/v1/events', {params: this.filters})
           .then((response) => {
@@ -118,5 +132,9 @@
     height:200px;
     overflow:hidden;
     border-radius: 5px;
+  }
+
+  .load-more {
+    margin: 1em auto;
   }
 </style>
