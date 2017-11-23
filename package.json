@@ -2,6 +2,10 @@
   "name": "petfinder-website",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "6.11.1",
+    "npm": "5.5.1"
+  },
   "scripts": {
     "dev": "nodemon ./bin/www",
     "start": "NODE_ENV=production && cd client && npm run build && cd ../ && node ./bin/www",
