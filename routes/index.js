@@ -16,10 +16,6 @@ var Shelter = require('../models/shelters');
 var Pet = require('../models/pets');
 var VolunteerOpportunity = require('../models/volunteerOpportunity');
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Kibbl' });
-});
-
 router.get('/api/v1/latest', function(req, res, next) {
   let events = [];
   let shelters = [];
@@ -59,20 +55,6 @@ router.get('/api/v1/latest', function(req, res, next) {
       console.log(err)
       return res.status(400).json({message: err});
     });
-});
-
-router.get('/marketing.html', function(req, res) {
-  res.render('marketing-landing-page.jade');
-});
-
-router.get('/login.html', function(req, res) {
-  res.render('login.jade', { message: req.flash('loginMessage') });
-});
-
-router.post('/login-angular', passport.authenticate('local-login'), function(req, res) { res.send(req.user); });
-
-router.get('/register.html', function(req, res) {
-  res.render('register.jade', { message: req.flash('signupMessage') });
 });
 
 router.post('/api/v1/register', function (req, res) {
@@ -242,106 +224,10 @@ router.post('/charge', Middleware.isLoggedIn, function(req, res, next) {
     // Donations
     //@TODO: Log the donation to model
     //@TODO: Send email
-    res.render('index', { message: 'Your donation as been sent!', status: 'Success!' });
+    // res.render('index', { message: 'Your donation as been sent!', status: 'Success!' });
   }).catch(function(err) {
     // Deal with an error
   });
 });
-
-//Static
-router.get('/pet-detail.html', function(req, res, next) {
-  res.render('pets/pet-detail');
-});
-
-router.get('/pet-list.html', function(req, res, next) {
-  res.render('pets/pet-list');
-});
-
-router.get('/favorite-list.html', function(req, res, next) {
-  res.render('favorite-list');
-});
-
-router.get('/volunteer-list.html', function(req, res, next) {
-  res.render('volunteer/volunteer-list');
-});
-
-router.get('/volunteer-detail.html', function(req, res, next) {
-  res.render('volunteer/volunteer-detail');
-});
-
-router.get('/event-list.html', function(req, res, next) {
-  res.render('events/event-list');
-});
-
-router.get('/event-detail.html', function(req, res, next) {
-  res.render('events/event-detail');
-});
-
-router.get('/shelter-list.html', function(req, res, next) {
-  res.render('shelters/shelter-list');
-});
-
-router.get('/shelter-detail.html', function(req, res, next) {
-  res.render('shelters/shelter-detail');
-});
-
-router.get('/message-list.html', function(req, res, next) {
-  res.render('messages/message-list');
-});
-
-router.get('/message-detail.html', function(req, res, next) {
-  res.render('messages/message-detail');
-});
-
-router.get('/notification-list.html', function(req, res, next) {
-  res.render('notifications/notification-list');
-});
-
-router.get('/notification-updates.html', function(req, res, next) {
-  res.render('notifications/notification-updates');
-});
-
-router.get('/contact-modal.html', function(req, res, next) {
-  res.render('modals/contact');
-});
-
-router.get('/comments-directive.html', function(req, res, next) {
-  res.render('comments');
-});
-
-router.get('/feedback-list.html', function(req, res, next) {
-  res.render('feedback/feedback-list');
-});
-
-router.get('/feedback-detail.html', function(req, res, next) {
-  res.render('feedback/feedback-detail');
-});
-
-router.get('/home.html', function(req, res, next) {
-  res.render('home');
-});
-
-router.get('/forgot-password.html', function(req, res, next) {
-  res.render('forgot-password');
-});
-
-router.get('/reset.html', function(req, res, next) {
-  res.render('reset');
-});
-
-// router.get('/*', function(req, res, next) {
-//   res.render('index', { title: 'Kibbl' });
-// });
-
-// router.get('*', function(req, res, next) {
-//   let url = req.url;
-//   url = url.split('.');
-//   url = url[0].split('/');
-
-//   let path = `../views/${url[1]}.jade`;
-//   if (!fs.existsSync(path)) return next();
-//   res.render(url[1]);
-// });
-
 
 module.exports = router;

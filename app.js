@@ -29,11 +29,17 @@ app.use(compression());
 app.use(require('prerender-node').set('prerenderToken', nconf.get('PRERENDER_TOKEN')));
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+app.use('/static/js', express.static(__dirname + '/client/dist/static/js'));
+app.use('/static/css', express.static(__dirname + '/client/dist/static/css'));
+app.use('/static/img', express.static(__dirname + '/client/dist/static/img'));
+app.use(express.static(__dirname + '/client/dist'));
+
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -117,7 +123,8 @@ if (app.get('env') === 'development') {
     //   message: err.message,
     //   error: err
     // });
-    return res.render('index', { title: 'Kibbl' });
+    // return res.render('index', { title: 'Kibbl' });
+    return res.sendFile('./client/dist/index.html', {root: './'});
     return res.status(err.status).json({
       message: err.message,
       error: err
@@ -133,7 +140,7 @@ app.use(function(err, req, res, next) {
   //   message: err.message,
   //   error: {}
   // });
-  return res.render('index', { title: 'Kibbl' });
+  return res.sendFile('./client/dist/index.html', {root: './'});
   return res.status(err.status).json({
     message: err.message,
     error: {}

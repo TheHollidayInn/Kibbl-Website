@@ -1,9 +1,0 @@
-// @TODO: Move to directive
-.well.col-md-12
-  h3.col-md-12 Comments
-  .col-md-12
-    textarea.form-control.col-md-8(placeholder="What do you think?", ng-model='commentText')
-    button.btn.btn-raised.pull-right(ng-click='addComment(commentText, itemId)') Send
-
-.well.col-md-12(style='margin-top: .5rem;', ng-repeat='comment in comments')
-  | {{comment.text}}

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "nodemon ./bin/www",
     "start": "node ./bin/www",
+    "start": "NODE_ENV=production && cd client && npm run build && cd ../ && node ./bin/www",
     "postinstall": "./node_modules/bower/bin/bower install && gulp concat",
     "test": "mocha test/integration/ --recursive"
   },

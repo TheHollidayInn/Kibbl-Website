@@ -38,7 +38,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         b-dropdown-item
           a.dropdown-item(href="#", @click='logout()') Logout
       li.nav-item
-        router-link.nav-link(:to="{ path: '/feedback' }", style='margin-top: .2em') Feedback
+        router-link.nav-link(:to="{ path: '/feedback' }") Feedback
 </template>
 
 <script>
@@ -121,5 +121,6 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
     border-color: transparent !important;
     box-shadow: none !important;
     color: rgba(0, 0, 0, 0.5) !important;
+    margin-top: -.2em;
   }
 </style>

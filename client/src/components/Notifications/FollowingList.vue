@@ -14,7 +14,7 @@ div
             .row-picture(v-if='notification.shelterId && notification.shelterId.facebook && notification.shelterId.facebook.cover')
               img.circle(:src='notification.shelterId.facebook.cover', alt='icon')
             .row-picture(v-else)
-              .image-circle(style='background-image:url(../images/kibbl-logo-dog.png)')
+              .image-circle(style='background-image:url(../assets/kibbl-logo-dog.png)')
             .row-content
               h4.list-group-item-heading {{notification.shelterId.name}}
               p.list-group-item-text {{notification.shelterId.description}}

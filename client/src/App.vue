@@ -34,7 +34,7 @@
   }
 
   body {
-    background: #E8E8E8;
+    background: #E8E8E8 !important;
   }
 
   .filter-toggle {

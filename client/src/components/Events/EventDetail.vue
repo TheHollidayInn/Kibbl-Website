@@ -2,7 +2,7 @@
 div
   .container-fluid.banner
     .container
-      .col-12.col-md-6.offset-md-3
+      .col-12
         h1.text-center {{event.name}}
   .container-fluid.container-detail
     .container
@@ -32,7 +32,7 @@ div
           div
             strong End:
             | {{endTime}}
-          div(v-if='event.place')
+          div(v-if='event.place && event.place.location')
             | Location: {{event.place.location.street + ', ' + event.place.location.city + ', ' + event.place.location.state}}
         .well.social-buttons
           a.btn.btn-block.btn-raised.btn-facebook(target="_new", :href='facebookUrl')

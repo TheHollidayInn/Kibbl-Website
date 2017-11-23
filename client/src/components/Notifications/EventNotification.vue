@@ -2,7 +2,7 @@
 a(:href='`/events/${event._id}`')
   .grid-content.gradient
     .col-md-4
-      .image-circle(v-if='!thumbnail', style='background-image:url(../images/kibbl-logo-dog.png)')
+      .image-circle(v-if='!thumbnail', style='background-image:url(../assets/kibbl-logo-dog.png)')
       .image-circle(v-if='thumbnail', :style='`background-image:url(${thumbnail})`')
     .col-md-8
       h3 {{event.name}}

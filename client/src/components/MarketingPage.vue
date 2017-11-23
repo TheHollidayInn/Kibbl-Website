@@ -2,7 +2,7 @@
 section.container
   .row
     .col-12.text-center
-      img(src="/images/kibbl-logo.svg", alt="Kibbl Logo", class="banner-logo")
+      img(src="..//assets/kibbl-logo.svg", alt="Kibbl Logo", class="banner-logo")
   .row
     .col-12.text-center
       h1 Subscribe to local rescues and start receiving notifications when they add events or new adoptable pets.
@@ -51,7 +51,7 @@ section.container
   }
 
   body {
-    background: #ff9933 !important;
+    /*background: #ff9933 !important;*/
   }
 
   .featurette-divider {
