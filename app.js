@@ -21,7 +21,7 @@ var fs = require('fs'),
    .file({ file: './config.json' });
 
 var stripe = require('stripe')(nconf.get('stripe:secretKey'));
-
+console.log("FACEBOOK", nconf.get('facebookAuth:clientID'))
 require('./config/passport')(passport);
 
 var app = express();
