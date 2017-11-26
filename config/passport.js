@@ -65,7 +65,7 @@ module.exports = function(passport) {
           return done(err);
         });
   }));
-  console.log(nconf.get('facebookAuth:clientID'))
+
   passport.use(new FacebookStrategy({
     clientID        : nconf.get('facebookAuth:clientID'),
     clientSecret    : nconf.get('facebookAuth:clientSecret'),
