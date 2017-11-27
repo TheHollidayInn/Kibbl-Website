@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App'
 import router from './router'
+import Meta from 'vue-meta'
 import axios from 'axios'
 import getStore from './store'
 import VueAnalytics from 'vue-analytics'
@@ -13,6 +14,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
 Vue.use(BootstrapVue)
+Vue.use(Meta)
 Vue.use(Vuex)
 Vue.use(VueAnalytics, {
   id: 'UA-27991830-14',

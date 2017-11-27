@@ -54,6 +54,21 @@ div
     components: {
       Comments
     },
+    metaInfo () {
+      return {
+        title: this.event.name,
+        meta: [
+          { 'og:title': this.event.name },
+          { 'og:description': this.event.description },
+          { 'og:image': this.image },
+          { 'og:url': window.location.href },
+          { 'twitter:title': this.event.name },
+          { 'twitter:description': this.event.description },
+          { 'twitter:image': this.image },
+          { 'twitter:card': this.event.description }
+        ]
+      }
+    },
     data () {
       return {
         event: {}
@@ -77,6 +92,10 @@ div
       },
       endTime () {
         return moment(this.event.end_time).format('LLLL')
+      },
+      image () {
+        if (!this.event.facebook || !this.event.facebook.cover) return ''
+        return this.event.facebook.cover
       }
     },
     mounted () {

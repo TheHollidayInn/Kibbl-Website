@@ -52,6 +52,21 @@ div
     components: {
       Comments
     },
+    metaInfo () {
+      return {
+        title: this.shelter.name,
+        meta: [
+          { 'og:title': this.shelter.name },
+          { 'og:description': this.shelter.description },
+          { 'og:image': this.image },
+          { 'og:url': window.location.href },
+          { 'twitter:title': this.shelter.name },
+          { 'twitter:description': this.shelter.description },
+          { 'twitter:image': this.image },
+          { 'twitter:card': this.shelter.description }
+        ]
+      }
+    },
     data () {
       return {
         shelter: {}
@@ -76,6 +91,10 @@ div
       facebookUrl () {
         const url = window.location.href
         return `https://www.facebook.com/sharer/sharer.php?u=${url}&src=sdkpreparse`
+      },
+      image () {
+        if (!this.shelter.facebook || !this.shelter.facebook.cover) return ''
+        return this.shelter.facebook.cover
       }
     },
     methods: {

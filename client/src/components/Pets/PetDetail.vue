@@ -52,6 +52,21 @@ div
 
   export default {
     name: 'PetDetail',
+    metaInfo () {
+      return {
+        title: this.pet.name,
+        meta: [
+          { 'og:title': this.pet.name },
+          { 'og:description': this.description },
+          { 'og:image': this.image },
+          { 'og:url': window.location.href },
+          { 'twitter:title': this.pet.name },
+          { 'twitter:description': this.description },
+          { 'twitter:image': this.image },
+          { 'twitter:card': this.description }
+        ]
+      }
+    },
     components: {
       Comments
     },
@@ -80,6 +95,10 @@ div
       facebookUrl () {
         const url = window.location.href
         return `https://www.facebook.com/sharer/sharer.php?u=${url}&src=sdkpreparse`
+      },
+      image () {
+        if (!this.pet.media || !this.pet.media[0] || !this.pet.media[0].urlSecureFullsize) return ''
+        return this.pet.media[0].urlSecureFullsize
       },
       description () {
         let text = this.pet.description
