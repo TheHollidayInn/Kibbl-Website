@@ -11,15 +11,14 @@ let Middleware = require('../middleware');
 let _ = require('lodash');
 
 // @TODO: Move this to library
-let nconf = require('nconf');
 let jwt    = require('jsonwebtoken');
 
-let prerender = require('prerender-node').set('prerenderToken', nconf.get('PRERENDER_TOKEN'))
+let prerender = require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN)
 
 function getUserFromToken (req) {
   let token = req.body.token || req.query.token || req.headers['x-access-token'];
   return new Promise(function (resolve, reject) {
-    jwt.verify(token, nconf.get('JWT_SECRET'), function(err, decoded) {
+    jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
       let user;
       if (decoded && decoded._doc) user = decoded._doc;
       resolve(user);

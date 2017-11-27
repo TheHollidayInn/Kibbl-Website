@@ -1,6 +1,5 @@
-var nconf = require('nconf');
-var api_key = nconf.get('MAIL:API_KEY');
-var domain = nconf.get('MAIL:DOMAIN');
+var api_key = process.env.MAIL_API_KEY;
+var domain = process.env.MAIL_DOMAIN;
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 var api = {};

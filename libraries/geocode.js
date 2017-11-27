@@ -4,7 +4,7 @@ let NodeGeocoder = require('node-geocoder');
 let geocodeOptions = {
   provider: 'google',
   httpAdapter: 'https', // Default
-  apiKey: 'AIzaSyDMxQMWOnF_wnyftUiaiDRgGYYWZ6EnqZQ', // for Mapquest, OpenCage, Google Premier
+  apiKey: process.env.GOOGLE_MAP, // for Mapquest, OpenCage, Google Premier
   formatter: null         // 'gpx', 'string', ...
 };
 let geocoder = NodeGeocoder(geocodeOptions);

@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,22 +13,14 @@ mongoose.Promise = require('bluebird');
 
 var passport = require('passport');
 var flash    = require('connect-flash');
-var session      = require('express-session');
+var session  = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-var fs = require('fs'),
-  nconf = require('nconf');
-  nconf.argv()
-   .env()
-   .file({ file: './config.json' });
-
-var stripe = require('stripe')(nconf.get('stripe:secretKey'));
-console.log("FACEBOOK", nconf.get('MAIL:API_KEY'))
-require('./config/passport')(passport);
+require('./libraries/passport')(passport);
 
 var app = express();
 app.use(compression());
-app.use(require('prerender-node').set('prerenderToken', nconf.get('PRERENDER_TOKEN')));
+app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN));
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -45,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({
-    secret: nconf.get("db:SESSION_SECRET"),
+    secret: process.env.DB_SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     maxAge: new Date(Date.now() + 3600000),
@@ -60,9 +54,9 @@ var oneWeek = 604800000;
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
-app.use(session({ secret: nconf.get('db:PASSPORT_SESSION_SECRET') })); // session secret
+app.use(session({ secret: process.env.DB_PASSPORT_SESSION_SECRET }));
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session());
 app.use(flash());
 
 //@TODO: Move middleware
@@ -99,7 +93,7 @@ app.use('/api/v1/feedback', feedback);
 app.use('/api/v1/forgot-password', forgotPassword);
 app.use('/api/v1/reset', reset);
 
-mongoose.connect(nconf.get('db:URL'));
+mongoose.connect(process.env.DB_URL);
 
 // catch 404 and forward to error handler
 // @TODO: how to ignore angular 404s This should only handle api 404s

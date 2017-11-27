@@ -1,11 +1,9 @@
 var LocalStrategy   = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
-var TwitterStrategy  = require('passport-twitter').Strategy;
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+// var TwitterStrategy  = require('passport-twitter').Strategy;
+// var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var User = require('../models/user');
-
-var nconf = require('nconf');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -67,9 +65,9 @@ module.exports = function(passport) {
   }));
 
   passport.use(new FacebookStrategy({
-    clientID        : nconf.get('facebookAuth_clientID'),
-    clientSecret    : nconf.get('facebookAuth:clientSecret'),
-    callbackURL     : nconf.get('facebookAuth:callbackURL'),
+    clientID        : process.env.FACEBOOK_CLIENT_ID,
+    clientSecret    : process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL     : process.env.FACEBOOK_CALLBACK_URL,
     passReqToCallback : true,
     profileFields: ['id', 'emails', 'name'],
   },
