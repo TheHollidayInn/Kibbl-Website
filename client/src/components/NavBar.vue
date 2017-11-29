@@ -21,6 +21,8 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         router-link.nav-link(:to="{ path: '/pets' }") Pets
       li.nav-item
         router-link.nav-link(:to="{ path: '/shelters' }") Shelters
+      li.nav-item
+        router-link.nav-link(:to="{ path: '/apps' }") Download the App
     ul.navbar-nav.my-2.my-lg-0
       li.nav-item
         router-link.nav-link(:to="{ path: '/notifications' }", v-if='isLoggedIn')

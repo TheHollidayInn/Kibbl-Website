@@ -29,6 +29,11 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/apps',
+      name: 'MarketingPage',
+      component: MarketingPage
+    },
+    {
       path: '/marketing-page',
       name: 'MarketingPage',
       component: MarketingPage
