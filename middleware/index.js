@@ -1,6 +1,5 @@
-var nconf = require('nconf');
-var jwt    = require('jsonwebtoken');
-let User = require('../models/user');
+const jwt    = require('jsonwebtoken');
+const User = require('../models/user');
 
 var middleware = {}
 
@@ -23,7 +22,7 @@ middleware.hasValidToken = function (req, res, next) {
     });
   }
 
-  jwt.verify(token, nconf.get('JWT_SECRET'), function(err, decoded) {
+  jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
     if (err) {
       return res.status(403).json({ success: false, message: 'Failed to authenticate token.' });
     } else {

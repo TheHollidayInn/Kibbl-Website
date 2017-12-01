@@ -5,3 +5,4 @@ public/dist
 npm-debug.log
 config.json
 yarn-error.log
+.env

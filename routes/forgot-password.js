@@ -1,5 +1,4 @@
 var CryptoJS = require("crypto-js");
-var nconf = require('nconf');
 var express = require('express');
 var router = express.Router();
 
@@ -18,7 +17,7 @@ router.post('/', function(req, res, next) {
         });
       }
 
-      ciphertext = CryptoJS.AES.encrypt(email, nconf.get('JWT_SECRET'));
+      ciphertext = CryptoJS.AES.encrypt(email, process.env.JWT_SECRET);
 
       user.resetPasswordToken = encodeURIComponent(ciphertext);
       user.resetPasswordExpires = Date.now() + 3600000; // 1 hour

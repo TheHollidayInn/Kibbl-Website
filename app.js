@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,35 +13,33 @@ mongoose.Promise = require('bluebird');
 
 var passport = require('passport');
 var flash    = require('connect-flash');
-var session      = require('express-session');
+var session  = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-var fs = require('fs'),
-  nconf = require('nconf');
-  nconf.argv()
-   .env()
-   .file({ file: './config.json' });
-
-var stripe = require('stripe')(nconf.get('stripe:secretKey'));
-
-require('./config/passport')(passport);
+require('./libraries/passport')(passport);
 
 var app = express();
 app.use(compression());
-app.use(require('prerender-node').set('prerenderToken', nconf.get('PRERENDER_TOKEN')));
+app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN));
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+app.use('/static/js', express.static(__dirname + '/client/dist/static/js'));
+app.use('/static/css', express.static(__dirname + '/client/dist/static/css'));
+app.use('/static/img', express.static(__dirname + '/client/dist/static/img'));
+app.use(express.static(__dirname + '/client/dist'));
+
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({
-    secret: nconf.get("db:SESSION_SECRET"),
+    secret: process.env.DB_SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     maxAge: new Date(Date.now() + 3600000),
@@ -51,12 +51,12 @@ app.use(session({
 }));
 
 var oneWeek = 604800000;
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
-app.use(session({ secret: nconf.get('db:PASSPORT_SESSION_SECRET') })); // session secret
+app.use(session({ secret: process.env.DB_PASSPORT_SESSION_SECRET }));
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session());
 app.use(flash());
 
 //@TODO: Move middleware
@@ -93,7 +93,7 @@ app.use('/api/v1/feedback', feedback);
 app.use('/api/v1/forgot-password', forgotPassword);
 app.use('/api/v1/reset', reset);
 
-mongoose.connect(nconf.get('db:URL'));
+mongoose.connect(process.env.DB_URL);
 
 // catch 404 and forward to error handler
 // @TODO: how to ignore angular 404s This should only handle api 404s
@@ -117,7 +117,8 @@ if (app.get('env') === 'development') {
     //   message: err.message,
     //   error: err
     // });
-    return res.render('index', { title: 'Kibbl' });
+    // return res.render('index', { title: 'Kibbl' });
+    return res.sendFile('./client/dist/index.html', {root: './'});
     return res.status(err.status).json({
       message: err.message,
       error: err
@@ -133,7 +134,7 @@ app.use(function(err, req, res, next) {
   //   message: err.message,
   //   error: {}
   // });
-  return res.render('index', { title: 'Kibbl' });
+  return res.sendFile('./client/dist/index.html', {root: './'});
   return res.status(err.status).json({
     message: err.message,
     error: {}

@@ -1,4 +1,3 @@
-var nconf = require('nconf');
 var express = require('express');
 let fs = require('fs');
 var router = express.Router();
@@ -6,7 +5,7 @@ var router = express.Router();
 var passport = require('passport');
 var Middleware = require('../middleware');
 
-var stripe = require('stripe')(nconf.get('stripe:secretKey'));
+// var stripe = require('stripe')(process.env.STRIPE_SECRET);
 var jwt    = require('jsonwebtoken');
 const Mailchimp = require('mailchimp-api-v3')
 const mailchimpApi = new Mailchimp(nconf.get('MAIL_CHIMP_API'));
@@ -17,10 +16,6 @@ var Event = require('../models/events');
 var Shelter = require('../models/shelters');
 var Pet = require('../models/pets');
 var VolunteerOpportunity = require('../models/volunteerOpportunity');
-
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Kibbl' });
-});
 
 router.get('/api/v1/latest', function(req, res, next) {
   let events = [];
@@ -63,20 +58,6 @@ router.get('/api/v1/latest', function(req, res, next) {
     });
 });
 
-router.get('/marketing.html', function(req, res) {
-  res.render('marketing-landing-page.jade');
-});
-
-router.get('/login.html', function(req, res) {
-  res.render('login.jade', { message: req.flash('loginMessage') });
-});
-
-router.post('/login-angular', passport.authenticate('local-login'), function(req, res) { res.send(req.user); });
-
-router.get('/register.html', function(req, res) {
-  res.render('register.jade', { message: req.flash('signupMessage') });
-});
-
 router.post('/api/v1/register', function (req, res) {
   let email = req.body.email;
   let password = req.body.password;
@@ -109,7 +90,7 @@ router.post('/api/v1/register', function (req, res) {
       return newUser.save()
     })
     .then(function (userSaved) {
-      let token =  jwt.sign(userSaved, nconf.get('JWT_SECRET'), { expiresIn: '40000h' });
+      let token =  jwt.sign(userSaved, process.env.JWT_SECRET, { expiresIn: '40000h' });
 
       return res.status(201).json({
         user: userSaved,
@@ -143,7 +124,7 @@ router.post('/api/v1/login', function (req, res) {
 
       if (!user.validPassword(password)) return res.status(401).json({message: 'Password is incorrect.'});
 
-      let token =  jwt.sign(user, nconf.get('JWT_SECRET'), { expiresIn: '40000h' });
+      let token =  jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '40000h' });
 
       return res.status(200).json({
         token: token,
@@ -231,7 +212,7 @@ router.post('/api/v1/auth/social', function (req, res) {
     })
     .then(function(newUser) {
       // @TODO: handle expiring tokens
-      let token =  jwt.sign(newUser, nconf.get('JWT_SECRET'), { expiresIn: '40000h' });
+      let token =  jwt.sign(newUser, process.env.JWT_SECRET, { expiresIn: '40000h' });
 
       return res.status(200).json({
         token: token,
@@ -242,120 +223,24 @@ router.post('/api/v1/auth/social', function (req, res) {
     });
 });
 
-router.post('/charge', Middleware.isLoggedIn, function(req, res, next) {
-  stripe.customers.create({
-    email: req.user.local.email,
-    source: req.body.stripeToken,
-  }).then(function(customer) {
-    return stripe.charges.create({
-      amount: req.body.amount,
-      currency: 'usd',
-      customer: customer.id
-    });
-  }).then(function(charge) {
-    // Donations
-    //@TODO: Log the donation to model
-    //@TODO: Send email
-    res.render('index', { message: 'Your donation as been sent!', status: 'Success!' });
-  }).catch(function(err) {
-    // Deal with an error
-  });
-});
-
-//Static
-router.get('/pet-detail.html', function(req, res, next) {
-  res.render('pets/pet-detail');
-});
-
-router.get('/pet-list.html', function(req, res, next) {
-  res.render('pets/pet-list');
-});
-
-router.get('/favorite-list.html', function(req, res, next) {
-  res.render('favorite-list');
-});
-
-router.get('/volunteer-list.html', function(req, res, next) {
-  res.render('volunteer/volunteer-list');
-});
-
-router.get('/volunteer-detail.html', function(req, res, next) {
-  res.render('volunteer/volunteer-detail');
-});
-
-router.get('/event-list.html', function(req, res, next) {
-  res.render('events/event-list');
-});
-
-router.get('/event-detail.html', function(req, res, next) {
-  res.render('events/event-detail');
-});
-
-router.get('/shelter-list.html', function(req, res, next) {
-  res.render('shelters/shelter-list');
-});
-
-router.get('/shelter-detail.html', function(req, res, next) {
-  res.render('shelters/shelter-detail');
-});
-
-router.get('/message-list.html', function(req, res, next) {
-  res.render('messages/message-list');
-});
-
-router.get('/message-detail.html', function(req, res, next) {
-  res.render('messages/message-detail');
-});
-
-router.get('/notification-list.html', function(req, res, next) {
-  res.render('notifications/notification-list');
-});
-
-router.get('/notification-updates.html', function(req, res, next) {
-  res.render('notifications/notification-updates');
-});
-
-router.get('/contact-modal.html', function(req, res, next) {
-  res.render('modals/contact');
-});
-
-router.get('/comments-directive.html', function(req, res, next) {
-  res.render('comments');
-});
-
-router.get('/feedback-list.html', function(req, res, next) {
-  res.render('feedback/feedback-list');
-});
-
-router.get('/feedback-detail.html', function(req, res, next) {
-  res.render('feedback/feedback-detail');
-});
-
-router.get('/home.html', function(req, res, next) {
-  res.render('home');
-});
-
-router.get('/forgot-password.html', function(req, res, next) {
-  res.render('forgot-password');
-});
-
-router.get('/reset.html', function(req, res, next) {
-  res.render('reset');
-});
-
-// router.get('/*', function(req, res, next) {
-//   res.render('index', { title: 'Kibbl' });
+// router.post('/charge', Middleware.isLoggedIn, function(req, res, next) {
+//   stripe.customers.create({
+//     email: req.user.local.email,
+//     source: req.body.stripeToken,
+//   }).then(function(customer) {
+//     return stripe.charges.create({
+//       amount: req.body.amount,
+//       currency: 'usd',
+//       customer: customer.id
+//     });
+//   }).then(function(charge) {
+//     // Donations
+//     //@TODO: Log the donation to model
+//     //@TODO: Send email
+//     // res.render('index', { message: 'Your donation as been sent!', status: 'Success!' });
+//   }).catch(function(err) {
+//     // Deal with an error
+//   });
 // });
-
-// router.get('*', function(req, res, next) {
-//   let url = req.url;
-//   url = url.split('.');
-//   url = url[0].split('/');
-
-//   let path = `../views/${url[1]}.jade`;
-//   if (!fs.existsSync(path)) return next();
-//   res.render(url[1]);
-// });
-
 
 module.exports = router;
