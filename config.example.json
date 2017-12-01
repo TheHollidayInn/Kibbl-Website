@@ -1,0 +1,32 @@
+{
+  "db": {
+    "URL": "mongodb://localhost/kibbl",
+    "SESSION_SECRET": "secretfuckingcodethatneedstobestoredsomewhereelse",
+    "PASSPORT_SESSION_SECRET": "ilovethepetfinderapp"
+  },
+  "facebookAuth": {
+    "clientID": "",
+    "clientSecret": "",
+    "callbackURL": ""
+  },
+  "twitterAuth": {
+    "consumerKey": "",
+    "clientSecret": "",
+    "callbackURL": ""
+  },
+  "googleAuth": {
+    "clientID": "",
+    "clientSecret": "",
+    "callbackURL": ""
+  },
+  "stripe": {
+    "secretKey": ""
+  },
+  "MAIL": {
+    "API_KEY": "",
+    "DOMAIN": ""
+  },
+  "JWT_SECRET": "",
+  "PRERENDER_TOKEN": "",
+  "MAIL_CHIMP_API": ""
+}
