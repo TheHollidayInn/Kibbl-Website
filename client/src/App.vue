@@ -59,17 +59,17 @@
   }
 
   .img-feature-wrapper {
-    width: 185px;
     position: absolute;
-    top: -12rem;
+    top: -4rem;
     left: 4rem;
+    overflow: hidden;
   }
 
   .img-feature {
     background-position: center;
     background-size: cover;
-    height: 150px;
-    width: 150px;
+    height: 100px;
+    /*width: 100%;*/
     background-repeat: no-repeat;
   }
 

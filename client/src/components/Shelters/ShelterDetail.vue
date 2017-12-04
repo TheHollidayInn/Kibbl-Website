@@ -8,8 +8,8 @@ div
     .container
       .row
         .col-md-6
-          .well.img-feature-wrapper(v-if='shelter.facebook && shelter.facebook.cover')
-            div.img-feature(:style="`background-image:url(${shelter.facebook.cover})`")
+          .well.img-feature-wrapper(v-if='image')
+            img.img-feature(:src="image")
         .col-md-6.action-buttons
           a.btn.btn-primary(v-if='shelter.facebook && shelter.facebook.id',
             :href='`http://facebook.com/${shelter.facebook.id}`', target="_blank") Facebook Page

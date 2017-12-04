@@ -8,8 +8,8 @@ div
     .container
       .row
         .col-md-9
-          .well.img-feature-wrapper(v-if='event.facebook && event.facebook.cover')
-            div.img-feature(:style="`background-image:url(${event.facebook.cover})`")
+          .well.img-feature-wrapper(v-if='image')
+            img.img-feature(:src="image")
         .col-md-3.action-buttons
           a.btn.btn-primary(:href="`https://facebook.com/events/${event.id}`", target="_blank") Webpage
           button.btn.btn-favorite(@click='favorite()', v-if='!event.favorited') Favorite

@@ -7,8 +7,8 @@ div
     .container
       .row
         .col-md-9
-          .well.img-feature-wrapper(v-if='pet.media && pet.media[0] && pet.media[0].urlSecureFullsize')
-            div.img-feature(:style="`background-image:url(${pet.media[0].urlSecureFullsize})`")
+          .well.img-feature-wrapper(v-if='image')
+            img.img-feature(:src="image")
         .col-md-3.action-buttons
           a.btn.btn-primary(v-if='pet.contact && pet.contact.url', :href="pet.contact.url", target="_blank") Webpage
           button.btn.btn-raised.btn-primary.btn-favorite(@click='favorite()', v-if='!pet.favorited')
@@ -168,5 +168,13 @@ div
 
   .action-buttons .btn-favorite {
     background-color: #ff9933;
+  }
+
+  .img-feature-wrapper {
+    top: -6rem;
+  }
+
+  .img-feature {
+    height: 150px;
   }
 </style>
