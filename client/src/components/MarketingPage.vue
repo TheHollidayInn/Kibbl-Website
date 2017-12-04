@@ -48,7 +48,11 @@ section.background.container-fluid
   }
 </script>
 
-<style>
+<style scoped>
+  a:hover {
+    cursor: pointer
+  }
+
   .navbar {
     display: none;
   }
@@ -61,7 +65,7 @@ section.background.container-fluid
     margin-bottom: 1.5em;
   }
 
-  .background {
+  .container-fluid {
     background: #ff9933 !important;
   }
 
