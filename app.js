@@ -1,4 +1,10 @@
-require('dotenv').config()
+require('dotenv').config();
+
+const opbeat = require('opbeat').start({
+  appId: process.env.OPBEAT_APPID,
+  organizationId: process.env.OPBEAT_ORG_ID,
+  secretToken: process.env.OPBEAT_SECRET_TOKEN,
+});
 
 var express = require('express');
 var path = require('path');
@@ -19,6 +25,7 @@ var MongoStore = require('connect-mongo')(session);
 require('./libraries/passport')(passport);
 
 var app = express();
+app.use(opbeat.middleware.express())
 app.use(compression());
 app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN));
 
