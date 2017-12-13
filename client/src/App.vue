@@ -12,6 +12,13 @@
     components: {
       NavBar
     },
+    metaInfo () {
+      return {
+        meta: [
+          { 'google-site-verification': 'CN_WESB1yL9tR8v3ww5MApnzkI1ifhZA1TZUjHxIZ2w' }
+        ]
+      }
+    },
     mounted () {
       const token = localStorage.getItem('user-token')
       this.$store.commit('setToken', token)
