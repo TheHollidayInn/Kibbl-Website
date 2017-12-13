@@ -73,11 +73,11 @@ app.use(function(req, res, next) {
 });
 
 // set up a route to redirect http to https
-app.all('*', (req, res) => {
-  if (req.headers["x-forwarded-proto"] !== "https") {
-    res.redirect('https://' + req.hostname + req.url); // express 4.x
-  }
-});
+// app.all('*', (req, res) => {
+//   if (req.headers["x-forwarded-proto"] !== "https") {
+//     res.redirect('https://' + req.hostname + req.url); // express 4.x
+//   }
+// });
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
