@@ -90,7 +90,7 @@ router.post('/api/v1/register', function (req, res) {
       return newUser.save()
     })
     .then(function (userSaved) {
-      let token =  jwt.sign(userSaved, process.env.JWT_SECRET, { expiresIn: '40000h' });
+      let token =  jwt.sign(userSaved.toObject(), process.env.JWT_SECRET, { expiresIn: '40000h' });
 
       return res.status(201).json({
         user: userSaved,
@@ -124,7 +124,7 @@ router.post('/api/v1/login', function (req, res) {
 
       if (!user.validPassword(password)) return res.status(401).json({message: 'Password is incorrect.'});
 
-      let token =  jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '40000h' });
+      let token =  jwt.sign(user.toObject(), process.env.JWT_SECRET, { expiresIn: '40000h' });
 
       return res.status(200).json({
         token: token,
@@ -212,13 +212,14 @@ router.post('/api/v1/auth/social', function (req, res) {
     })
     .then(function(newUser) {
       // @TODO: handle expiring tokens
-      let token =  jwt.sign(newUser, process.env.JWT_SECRET, { expiresIn: '40000h' });
+      let token =  jwt.sign(newUser.toObject(), process.env.JWT_SECRET, { expiresIn: '40000h' });
 
       return res.status(200).json({
         token: token,
       });
     })
     .catch(function (err) {
+      console.log(err)
       res.status(403).send({err: err});
     });
 });

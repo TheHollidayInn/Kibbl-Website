@@ -26,7 +26,7 @@ middleware.hasValidToken = function (req, res, next) {
     if (err) {
       return res.status(403).json({ success: false, message: 'Failed to authenticate token.' });
     } else {
-      let userDoc = decoded._doc;
+      let userDoc = decoded;
       User.findById(userDoc._id).exec()
         .then((user) => {
           req.user = user;

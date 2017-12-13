@@ -45,23 +45,23 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({
-    secret: process.env.DB_SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    maxAge: new Date(Date.now() + 3600000),
-    store: new MongoStore(
-        {mongooseConnection: mongoose.connection},
-        function(err){
-            console.log(err || 'connect-mongodb setup ok');
-        })
-}));
+// app.use(session({
+//     secret: process.env.DB_SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     maxAge: new Date(Date.now() + 3600000),
+//     store: new MongoStore(
+//         {mongooseConnection: mongoose.connection},
+//         function(err){
+//             console.log(err || 'connect-mongodb setup ok');
+//         })
+// }));
 
 var oneWeek = 604800000;
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
-app.use(session({ secret: process.env.DB_PASSPORT_SESSION_SECRET }));
+// app.use(session({ secret: process.env.DB_PASSPORT_SESSION_SECRET }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -100,7 +100,7 @@ app.use('/api/v1/feedback', feedback);
 app.use('/api/v1/forgot-password', forgotPassword);
 app.use('/api/v1/reset', reset);
 
-mongoose.connect(process.env.DB_URL);
+mongoose.connect(process.env.DB_URL, {useMongoClient: true});
 
 // catch 404 and forward to error handler
 // @TODO: how to ignore angular 404s This should only handle api 404s
@@ -118,13 +118,9 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
+    console.log(err);
+    opbeat.captureError(err);
     res.status(err.status || 500);
-    console.log(err)
-    // res.render('error', {
-    //   message: err.message,
-    //   error: err
-    // });
-    // return res.render('index', { title: 'Kibbl' });
     return res.sendFile('./client/dist/index.html', {root: './'});
     return res.status(err.status).json({
       message: err.message,
@@ -137,10 +133,6 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  // res.render('error', {
-  //   message: err.message,
-  //   error: {}
-  // });
   return res.sendFile('./client/dist/index.html', {root: './'});
   return res.status(err.status).json({
     message: err.message,
