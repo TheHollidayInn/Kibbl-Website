@@ -138,7 +138,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  opbeat.captureError(err);
+  // @TODO: Check for 500 ? opbeat.captureError(err);
   res.status(err.status || 500);
   return res.sendFile('./client/dist/index.html', {root: './'});
   return res.status(err.status).json({
