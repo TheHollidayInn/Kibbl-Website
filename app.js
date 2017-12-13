@@ -73,8 +73,12 @@ app.use(function(req, res, next) {
 });
 
 // set up a route to redirect http to https
-app.get('*', (req, res) => {
-  res.redirect('https://' + req.headers.host + req.url);
+app.all('*', (req, res) => {
+  if (req.headers["x-forwarded-proto"] === "https") {
+     return next();
+  }
+  console.log("sd")
+  res.redirect('https://' + req.hostname + req.url); // express 4.x
 });
 
 var routes = require('./routes/index');
@@ -124,7 +128,6 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     console.log(err);
-    opbeat.captureError(err);
     res.status(err.status || 500);
     return res.sendFile('./client/dist/index.html', {root: './'});
     return res.status(err.status).json({
@@ -137,6 +140,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+  opbeat.captureError(err);
   res.status(err.status || 500);
   return res.sendFile('./client/dist/index.html', {root: './'});
   return res.status(err.status).json({
