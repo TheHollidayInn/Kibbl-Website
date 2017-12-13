@@ -72,6 +72,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+// set up a route to redirect http to https
+app.get('*', (req, res) => {
+  res.redirect('https://' + req.headers.host + req.url);
+});
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var pets = require('./routes/pets');
