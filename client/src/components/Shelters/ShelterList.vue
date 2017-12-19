@@ -52,11 +52,33 @@
         shelters: []
       }
     },
+    metaInfo () {
+      let title = 'Shelters'
+
+      if (this.filters.search) {
+        title = `${this.filters.search} Animal Shelter`
+      }
+
+      return {
+        title,
+        meta: [
+          { 'og:title': title },
+          { 'og:description': title },
+          { 'og:url': window.location.href },
+          { 'twitter:title': title },
+          { 'twitter:description': title },
+          { 'twitter:card': title }
+        ]
+      }
+    },
     mounted () {
-      axios.get('/api/v1/shelters')
-        .then((response) => {
-          this.shelters = response.data.data
-        })
+      let city = this.$route.params.city
+      if (city) {
+        city = city.split(',')[0]
+        this.filters.search = city
+      }
+
+      this.filter()
     },
     methods: {
       filter () {

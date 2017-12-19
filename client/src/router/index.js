@@ -134,6 +134,11 @@ export default new Router({
       component: ShelterList
     },
     {
+      path: '/shelters/city/:city',
+      name: 'ShelterList',
+      component: ShelterList
+    },
+    {
       path: '/shelters/:shelterId',
       name: 'ShelterDetail',
       component: ShelterDetail
