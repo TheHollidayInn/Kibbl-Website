@@ -15,7 +15,7 @@
           classname="form-control"
           placeholder="Location"
           v-on:placechanged="getAddressData",
-          type="locality"
+          types="(cities)"
         )
       .form-group(input-field='')
         label Type
@@ -124,7 +124,8 @@
         ],
         filters: {
           search: '',
-          location: ''
+          location: '',
+          distance: 20
         }
       }
     },

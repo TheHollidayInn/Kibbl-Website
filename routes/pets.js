@@ -11,7 +11,7 @@ let Middleware = require('../middleware');
 let _ = require('lodash');
 
 // @TODO: Move this to library
-let jwt    = require('jsonwebtoken');
+let jwt = require('jsonwebtoken');
 
 let prerender = require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN)
 
