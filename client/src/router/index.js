@@ -22,12 +22,18 @@ import FollowingList from '@/components/Notifications/FollowingList'
 import FavoritesList from '@/components/FavoritesList'
 import MarketingPage from '@/components/MarketingPage'
 import FeedbackPage from '@/components/FeedbackPage'
+import BetaPage from '@/components/BetaPage'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/beta',
+      name: 'BetaPage',
+      component: BetaPage
+    },
     {
       path: '/apps',
       name: 'MarketingPage',
