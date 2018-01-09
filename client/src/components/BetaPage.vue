@@ -3,7 +3,7 @@ section.background.container-fluid
   .container
     .row
       .col-12.col-md-6.text-center
-        img(src="https://gallery.mailchimp.com/2116c7fd08e32fb02b8884e88/images/4984a247-bb60-4a3f-8db4-33b91bd30de7.gif", alt="Kibbl Logo", class="banner-logo")
+        img.banner-logo-gif(src="https://gallery.mailchimp.com/2116c7fd08e32fb02b8884e88/images/4984a247-bb60-4a3f-8db4-33b91bd30de7.gif", alt="Kibbl Logo")
       .col-12.col-md-6
         h1 Keep up to date with local rescues
         h3 Subscribe to local rescues and start receiving notifications when they add events or new adoptable pets.
@@ -102,8 +102,9 @@ section.background.container-fluid
     /* margin-bottom: 4em; */
   }
 
-  .banner-logo {
+  .banner-logo-gif {
     width: 60%;
     margin-top: 2em;
+    height: auto;
   }
 </style>
