@@ -1,6 +1,8 @@
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let should = chai.should();
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const should = chai.should();
+const expect = require('chai').expect;
+global.expect = expect;
 chai.use(chaiHttp);
 global.server = require('../app');
 global.request = require('supertest');

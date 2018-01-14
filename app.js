@@ -1,10 +1,11 @@
 require('dotenv').config();
 
-const opbeat = require('opbeat').start({
-  appId: process.env.OPBEAT_APPID,
-  organizationId: process.env.OPBEAT_ORG_ID,
-  secretToken: process.env.OPBEAT_SECRET_TOKEN,
-});
+// @TODO: Only dev
+// const opbeat = require('opbeat').start({
+//   appId: process.env.OPBEAT_APPID,
+//   organizationId: process.env.OPBEAT_ORG_ID,
+//   secretToken: process.env.OPBEAT_SECRET_TOKEN,
+// });
 
 var express = require('express');
 var path = require('path');
@@ -12,20 +13,21 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var compression = require('compression')
+var compression = require('compression');
 
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 var passport = require('passport');
 var flash    = require('connect-flash');
-var session  = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+// var session  = require('express-session');
+// var MongoStore = require('connect-mongo')(session);
 
 require('./libraries/passport')(passport);
 
 var app = express();
-app.use(opbeat.middleware.express())
+// @TODO: Add to prod only
+// app.use(opbeat.middleware.express())
 app.use(compression());
 app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN));
 
@@ -57,7 +59,7 @@ app.use(cookieParser());
 //         })
 // }));
 
-var oneWeek = 604800000;
+// var oneWeek = 604800000;
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // required for passport
@@ -79,19 +81,20 @@ app.use(function(req, res, next) {
 //   }
 // });
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var pets = require('./routes/pets');
-var favorites = require('./routes/favorites');
-var contacts = require('./routes/contact');
-var shelters = require('./routes/shelters');
-var events = require('./routes/events');
-var volunteer = require('./routes/volunteer');
-var notifications = require('./routes/notifications');
-let comments = require('./routes/comments');
-let feedback = require('./routes/feedback');
-let forgotPassword = require('./routes/forgot-password');
-let reset = require('./routes/reset');
+const routes = require('./routes/index');
+const users = require('./routes/users');
+const pets = require('./routes/pets');
+const favorites = require('./routes/favorites');
+const contacts = require('./routes/contact');
+const shelters = require('./routes/shelters');
+const events = require('./routes/events');
+const volunteer = require('./routes/volunteer');
+const notifications = require('./routes/notifications');
+const comments = require('./routes/comments');
+const feedback = require('./routes/feedback');
+const forgotPassword = require('./routes/forgot-password');
+const reset = require('./routes/reset');
+const emailSubscribers = require('./routes/emailSubscribers');
 
 app.use('/', routes);
 app.use('/api/v1/users', users);
@@ -106,8 +109,13 @@ app.use('/api/v1/comments', comments);
 app.use('/api/v1/feedback', feedback);
 app.use('/api/v1/forgot-password', forgotPassword);
 app.use('/api/v1/reset', reset);
+app.use('/api/v1/subscriptions', emailSubscribers);
 
-mongoose.connect(process.env.DB_URL, {useMongoClient: true});
+let MONGO_URL = process.env.DB_DEV_URL;
+if (process.env.NODE_ENV === 'production') {
+  MONGO_URL = process.env.DB_URL;
+}
+mongoose.connect(MONGO_URL, {useMongoClient: true});
 
 // catch 404 and forward to error handler
 // @TODO: how to ignore angular 404s This should only handle api 404s

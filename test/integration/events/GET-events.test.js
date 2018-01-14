@@ -106,7 +106,7 @@ describe('Events: Get', () => {
       });
   });
 
-  it.only('fitlers events by date', (done) => {
+  it('fitlers events by date', (done) => {
     let startDate = moment().subtract(2, 'days');
     let endDate = moment().add(4, 'days');
 

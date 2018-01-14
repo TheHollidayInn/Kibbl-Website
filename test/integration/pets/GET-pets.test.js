@@ -61,7 +61,7 @@ describe('Pet: Get', () => {
       });
   });
 
-  it.only('finds events near a coordinate', (done) => {
+  it('finds events near a coordinate', (done) => {
     let location = '29 champs elysée paris';
 
     request(server)

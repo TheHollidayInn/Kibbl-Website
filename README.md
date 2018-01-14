@@ -15,8 +15,9 @@
  - Go to (localhost:3000)[http://localhost:3000]
 
 ## Todo
- - [] npm script to rerun gulp concat
- - [] webpack
- - [] Karma tests
- - [] Linting
- - [] Use Gulp to compile jade
+ - [x] Separate Client with Webpack usage
+ - [ ] Front End Tests
+ - [x] Add Lint Checks
+ - [ ] Add Greenkeeper
+ - [ ] Add Code Coverage
+ - [ ] Add versioning to git/package

@@ -1,23 +1,20 @@
 var express = require('express');
-let fs = require('fs');
 var router = express.Router();
 
 var passport = require('passport');
-var Middleware = require('../middleware');
 
 // var stripe = require('stripe')(process.env.STRIPE_SECRET);
 var jwt    = require('jsonwebtoken');
-const Mailchimp = require('mailchimp-api-v3')
+const Mailchimp = require('mailchimp-api-v3');
 const mailchimpApi = new Mailchimp(process.env.MAIL_CHIMP_API);
 
-var Donations = require('../models/donations');
 var User = require('../models/user');
 var Event = require('../models/events');
 var Shelter = require('../models/shelters');
 var Pet = require('../models/pets');
 var VolunteerOpportunity = require('../models/volunteerOpportunity');
 
-router.get('/api/v1/latest', function(req, res, next) {
+router.get('/api/v1/latest', function(req, res) {
   let events = [];
   let shelters = [];
   let pets = [];
