@@ -4,11 +4,21 @@ const router = express.Router();
 const EmailSubscribers = require('../models/emailSubscribers');
 
 router.post('/', async (req, res) => {
-  console.log(req.body)
   const {email, location} = req.body;
 
   if (!email || !location) {
     return res.status(400).json({err: 'Email and Location required'});
+  }
+
+  const subscriberDoc = await EmailSubscribers.findOne({email}).exec();
+  if (subscriberDoc && subscriberDoc.active) {
+    return res.status(401).json({err: 'Subscription already exists'});
+  }
+
+  if (subscriberDoc && !subscriberDoc.active) {
+    subscriberDoc.active = true;
+    await subscriberDoc.save();
+    return res.status(201).json({subscriber: subscriberDoc});
   }
 
   const subscriber = new EmailSubscribers();

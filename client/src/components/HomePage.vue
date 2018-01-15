@@ -1,9 +1,21 @@
 <template lang="pug">
 div
   .container-fluid.banner
-    .container
-      img.banner-logo(src="../assets/kibbl-logo.svg", alt="Kibbl Logo")
-      h2.text-center(style='color:#fff;') Helping animals made easy
+    .row
+      .col-6
+        img.banner-logo(src="../assets/kibbl-logo.svg", alt="Kibbl Logo")
+        h2.text-center(style='color:#fff;') Helping animals made easy
+      form.col-6
+        h2 Get Notified When Rescues Near You Post Events and Pets
+        input.form-control(type='email', placeholder='Enter your email', v-model='email')
+        vue-google-autocomplete(
+          id="map"
+          classname="form-control"
+          placeholder="Location"
+          v-on:placechanged="getAddressData",
+          types="(cities)"
+        )
+        button.btn.btn-primary.form-control(@click.prevent='signup()') Get Notified
   .container-fluid.how-section
     .container
       .row.how-title
@@ -58,17 +70,21 @@ import axios from 'axios'
 import EventListItem from './Events/EventListItem'
 import PetListItem from './Pets/PetListItem'
 import ShelterListItem from './Shelters/ShelterListItem'
+import VueGoogleAutocomplete from 'vue-google-autocomplete'
 
 export default {
   name: 'HomePage',
   components: {
     EventListItem,
     PetListItem,
-    ShelterListItem
+    ShelterListItem,
+    VueGoogleAutocomplete
   },
   data () {
     return {
       loading: false,
+      email: '',
+      location: '',
       pets: [
         {
           __v: 0,
@@ -132,11 +148,55 @@ export default {
       this.shelters = latest.shelters
       this.loading = false
     })
+  },
+  computed: {
+    signupDisabled () {
+      return !this.email || !this.location
+    }
+  },
+  methods: {
+    async signup () {
+      if (this.signupDisabled) {
+        alert('Please enter an email and a location')
+        return
+      }
+
+      try {
+        await axios.post('api/v1/subscriptions', {email: this.email, location: this.location})
+        alert('Success! You will receive notifications soon :D')
+      } catch (e) {
+        alert(e.response.data.err)
+      }
+    },
+    getAddressData (data) {
+      this.location = `${data.locality}, ${data.administrative_area_level_1}, ${data.country}`
+    }
   }
 }
 </script>
 
 <style scoped>
+
+  form {
+    padding: 2em;
+  }
+
+  form h2 {
+    margin-top: .5em;
+  }
+
+  form input {
+    margin-bottom: .5em;
+  }
+
+  form .btn-primary {
+    background: #2c3e50 !important;
+  }
+
+  form .btn-primary:hover {
+    cursor: pointer;
+  }
+
   h1, h2 {
     font-weight: normal;
   }
