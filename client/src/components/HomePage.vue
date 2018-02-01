@@ -2,10 +2,10 @@
 div
   .container-fluid.banner
     .row
-      .col-6
+      .col-12.col-md-6
         img.banner-logo(src="../assets/kibbl-logo.svg", alt="Kibbl Logo")
         h2.text-center(style='color:#fff;') Helping animals made easy
-      form.col-6
+      form.col-12.col-md-6
         h2 Get Notified When Rescues Near You Post Events and Pets
         input.form-control(type='email', placeholder='Enter your email', v-model='email')
         vue-google-autocomplete(
@@ -37,10 +37,10 @@ div
           .h3.text-center Communicate
           //- p.text-center Send messages to talk with shelters
           p.text-center Chat with a community of animal lovers
-  .container-fluid.new-section(style="background:#fff;")
+  .container.new-section
     div.row
       h2.col-12.text-center Latest Events
-      .col-12.text-center
+      //.col-12.text-center
         a.btn.btn-flat.btn-primary(href='/events') View More
       .col-md-12.text-center
         .loader(v-if='loading') Loading...
@@ -48,13 +48,13 @@ div
         event-list-item(:event='event')
     div.row
       h2.col-12.text-center Latest Pets
-      .col-md-12.text-center
+      //.col-md-12.text-center
         a.btn.btn-flat.btn-primary(href='/pets') View More
       .col-md-12.text-center
         .loader(v-if='loading') Loading...
-      .col-12.col-md-4.grid-item(v-for="pet in pets")
+      .col-12.col-md-3.grid-item(v-for="pet in pets", v-if='!loading')
         pet-list-item(:pet='pet')
-    div.row
+    //div.row
       h2.col-12.text-center Latest Shelters
       .col-md-12.text-center
         a.btn.btn-flat.btn-primary(href='/shelters') View More
@@ -82,7 +82,7 @@ export default {
   },
   data () {
     return {
-      loading: false,
+      loading: true,
       email: '',
       location: '',
       pets: [
@@ -187,10 +187,12 @@ export default {
 
   form input {
     margin-bottom: .5em;
+    border: none;
   }
 
   form .btn-primary {
     background: #2c3e50 !important;
+    border-color: #2c3e50 !important;
   }
 
   form .btn-primary:hover {
@@ -216,14 +218,17 @@ export default {
   }
 
   .grid-item {
-    height:200px;
+    height: 298px;
     overflow:hidden;
-    border-radius: 5px;
+  }
+
+  .new-section {
+    padding-top: 4em;
   }
 
   .new-section h2 {
-    margin-top: .5rem;
-    margin-bottom: .5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   .how-section {
@@ -233,7 +238,7 @@ export default {
 
   .how-title {
     margin: 2rem;
-    margin-bottom: 6rem;
+    margin-bottom: 4rem;
   }
 
   .how-icon {

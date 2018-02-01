@@ -1,15 +1,10 @@
 <template lang="pug">
-nav.navbar.navbar-expand-lg.navbar-light.bg-light
+b-navbar(toggleable="lg", type="light")
   a.navbar-brand(href='/#/home')
     div.logo1
     div.logo2
-  button.navbar-toggler(type='button',
-    data-toggle='collapse',
-    data-target='#navbarSupportedContent',
-    aria-controls='navbarSupportedContent',
-    aria-expanded='false', aria-label='Toggle navigation')
-    span.navbar-toggler-icon
-  #navbarSupportedContent.collapse.navbar-collapse
+  b-navbar-toggle(target="nav-collapse")
+  b-collapse(is-nav id="nav-collapse")
     ul.navbar-nav.mr-auto
       li.nav-item
         router-link.nav-link(:to="{ path: '/home' }")

@@ -41,7 +41,8 @@
   }
 
   body {
-    background: #E8E8E8 !important;
+    /* background: #E8E8E8 !important; */
+    background-color: #efeef1 !important;
   }
 
   .filter-toggle {

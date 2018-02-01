@@ -111,7 +111,7 @@ app.use('/api/v1/forgot-password', forgotPassword);
 app.use('/api/v1/reset', reset);
 app.use('/api/v1/subscriptions', emailSubscribers);
 
-let MONGO_URL = process.env.DB_DEV_URL;
+let MONGO_URL = "mongodb://thehollidayinn:A!s2d3F$@ds133681-a0.mlab.com:33681,ds133681-a1.mlab.com:33681/kibbl?replicaSet=rs-ds133681"; //process.env.DB_DEV_URL;
 if (process.env.NODE_ENV === 'production') {
   MONGO_URL = process.env.DB_URL;
 }

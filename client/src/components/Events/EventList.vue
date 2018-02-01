@@ -28,7 +28,7 @@
     .col-12.col-md-9
       .row(infinite-scroll="scroll()", v-for="(events, key) in groupedEvents")
         h2.col-12.text-center {{key}}
-        .col-12.col-md-4.grid-item(v-for="event in events")
+        .col-12.col-md-3.grid-item(v-for="event in events")
           event-list-item(:event='event')
     .col-12.col-md-9.offset-md-3.text-center
       button.btn.btn-primary.load-more(@click='loadMore()') Load More
@@ -117,6 +117,12 @@
 </script>
 
 <style scoped>
+
+  h2 {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
   .header {
     background: #fff;
     padding: 2em;
@@ -126,12 +132,6 @@
   .filters {
     text-align: left;
     padding-left: 1.5em;
-  }
-
-  .grid-item {
-    height:200px;
-    overflow:hidden;
-    border-radius: 5px;
   }
 
   .load-more {

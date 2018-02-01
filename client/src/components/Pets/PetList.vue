@@ -40,7 +40,7 @@
         button.btn.btn-primary.btn-raised.hidden-xs(@click='filter()') Filter
     .col-12.col-md-9
       .row(infinite-scroll="scroll()", infinite-scroll-distance="1")
-        .col-12.col-md-4.grid-item(v-for="pet in pets")
+        .col-12.col-md-3.grid-item(v-for="pet in pets")
           pet-list-item(:pet='pet')
     .col-12.col-md-9.offset-md-3.text-center
       button.btn.btn-primary.load-more(@click='loadMore()') Load More
@@ -189,12 +189,6 @@
   .filters {
     text-align: left;
     padding-left: 1.5em;
-  }
-
-  .grid-item {
-    height:200px;
-    overflow:hidden;
-    border-radius: 5px;
   }
 
   .load-more {
