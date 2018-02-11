@@ -17,6 +17,14 @@ div
         )
         button.btn.btn-primary.form-control(@click.prevent='signup()') Get Notified
   .container-fluid.how-section
+    .container.bar
+      .row
+        router-link(:to="{ path: '/events' }").col-4
+          | Find Events
+        router-link(:to="{ path: '/pets' }").col-4
+          | Find a Friend
+        router-link(:to="{ path: '/shelters' }").col-4
+          | Find Shelters
     .container
       .row.how-title
         .col-12.h2.text-center How to Kibbl
@@ -44,7 +52,7 @@ div
         a.btn.btn-flat.btn-primary(href='/events') View More
       .col-md-12.text-center
         .loader(v-if='loading') Loading...
-      .col-12.col-md-4.grid-item(v-for="event in events")
+      .col-12.col-md-3.grid-item(v-for="event in events")
         event-list-item(:event='event')
     div.row
       h2.col-12.text-center Latest Pets
@@ -176,6 +184,31 @@ export default {
 </script>
 
 <style scoped>
+  .bar {
+    background-color: #931D10 !important;
+    color: #ff9933;
+    border-radius: 8px;
+    margin-top: -4.5em;
+    font-size: 18px;
+    height: 100px;
+  }
+
+  .bar .row {
+    height: 100%;
+  }
+
+  .bar .col-4 {
+    padding: 2em;
+    color: #ff9933;
+  }
+
+  .bar .col-4:hover {
+    height: 100%;
+    opacity: 0.8;
+    cursor: pointer;
+    background-color: #ff9933;
+    color: #931D10;
+  }
 
   form {
     padding: 2em;
@@ -217,11 +250,6 @@ export default {
     color: #42b983;
   }
 
-  .grid-item {
-    height: 298px;
-    overflow:hidden;
-  }
-
   .new-section {
     padding-top: 4em;
   }
@@ -237,7 +265,7 @@ export default {
   }
 
   .how-title {
-    margin: 2rem;
+    margin: 4rem;
     margin-bottom: 4rem;
   }
 

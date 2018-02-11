@@ -25,10 +25,11 @@ router-link(:to="{ path: `/pets/${pet._id}` }")
 <style scoped>
   .default-image {
     background-image: url('../../assets/kibbl-logo-dog.png');
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 220px;
     margin: 0 auto;
     background-size: cover;
+    background-position: center;
   }
 
   .wrap {

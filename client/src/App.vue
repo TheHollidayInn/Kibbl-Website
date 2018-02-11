@@ -2,6 +2,12 @@
   div(id="app")
     nav-bar
     router-view
+    footer.container-fluid
+      .row
+        .col-12.col-md-8
+          | ©2018 Kibbl All trademarks are owned by Kibbl, or used with permission.
+        .col-12.col-md-4
+          | Social Media
 </template>
 
 <script>
@@ -30,6 +36,13 @@
   .header {
     background-color: #ff9933 !important;
     color: #931D10;
+  }
+
+  footer {
+    margin-top: 2em;
+    padding: 1.5em;
+    background-color: #931D10 !important;
+    color: #ff9933;
   }
 
   #app {
