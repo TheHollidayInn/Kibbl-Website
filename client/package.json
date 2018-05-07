@@ -17,6 +17,7 @@
     "axios": "^0.17.1",
     "bootstrap-vue": "^2.0.0-rc.1",
     "pug": "^2.0.0-rc.4",
+    "slugify": "^1.2.9",
     "vue": "^2.5.13",
     "vue-analytics": "^5.8.0",
     "vue-google-autocomplete": "^1.0.14",

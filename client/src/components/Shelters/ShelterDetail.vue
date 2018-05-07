@@ -56,6 +56,7 @@ div
       return {
         title: this.shelter.name,
         meta: [
+          { 'description': this.shelter.description },
           { 'og:title': this.shelter.name },
           { 'og:description': this.shelter.description },
           { 'og:image': this.image },

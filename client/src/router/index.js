@@ -150,6 +150,11 @@ export default new Router({
       component: ShelterDetail
     },
     {
+      path: '/shelters/:shelterId/:shelterSlug',
+      name: 'ShelterDetail',
+      component: ShelterDetail
+    },
+    {
       path: '/following',
       name: 'FollowingList',
       component: FollowingList

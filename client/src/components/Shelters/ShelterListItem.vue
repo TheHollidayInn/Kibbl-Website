@@ -1,5 +1,5 @@
 <template lang="pug">
-router-link(:to="{ path: `/shelters/${shelter._id}` }")
+router-link(:to="{ path: url }")
   .grid-content.gradient
     .col-12.text-center
       .image-circle-default(v-if='!image')
@@ -11,6 +11,8 @@ router-link(:to="{ path: `/shelters/${shelter._id}` }")
 </template>
 
 <script>
+  import slugify from 'slugify'
+
   export default {
     name: 'ShelterListItem',
     props: ['shelter'],
@@ -18,6 +20,9 @@ router-link(:to="{ path: `/shelters/${shelter._id}` }")
       image () {
         if (!this.shelter || !this.shelter.facebook || !this.shelter.facebook.cover) return false
         return this.shelter.facebook.cover
+      },
+      url () {
+        return `/shelters/${this.shelter._id}/${slugify(this.shelter.name)}`
       }
     }
   }

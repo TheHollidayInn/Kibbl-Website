@@ -21,7 +21,7 @@ function getUserFromToken (req) {
   });
 }
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   let query = {
     rescueGroupId: {$exists: true}
   };
@@ -67,7 +67,7 @@ router.get('/', function(req, res, next) {
       }
     }
 
-    return Shelter.find(query)
+    return Shelter.find({})
       .limit(20)
       .sort('-createdAt')
       .exec();

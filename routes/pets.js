@@ -1,19 +1,19 @@
-let express = require('express');
-let router = express.Router();
-let moment = require('moment');
+const express = require('express');
+const router = express.Router();
+const moment = require('moment');
 
-let Pets = require('../models/pets');
-let Favorite = require('../models/favorites');
-let Notification = require('../models/notifications');
-let Geocoder = require('../libraries/geocode');
+const Pets = require('../models/pets');
+const Favorite = require('../models/favorites');
+const Notification = require('../models/notifications');
+const Geocoder = require('../libraries/geocode');
 
-let Middleware = require('../middleware');
-let _ = require('lodash');
+const Middleware = require('../middleware');
+const _ = require('lodash');
 
 // @TODO: Move this to library
-let jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-let prerender = require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN)
+const prerender = require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN)
 
 function getUserFromToken (req) {
   let token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -26,7 +26,7 @@ function getUserFromToken (req) {
   });
 }
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   let limit = 20;
   let offset = 0;
 
@@ -91,14 +91,14 @@ router.get('/', function(req, res, next) {
       let distance = req.query.distance;
       if (distance) {
         query.locationCoords =
-          { $near :
-              {
-                $geometry : {
-                   type : "Point" ,
-                   coordinates : [geocodeResult[0].longitude, geocodeResult[0].latitude], },
-                $maxDistance : distance * 3959,
-              }
-           };
+        {
+          $near : {
+            $geometry : {
+              type : 'Point',
+              coordinates : [geocodeResult[0].longitude, geocodeResult[0].latitude], },
+            $maxDistance : distance * 3959,
+          }
+        };
       } else {
         query['contact.state'] = geocodeResult[0].administrativeLevels.level1short;
       }
@@ -169,7 +169,7 @@ router.get('/', function(req, res, next) {
 
 });
 
-router.get('/:petId', prerender, function(req, res, next) {
+router.get('/:petId', prerender, function(req, res) {
   let pet;
   let user;
   let data;
@@ -178,9 +178,11 @@ router.get('/:petId', prerender, function(req, res, next) {
     .then(function (userFound) {
       user = userFound;
 
-      let fields = 'contact age size media breeds name sex description lastUpdate animal rescueGroupId shelterId';
+      const fields = 'contact age size media breeds name sex description lastUpdate animal rescueGroupId shelterId';
+      const { petId } = req.params;
+
       return Pets
-      .findOne({ _id: req.params.petId}, fields)
+      .findOne({ _id: petId}, fields)
         .populate('shelterId')
         .exec();
     })
@@ -208,7 +210,7 @@ router.get('/:petId', prerender, function(req, res, next) {
         return Notification.findOne({
           userID: user._id,
           shelterId: data.shelterId._id,
-        }).exec()
+        }).exec();
       }
 
       return null;
