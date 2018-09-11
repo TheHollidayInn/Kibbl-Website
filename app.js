@@ -8,6 +8,7 @@ require('dotenv').config();
 // });
 
 var express = require('express');
+const cors = require('cors');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -28,6 +29,7 @@ require('./libraries/passport')(passport);
 var app = express();
 // @TODO: Add to prod only
 // app.use(opbeat.middleware.express())
+app.use(cors());
 app.use(compression());
 app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN));
 
@@ -133,9 +135,8 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    console.log(err);
     res.status(err.status || 500);
-    return res.sendFile('./client/dist/index.html', {root: './'});
+    // return res.sendFile('./client/dist/index.html', {root: './'});
     return res.status(err.status).json({
       message: err.message,
       error: err
@@ -148,7 +149,7 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
   // @TODO: Check for 500 ? opbeat.captureError(err);
   res.status(err.status || 500);
-  return res.sendFile('./client/dist/index.html', {root: './'});
+  // return res.sendFile('./client/dist/index.html', {root: './'});
   return res.status(err.status).json({
     message: err.message,
     error: {}

@@ -6,7 +6,7 @@ var passport = require('passport');
 // var stripe = require('stripe')(process.env.STRIPE_SECRET);
 var jwt    = require('jsonwebtoken');
 const Mailchimp = require('mailchimp-api-v3');
-const mailchimpApi = new Mailchimp(process.env.MAIL_CHIMP_API);
+const mailchimpApi = process.env.MAIL_CHIMP_API ? new Mailchimp(process.env.MAIL_CHIMP_API) : {};
 
 var User = require('../models/user');
 var Event = require('../models/events');

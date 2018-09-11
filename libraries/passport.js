@@ -5,6 +5,54 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 var User = require('../models/user');
 
+function setUpFacebook(passport) {
+  passport.use(new FacebookStrategy({
+    clientID        : process.env.FACEBOOK_CLIENT_ID,
+    clientSecret    : process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL     : process.env.FACEBOOK_CALLBACK_URL,
+    passReqToCallback : true,
+    profileFields: ['id', 'emails', 'name'],
+  },
+  function(req, token, refreshToken, profile, done) {
+    process.nextTick(function() {
+      if (req.user) {
+        var user = req.user;
+        user.facebook.id    = profile.id;
+        user.facebook.token = token;
+        user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
+        user.facebook.email = profile.emails[0].value;
+
+        return user.save()
+          .then(function() {
+            return done(null, user);
+          })
+          .catch(function (err) {
+            throw err;
+          });
+      }
+
+      return User.findOne({ 'facebook.id' : profile.id })
+        .then(function(user) {
+            var newUser          = new User();
+
+            newUser.facebook.id    = profile.id; // set the users facebook id
+            newUser.facebook.token = token; // we will save the token that facebook provides to the user
+            newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
+            newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+
+            return newUser.save();
+        })
+        .then(function(newUser) {
+          if (newUser) return done(null, newUser);
+          return done(null, user);
+        })
+        .catch(function (err) {
+            return done(err);
+        });
+    });
+  }));
+}
+
 // expose this function to our app using module.exports
 module.exports = function(passport) {
   passport.serializeUser(function(user, done) {
@@ -64,51 +112,7 @@ module.exports = function(passport) {
         });
   }));
 
-  passport.use(new FacebookStrategy({
-    clientID        : process.env.FACEBOOK_CLIENT_ID,
-    clientSecret    : process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL     : process.env.FACEBOOK_CALLBACK_URL,
-    passReqToCallback : true,
-    profileFields: ['id', 'emails', 'name'],
-  },
-  function(req, token, refreshToken, profile, done) {
-    process.nextTick(function() {
-      if (req.user) {
-        var user = req.user;
-        user.facebook.id    = profile.id;
-        user.facebook.token = token;
-        user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
-        user.facebook.email = profile.emails[0].value;
-
-        return user.save()
-          .then(function() {
-            return done(null, user);
-          })
-          .catch(function (err) {
-            throw err;
-          });
-      }
-
-      return User.findOne({ 'facebook.id' : profile.id })
-        .then(function(user) {
-            var newUser          = new User();
-
-            newUser.facebook.id    = profile.id; // set the users facebook id
-            newUser.facebook.token = token; // we will save the token that facebook provides to the user
-            newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
-            newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
-
-            return newUser.save();
-        })
-        .then(function(newUser) {
-          if (newUser) return done(null, newUser);
-          return done(null, user);
-        })
-        .catch(function (err) {
-            return done(err);
-        });
-    });
-  }));
+  if (process.env.FACEBOOK_CLIENT_ID) setUpFacebook();
 
   // passport.use(new TwitterStrategy({
   //   consumerKey     : nconf.get('twitterAuth:consumerKey'),
