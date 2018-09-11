@@ -112,7 +112,7 @@ module.exports = function(passport) {
         });
   }));
 
-  if (process.env.FACEBOOK_CLIENT_ID) setUpFacebook();
+  if (process.env.FACEBOOK_CLIENT_ID) setUpFacebook(passport);
 
   // passport.use(new TwitterStrategy({
   //   consumerKey     : nconf.get('twitterAuth:consumerKey'),
