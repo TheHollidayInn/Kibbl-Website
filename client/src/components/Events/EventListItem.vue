@@ -2,7 +2,7 @@
 router-link(:to="{ path: `/events/${event._id}` }")
   .wrap
     .col-12.default-image(v-if='!image')
-    .col-12.image(v-else, :style='`background-image:url(${image})`')
+    .col-12.image(v-else, v-lazy:background-image='image')
     .content
       .col-12
         h3 {{event.name}}

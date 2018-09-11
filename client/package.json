@@ -21,6 +21,7 @@
     "vue": "^2.5.13",
     "vue-analytics": "^5.8.0",
     "vue-google-autocomplete": "^1.0.14",
+    "vue-lazyload": "^1.2.6",
     "vue-meta": "^1.4.2",
     "vue-router": "^3.0.1",
     "vuejs-datepicker": "^0.9.25",
