@@ -20,7 +20,6 @@ var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 var passport = require('passport');
-var flash    = require('connect-flash');
 // var session  = require('express-session');
 // var MongoStore = require('connect-mongo')(session);
 
@@ -68,7 +67,6 @@ app.use(cookieParser());
 // app.use(session({ secret: process.env.DB_PASSPORT_SESSION_SECRET }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 
 //@TODO: Move middleware
 app.use(function(req, res, next) {
@@ -113,11 +111,11 @@ app.use('/api/v1/forgot-password', forgotPassword);
 app.use('/api/v1/reset', reset);
 app.use('/api/v1/subscriptions', emailSubscribers);
 
-let MONGO_URL = 'mongodb://thehollidayinn:A!s2d3F$@ds133681-a0.mlab.com:33681,ds133681-a1.mlab.com:33681/kibbl?replicaSet=rs-ds133681'; //process.env.DB_DEV_URL;
+let MONGO_URL = process.env.DB_DEV_URL;
 if (process.env.NODE_ENV === 'production') {
   MONGO_URL = process.env.DB_URL;
 }
-mongoose.connect(MONGO_URL, {useMongoClient: true});
+mongoose.connect(MONGO_URL, { useNewUrlParser: true });
 
 // catch 404 and forward to error handler
 // @TODO: how to ignore angular 404s This should only handle api 404s
