@@ -6,3 +6,4 @@ npm-debug.log
 config.json
 yarn-error.log
 .env
+.DS_Store
