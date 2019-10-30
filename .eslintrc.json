@@ -1,39 +1,19 @@
 {
     "env": {
-        "es6": true,
-        "node": true,
-        "mocha": true
+        "browser": true,
+        "commonjs": true,
+        "es6": true
     },
-    "globals": {
-        "request": true,
-        "server": true,
-        "expect": true
-    },
-    "parser": "babel-eslint",
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "sourceType": "module"
-    },
-    "plugins": [
-      "mocha"
+    "extends": [
+        "airbnb-base"
     ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
     "rules": {
-        "indent": [
-            "error",
-            2
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ],
-        "mocha/no-exclusive-tests": "error"
     }
 }
