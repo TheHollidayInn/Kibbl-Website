@@ -1,20 +1,21 @@
-var api_key = process.env.MAIL_API_KEY;
-var domain = process.env.MAIL_DOMAIN;
 const mailgun = require('mailgun-js');
-const Mailgun = api_key ? ({ apiKey: api_key, domain: domain }) : undefined;
 
-var api = {};
+const apiKey = process.env.MAIL_API_KEY;
+const domain = process.env.MAIL_DOMAIN;
+const Mailgun = apiKey ? ({ apiKey, domain }) : undefined;
+
+const api = {};
 
 api.mailgun = mailgun;
 
-api.sendMessages = function (data) {
-  if (!Mailgun) return;
-  return new Promise(function (resolve, reject) {
-    Mailgun.messages().send(data, function (error, body) {
+api.sendMessages = (data) => {
+  if (!Mailgun) return null;
+  return new Promise((resolve, reject) => {
+    return Mailgun.messages().send(data, (error, body) => {
       if (error) return reject(error);
-      resolve(body);
+      return resolve(body);
     });
-  })
+  });
 };
 
 module.exports = api;

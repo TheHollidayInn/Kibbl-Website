@@ -1,27 +1,20 @@
-let NodeGeocoder = require('node-geocoder');
+const NodeGeocoder = require('node-geocoder');
 
-// Maybe wrap in library
-let geocodeOptions = {
+const geocodeOptions = {
   provider: 'google',
   httpAdapter: 'https', // Default
   apiKey: process.env.GOOGLE_MAP, // for Mapquest, OpenCage, Google Premier
-  formatter: null         // 'gpx', 'string', ...
+  formatter: null, // 'gpx', 'string', ...
 };
-let geocoder = NodeGeocoder(geocodeOptions);
+const geocoder = NodeGeocoder(geocodeOptions);
 
-let api = {};
+const api = {};
 
-api.geocode = function (location) {
-  return new Promise(function (resolve, reject) {
-    if (!location) return resolve(location);
-    geocoder.geocode(location)
-      .then(function(res) {
-        return resolve(res);
-      })
-      .catch(function(err) {
-        return reject(err);
-      });
-  });
-}
+api.geocode = (location) => new Promise((resolve, reject) => {
+  if (!location) return resolve(location);
+  return geocoder.geocode(location)
+    .then((res) => resolve(res))
+    .catch((err) => reject(err));
+});
 
 module.exports = api;
