@@ -29,7 +29,7 @@
     "lodash": "^4.17.15",
     "mailchimp-api-v3": "^1.13.1",
     "mailgun-js": "^0.22.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.7.7",
     "morgan": "^1.9.1",
     "node-geocoder": "^3.25.0",
