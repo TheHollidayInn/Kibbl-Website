@@ -25,7 +25,7 @@
     "express": "^4.17.1",
     "express-session": "~1.17.0",
     "jade": "~1.11.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.15",
     "mailchimp-api-v3": "^1.13.1",
     "mailgun-js": "^0.22.0",
